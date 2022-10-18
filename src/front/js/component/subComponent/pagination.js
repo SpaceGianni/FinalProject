@@ -2,7 +2,7 @@ import React from 'react'
 
 const Pagination = () => {
   return (
-    <div>pagination</div>
+    <div className='text-center'>pagination</div>
   )
 }
 
