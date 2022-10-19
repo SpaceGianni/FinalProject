@@ -1,16 +1,21 @@
-import React from 'react'
-import Card from './subComponent/Card'
-import Pagination from './subComponent/pagination'
-
+import React from "react";
+import Filter from "./filter";
+import Card from "./subComponent/Card";
+import Pagination from "./subComponent/pagination";
 
 const CardList = () => {
   return (
-    <div>cardList
+    <>
+      <div className="container mt-3">
+        <div className="row">
+          <Filter />
+          <Card />
+        </div>
+      <Pagination />
+      </div>
+    </>
+  
+  );
+};
 
-    <Card />
-    <Pagination />
-    </div>
-  )
-}
-
-export default CardList
+export default CardList;
