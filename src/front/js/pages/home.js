@@ -10,7 +10,6 @@ export const Home = () => {
   return (
     <div className="pageHome">
       <Bppal />
-      <Filter />
       <CardList />   
     </div>
   );
