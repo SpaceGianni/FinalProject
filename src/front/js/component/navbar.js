@@ -5,7 +5,7 @@ import imagenFinal from '../../img/Logo_proyecto_final.png'
 
 export const Navbar = () => {
 	return (
-		<nav className="navbar navbar-expand-lg navbar-dark bg-secondary text-light">
+		<nav className="navbar navbar-expand-lg navbar-dark bg-secondary text-light sticky-top">
 			<div className="container">
 				<img id="navbarImagen" src={imagenFinal}/>
 				<form className="d-flex" role="search">
