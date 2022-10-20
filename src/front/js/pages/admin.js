@@ -15,32 +15,25 @@ export const Admin = () => {
 
   return (
     <>
-      <div className="row">
-        <div className="col-md-12">
-          <div className="row">
-            <SideBar />
-            <div className="col-md-10">
-              <div className="container">
-                <div className="bg-secondary bg-opacity-10 ">
-                  <Routes>
-                    <Route
-                      element={<AccAdministration />}
-                      path="AccAdministration"
-                    />
-                    <Route element={<HistoryAdmin />} path="HistoryAdmin" />
-                    <Route element={<HistoryClient />} path="HistoryClient" />
-                    <Route element={<MyShopping />} path="MyShopping" />
-                    <Route element={<Orders />} path="Orders" />
-                    <Route element={<Profile />} path="Profile" />
-                    <Route element={<ProPublic />} path="ProPublic" />
-                    <Route element={<h1>Not found!</h1>} />
-                  </Routes>
-                </div>
-              </div>
-            </div>
+      
+        <div className="flex">
+          <SideBar />
+          <div className="content">
+
           </div>
         </div>
-      </div>
+
+        {/*        <Routes>
+         <Route element={<AccAdministration />} path="AccAdministration" />
+        <Route element={<HistoryAdmin />} path="HistoryAdmin" />
+        <Route element={<HistoryClient />} path="HistoryClient" />
+        <Route element={<MyShopping />} path="MyShopping" />
+        <Route element={<Orders />} path="Orders" />
+        <Route element={<Profile />} path="Profile" />
+        <Route element={<ProPublic />} path="ProPublic" />
+        <Route element={<h1>Not found!</h1>} /> 
+        </Routes>*/}
+      
     </>
   );
 };
