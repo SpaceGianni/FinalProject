@@ -1,9 +1,8 @@
 import React from 'react'
 
-const SideBar = () => {
+export const SideBar = () => {
   return (
-    <div>sideBar</div>
+    <div className='col-md-2 bg-white'>sideBar</div>
   )
 }
 
-export default SideBar
