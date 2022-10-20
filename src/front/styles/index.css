@@ -1,3 +1,13 @@
-/* 
-    General Styles used on every website (Don't Repeat Yourself)
-*/
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+#navbarImagen {
+    width: 100px;
+}
+
+#footerImage{
+  width: 120px;
+  height: 70px;
+}
