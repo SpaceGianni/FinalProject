@@ -18,23 +18,16 @@ module.exports = {
         use: ["babel-loader"],
       },
       {
-        test: /\.scss$/,
-        exclude: /node_modules/,
+        test: /\.(css|scss)$/,
         use: [
           {
-            loader: "style-loader",
+            loader: "style-loader", // creates style nodes from JS strings
           },
           {
-            loader: "css-loader",
-            options: {
-              sourceMap: true,
-            },
+            loader: "css-loader", // translates CSS into CommonJS
           },
           {
-            loader: "sass-loader",
-            options: {
-              sourceMap: true,
-            },
+            loader: "sass-loader", // translates CSS into CommonJS
           },
         ],
       }, //css only files
