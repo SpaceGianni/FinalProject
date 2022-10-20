@@ -15,11 +15,15 @@ export const Admin = () => {
 
   return (
     <>
-      
-        <div className="flex">
+        <div className="d-flex">
           <SideBar />
           <div className="content">
-
+          <Routes>
+          <Route element={<ProPublic />} exact={true} path="ProPublic" />
+          <Route element={<HistoryAdmin />} exact={true} path="HistoryAdmin" />
+          <Route element={<Orders />} exact={true} path="Orders" />
+          <Route element={<AccAdministration />} exact={true} path="AccAdministration" />
+          </Routes>
           </div>
         </div>
 

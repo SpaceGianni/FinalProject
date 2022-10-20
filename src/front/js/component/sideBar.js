@@ -9,17 +9,16 @@ export const SideBar = () => {
       <div className="sideBar">
         <ul>
           <li>
-            xxxxxxx
-            <Link to="">Productos publicados</Link>
+            <Link to="ProPublic">Productos publicados</Link>
           </li>
           <li>
-            <Link to="">Pedidos</Link>
+            <Link to="Orders">Pedidos</Link>
           </li>
           <li>
-            <Link to="">AHistorial</Link>
+            <Link to="HistoryAdmin">AHistorial</Link>
           </li>
           <li>
-            <Link to="">Administrar cuentas</Link>
+            <Link to="AccAdministration">Administrar cuentas</Link>
           </li>
         </ul>
       </div>
