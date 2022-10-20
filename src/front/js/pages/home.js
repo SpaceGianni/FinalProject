@@ -9,7 +9,7 @@ export const Home = () => {
   const { store, actions } = useContext(Context);
   return (
     <div className="pageHome">
-      <BannerPlugin />
+      <Banner />
       <CardList />
     </div>
   );

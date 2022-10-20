@@ -1,0 +1,52 @@
+@import url("https://fonts.googleapis.com/css2?family=Great+Vibes&family=Rubik:ital,wght@0,400;0,600;1,600&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+$light: #fff;
+$gray: #c4ccde;
+$red: red;
+
+body {
+  font-family: "Great Vibes", cursive;
+  font-family: "Rubik", sans-serif;
+}
+
+#navbarImagen {
+  width: 100px;
+}
+
+#carouselExampleIndicators {
+  width: 1440px;
+  height: 400px;
+}
+.carousel-inner img {
+  width: 1440px;
+  height: 400px;
+  object-fit: fill;
+}
+
+#footerImage {
+  width: 120px;
+  height: 70px;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.sideBar {
+  width: 20%;
+  height: calc(100vh - 52px);
+  border-right: 1px solid $gray;
+  ul {
+    list-style: none;
+    padding: 1rem 2rem;
+    li {
+      margin-bottom: 1rem;
+    }
+  }
+}
