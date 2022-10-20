@@ -17,3 +17,8 @@
     object-fit: fill;
 }
 
+#footerImage{
+  width: 120px;
+  height: 70px;
+}
+
