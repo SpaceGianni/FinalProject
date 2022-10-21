@@ -1,5 +1,7 @@
 from email.policy import default
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import ForeignKey
+from sqlalchemy.orm import declarative_base, relationship
 
 db = SQLAlchemy()
 
@@ -39,7 +41,7 @@ class User(db.Model):
             "email": self.email,
             "tipo" : self.tipo,
             "active" : self.active,
-            "productos" :  [producto.seralize() for producto in self.productos]
+            "productos" :  [producto.serialize() for producto in self.productos]
             # do not serialize the password, its a security breach
         }
     
@@ -51,7 +53,7 @@ class User(db.Model):
             "email": self.email,
             "tipo" : self.tipo,
             "active": self.active,
-            "cotizaciones" : [cotizacion.seralize() for cotizacion in self.cotizaciones]   
+            "cotizaciones" : [cotizacion.serialize() for cotizacion in self.cotizaciones]   
             # do not serialize the password, its a security breach
         }
     
@@ -65,7 +67,7 @@ class User(db.Model):
             "tipo" : self.tipo,
             "active" : self.active,
             "productos" :  [producto.seralize() for producto in self.productos],
-            "cotizaciones" : [cotizacion.seralize() for cotizacion in self.cotizaciones]
+            "cotizaciones" : [cotizacion.serialize() for cotizacion in self.cotizaciones]
             # do not serialize the password, its a security breach
         }
 
@@ -85,7 +87,7 @@ class User(db.Model):
 class Producto(db.Model):
     __tablename__="productos"
     id = db.Column(db.Integer, primary_key=True)
-    nombre = db.Column(db.String(120), unique=True, nullable=False)
+    nombre = db.Column(db.String(120), nullable=False)
     precio = db.Column(db.Integer,nullable=False) 
     cantidad = db.Column(db.Integer,nullable=False) 
     fecha_publicacion = db.Column(db.DateTime(), nullable=False)
@@ -93,6 +95,7 @@ class Producto(db.Model):
     urlImagen = db.Column(db.String(200), default="")
     users_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     cotizaciones = db.relationship('Cotizacion', cascade="all, delete", backref="producto")
+    pedidos = db.relationship('Pedido', cascade="all, delete", backref="producto")
 
     def __repr__(self):
         return f'<User {self.email}>'
@@ -105,7 +108,8 @@ class Producto(db.Model):
             "cantidad": self.cantidad,
             "fecha_publicacion" : self.fecha_publicacion,
             "descripcion" : self.descripcion,
-            "urlImagen" : self.urlImagen
+            "urlImagen" : self.urlImagen,
+            #"users_id" : self.user.id
             # do not serialize the password, its a security breach
         }
     
@@ -118,8 +122,8 @@ class Producto(db.Model):
             "fecha_publicacion" : self.fecha_publicacion,
             "descripcion" : self.descripcion,
             "urlImagen" : self.urlImagen,
-            "users_id" : [user.seralize() for user in self.users]
-            # do not serialize the password, its a security breach
+            #"users_id" : [user.seralize() for user in self.users]
+            "users_id" : self.user.id
         }
     
     def save(self):
@@ -137,28 +141,21 @@ class Producto(db.Model):
 class Cotizacion(db.Model):
     __tablename__="cotizaciones"
     id = db.Column(db.Integer, primary_key=True)
-    users_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    direccion = db.Column(db.String(300), unique=True, nullable=False)
-    region = db.Column(db.String(50), unique=True, nullable=False)
-    telefono = db.Column(db.String(120), unique=True, nullable=False)
+    direccion = db.Column(db.String(300), nullable=False)
+    region = db.Column(db.String(50), nullable=False)
+    telefono = db.Column(db.String(120), nullable=False)
     productos_id = db.Column(db.Integer, db.ForeignKey('productos.id'), nullable=False)
+    users_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
    
-    def serialize(self):
-        return {
-            "id": self.id,
-            "direccion": self.direccion,
-            "region": self.region,
-            "telefono" : self.telefono   
-        }
     
     def serialize_con_usuario_con_producto(self):
         return {
             "id": self.id,
-            "users_id" : [user.seralize() for user in self.users],
             "direccion": self.direccion,
             "region": self.region,
             "telefono" : self.telefono,
-            "productos_id" : [producto.seralize() for producto in self.productos]
+            "producto" : self.producto.serialize(),
+            "user" : self.user.serialize()
         }
 
     def save(self):
@@ -177,7 +174,7 @@ class Pedido(db.Model):
     __tablename__="pedidos"
     id = db.Column(db.Integer, primary_key=True)
     estatus = db.Column(db.Integer, nullable=False)
-    fecha_pedido= db.Column(db.DateTime, nullable=False)
+    fecha_pedido= db.Column(db.DateTime(), nullable=False)
     users_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     productos_id=db.Column(db.Integer, db.ForeignKey('productos.id'), nullable=False)
 
@@ -193,7 +190,8 @@ class Pedido(db.Model):
             "id": self.id,
             "estatus": self.estatus,
             "fecha_pedido": self.fecha_pedido,
-            "user": self.user.serialize(),
+            "nombre_cliente": self.user.nombre,
+            "email_cliente": self.user.email,
             "producto" : self.producto.nombre,
             "precio" : self.producto.precio
         }

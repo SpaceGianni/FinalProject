@@ -13,7 +13,6 @@ api = Blueprint('api', __name__)
 #Ruta para crear un usuario nuevo
 @api.route('/users', methods=['POST'])
 def crear_usuario():
-    id = request.json.get('id')
     nombre = request.json.get('nombre')
     apellido = request.json.get('apellido')
     email = request.json.get('email')
@@ -22,7 +21,6 @@ def crear_usuario():
     active = request.json.get('active')
 
     usuario = User()
-    usuario.id = id
     usuario.nombre = nombre
     usuario.apellido = apellido
     usuario.email = email
@@ -37,7 +35,6 @@ def crear_usuario():
 #Ruta para editar un usuario
 @api.route('/users/<int:id>', methods=['PUT'])
 def editar_usuario(id):
-    id = request.json.get('id')
     nombre = request.json.get('nombre')
     apellido = request.json.get('apellido')
     email = request.json.get('email')
@@ -46,7 +43,6 @@ def editar_usuario(id):
     active = request.json.get('active')
 
     usuario = User.query.get(id)
-    usuario.id = id
     usuario.nombre = nombre
     usuario.apellido = apellido
     usuario.email = email
@@ -100,31 +96,30 @@ def traer_usuario_con_productos_con_cotizaciones(id):
 #Ruta para agregar productos
 @api.route('/productos', methods=['POST'])
 def crear_producto():
-    id = request.json.get('id')
     nombre = request.json.get('nombre')
     precio = request.json.get('precio')
     cantidad = request.json.get('cantidad')
     fecha_publicacion = request.json.get('fecha_publicacion')
     descripcion = request.json.get('descripcion')
-    urlImagen = request.json.get(' urlImagen')
-    
+    urlImagen = request.json.get('urlImagen')
+    users_id = request.json.get('users_id')
+      
     producto = Producto()
-    producto.id = id
     producto.nombre = nombre
     producto.precio = precio
     producto.cantidad = cantidad
     producto.fecha_publicacion = fecha_publicacion 
     producto.descripcion = descripcion 
     producto.urlImagen = urlImagen
+    producto.users_id = users_id
 
     producto.save()
   
-    return jsonify(producto.serialize()), 200
+    return jsonify(producto.serialize_con_id_usuario()), 200
 
 #Ruta para editar productos
 @api.route('/productos/<int:id>', methods=['PUT'])
 def editar_producto(id):
-    id = request.json.get('id')
     nombre = request.json.get('nombre')
     precio = request.json.get('precio')
     cantidad = request.json.get('cantidad')
@@ -133,7 +128,6 @@ def editar_producto(id):
     urlImagen = request.json.get(' urlImagen')
     
     producto = Producto.query.get(id)
-    producto.id = id
     producto.nombre = nombre
     producto.precio = precio
     producto.cantidad = cantidad
@@ -171,42 +165,46 @@ def borrar_producto(id):
 #Ruta para crear una cotización
 @api.route('/cotizaciones', methods=['POST'])
 def crear_cotizacion():
-    id = request.json.get('id')
     direccion = request.json.get('direccion')
     region = request.json.get('region')
     telefono = request.json.get('telefono')
+    users_id = request.json.get('users_id')
+    productos_id = request.json.get('productos_id')
 
     cotizaciones = Cotizacion ()
-    cotizaciones.id = id
     cotizaciones.direccion = direccion,
     cotizaciones.region = region,
     cotizaciones.telefono = telefono
+    cotizaciones.users_id = users_id
+    cotizaciones.productos_id= productos_id
 
     cotizaciones.save()
-    return jsonify(cotizaciones), 200
+    return jsonify(cotizaciones.serialize_con_usuario_con_producto()), 200
 
 #Ruta para editar una cotización
 @api.route('/cotizaciones/<int:id>', methods=['PUT'])
 def editar_cotizacion(id):
-    id = request.json.get('id')
     direccion = request.json.get('direccion')
     region = request.json.get('region')
     telefono = request.json.get('telefono')
+    users_id = request.json.get('users_id'),
+    productos_id= request.json.get('productos_id')
 
     cotizaciones = Cotizacion.query.get (id)
-    cotizaciones.id = id
     cotizaciones.direccion = direccion,
     cotizaciones.region = region,
-    cotizaciones.telefono = telefono
+    cotizaciones.telefono = telefono,
+    cotizaciones.users_id = users_id,
+    cotizaciones.productos_id= productos_id
 
     cotizaciones.update()
-    return jsonify(cotizaciones.serialize()), 200
+    return jsonify(cotizaciones.serialize_con_usuario_con_producto()), 200
 
 #Ruta para traer todas las cotizaciones
 @api.route('/cotizaciones', methods=['GET'])
 def traer_cotizaciones():
     cotizaciones= Cotizacion.query.all()
-    cotizaciones = list(map(lambda cotizacion: cotizacion.serialize(),cotizaciones))
+    cotizaciones = list(map(lambda cotizacion: cotizacion.serialize_con_usuario_con_producto(),cotizaciones))
     return jsonify(cotizaciones), 200
 
 #Ruta para traer todas las cotizaciones con sus usuarios y sus productos
@@ -227,27 +225,27 @@ def borrar_cotizacion(id):
 #Ruta para crear pedidos
 @api.route('/pedidos', methods=['POST'])
 def crear_pedido():
-    id = request.json.get('id')
     estatus = request.json.get('estatus')
     fecha_pedido= request.json.get('fecha_pedido')
+    users_id = request.json.get('users_id')
+    productos_id = request.json.get('productos_id')
 
     pedidos = Pedido ()
-    pedidos.id = id
     pedidos.estatus = estatus
     pedidos.fecha_pedido = fecha_pedido
+    pedidos.users_id = users_id
+    pedidos.productos_id = productos_id
 
     pedidos.save()
-    return jsonify(pedidos), 200
+    return jsonify(pedidos.serialize_con_user_con_precio()), 200
 
 #Ruta para editar un pedido
 @api.route('/pedidos/<int:id>', methods=['PUT'])
 def editar_pedido(id):
-    id = request.json.get('id')
     estatus = request.json.get('estatus')
     fecha_pedido= request.json.get('fecha_pedido')
 
     pedidos = Pedido.query.get (id)
-    pedidos.id = id
     pedidos.estatus = estatus
     pedidos.fecha_pedido = fecha_pedido
 
