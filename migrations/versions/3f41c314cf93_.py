@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: e811f17035f9
+Revision ID: 3f41c314cf93
 Revises: 
-Create Date: 2022-10-20 12:23:35.029582
+Create Date: 2022-10-21 14:43:02.132326
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'e811f17035f9'
+revision = '3f41c314cf93'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -31,7 +31,7 @@ def upgrade():
     sa.Column('apellido', sa.String(length=120), nullable=True),
     sa.Column('email', sa.String(length=120), nullable=False),
     sa.Column('password', sa.String(length=120), nullable=False),
-    sa.Column('tipo', sa.String(length=15), nullable=False),
+    sa.Column('tipo', sa.String(length=120), nullable=False),
     sa.Column('active', sa.Boolean(), nullable=True),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('apellido'),
@@ -48,8 +48,7 @@ def upgrade():
     sa.Column('urlImagen', sa.String(length=200), nullable=True),
     sa.Column('users_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['users_id'], ['users.id'], ),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('nombre')
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('cotizaciones',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -60,10 +59,7 @@ def upgrade():
     sa.Column('productos_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['productos_id'], ['productos.id'], ),
     sa.ForeignKeyConstraint(['users_id'], ['users.id'], ),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('direccion'),
-    sa.UniqueConstraint('region'),
-    sa.UniqueConstraint('telefono')
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('pedidos',
     sa.Column('id', sa.Integer(), nullable=False),
