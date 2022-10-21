@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from "react";
 import Filter from "./filter";
+import OrderBy from "./orderBy";
 import Card from "./subComponent/Card";
 import Pagination from "./subComponent/pagination";
 
-
 const CardList = () => {
-  const [gallery, setGallery] = useState(null);
+  const [gallery, setGallery] = useState([]);
+  
+  const[currentPage, setCurrentPage] = useState(1);
+  const[postPerPage, setPostPerPage]= useState(24)
 
   useEffect(() => {
-    //getUsers();
+    
     getDataTest();
   }, []);
 
   const getDataTest = () => {
-    let url = "https://jsonplaceholder.typicode.com/photos";
+    let url = "https://jsonplaceholder.typicode.com/albums/1/photos";
     let options_get = {
       method: "GET", // GET, POST, PUT, DELETE,
       //body: "", // POST, PUT
@@ -37,6 +40,16 @@ const CardList = () => {
       });
   };
 
+  const indexOfTheLastPost = currentPage * postPerPage;
+  const indexOfTheFirstPost = indexOfTheLastPost - postPerPage;
+  const currentGallery = gallery.slice(indexOfTheFirstPost, indexOfTheLastPost);
+
+
+  //change page
+  const paginate = pageNumber=>
+    setCurrentPage(pageNumber);
+  
+
   return (
     <>
       <div className="container mt-3">
@@ -45,17 +58,17 @@ const CardList = () => {
             <Filter />
           </div>
           <div className="col-md-10">
+            <OrderBy setPostPerPage={setPostPerPage} />
             <div className="row">
-
-            {!!gallery &&
-              gallery.map((image, index) => {
-                return <Card key={index} image={image} />;
-              })} 
-
-              </div>
+              {!!currentGallery &&
+                currentGallery.map((image, index) => {
+                  return <Card key={index} image={image} />;
+                })}
+            </div>
           </div>
         </div>
-        <Pagination />
+        <Pagination postPerPage={postPerPage} totalPosts={gallery.length} paginate={paginate}/>
+       
       </div>
     </>
   );
