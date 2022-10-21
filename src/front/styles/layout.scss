@@ -16,17 +16,17 @@ body {
 }
 
 #navbarImagen {
-  width: 100px;
+  max-width: 100px;
 }
 
 #carouselExampleIndicators {
-  width: 1440px;
+  max-width: 1440px;
   height: 400px;
 }
 .carousel-inner img {
-  width: 1440px;
+  max-width: 1440px;
   height: 400px;
-  object-fit: fill;
+  object-fit: cover;
 }
 
 #footerImage {
@@ -39,7 +39,7 @@ ul {
 }
 
 .sideBar {
-  width: 20%;
+  width: 10%;
   height: calc(100vh - 52px);
   border-right: 1px solid $gray;
   ul {
