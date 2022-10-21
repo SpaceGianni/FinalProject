@@ -6,7 +6,7 @@ const Card = ({image, index}) => {
     <>
 
           <div className="col-md-4 py-3" key={index}>
-            <div className="card ">
+            <div className="card h-100">
               <img
                 src={image.url}
                 className="card-img-top "
@@ -15,7 +15,7 @@ const Card = ({image, index}) => {
               <div className="card-body">
                 <h5 className="card-title">{image.title}</h5>
                 <p className="card-text">{image.name}</p>
-                <Link to="/ProDetail" className="btn btn-primary rounded-pill">
+                <Link to="/ProDetail" className="btn btn-primary rounded-pill d-flex justify-content-center">
                   Ver Producto
                 </Link>
               </div>
