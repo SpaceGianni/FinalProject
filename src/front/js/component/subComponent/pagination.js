@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { Context } from "../../store/appContext";
 
 const Pagination = ({ postPerPage, totalPosts, paginate }) => {
-/*   const pageNumbers = [];
 
-  for (let i = 1; i <= Math.ceil(totalPosts / postPerPage); i++) {
-    pageNumbers.push(i);
-  } */
-   const [pageNumbers, setPageNumbers] = useState([]);
+  const { store, actions } = useContext(Context);
+
+  const [pageNumbers, setPageNumbers] = useState([]);
   const fillPagesNumbers = () => {
     for (let i = 1; i <= Math.ceil(totalPosts / postPerPage); i++) {
       setPageNumbers((prevPageNumbers) => prevPageNumbers.concat(i));
@@ -29,7 +28,7 @@ const Pagination = ({ postPerPage, totalPosts, paginate }) => {
               pageNumbers.map((e_number) => {
                 return (
                   <li key={e_number} className="page-item">
-                    <button onClick={()=>{paginate(e_number)}} href='/demo' className="page-link">
+                    <button onClick={()=>{paginate(e_number)}} className="page-link">
                       {e_number}
                     </button>
                   </li>
@@ -44,3 +43,4 @@ const Pagination = ({ postPerPage, totalPosts, paginate }) => {
 };
 
 export default Pagination;
+
