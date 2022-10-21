@@ -8,7 +8,7 @@ import { Banner } from "../component/banner";
 export const Home = () => {
   const { store, actions } = useContext(Context);
   return (
-    <div className="pageHome">
+    <div className="pageHome container">
       <Banner />
       <CardList />
     </div>
