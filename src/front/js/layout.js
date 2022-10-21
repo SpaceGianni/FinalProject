@@ -1,16 +1,14 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
-
 import { Home } from "./pages/home";
 import { Admin } from "./pages/admin";
 import { ProDetail } from "./pages/proDetail";
 import injectContext from "./store/appContext";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
-import { Banner } from "./component/banner";
 import { Login } from "./pages/login";
-
+import '../styles/layout.scss'
 //create your first component
 const Layout = () => {
   //the basename is used when your project is published in a subdirectory and not in the root of the domain
@@ -22,8 +20,7 @@ const Layout = () => {
     <div>
       <BrowserRouter basename={basename}>
         <ScrollToTop>
-          <Navbar />
-          <Banner />
+          <Navbar />         
           <Routes>
             <Route element={<Home />} path="/" />
             <Route element={<Login />} path="/login" />

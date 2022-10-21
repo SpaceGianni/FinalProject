@@ -12,13 +12,13 @@ export const Banner = () => {
             </div>
             <div id="banner" className="carousel-inner">
                 <div className="carousel-item active">
-                     <img src="https://st.depositphotos.com/1486923/1948/i/450/depositphotos_19486333-stock-photo-fruit-background.jpg" className="uno d-block" alt="..."/>
+                     <img src="https://st.depositphotos.com/1486923/1948/i/450/depositphotos_19486333-stock-photo-fruit-background.jpg" className="uno w-100" alt="..."/>
                 </div>
                 <div className="carousel-item">
-                    <img src="https://img.freepik.com/foto-gratis/campo-fresas_1203-7581.jpg?w=2000" className="dos" alt="..."/>
+                    <img src="https://img.freepik.com/foto-gratis/campo-fresas_1203-7581.jpg?w=2000" className="dos w-100" alt="..."/>
                 </div>
                 <div className="carousel-item">
-                    <img src="https://cdn.palbincdn.com/images/blog/gallery/Evolucion-metodos-de-pago.png" className="tres"  alt="..."/>
+                    <img src="https://cdn.palbincdn.com/images/blog/gallery/Evolucion-metodos-de-pago.png" className="tres w-100"  alt="..."/>
                 </div>
             </div>
             <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
