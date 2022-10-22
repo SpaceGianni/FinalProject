@@ -2,6 +2,11 @@ from email.policy import default
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import declarative_base, relationship
+from flask import Blueprint, request, jsonify
+from werkzeug.security import generate_password_hash, check_password_hash # libreria para encriptar las contraseñas
+from flask_jwt_extended import create_access_token, create_refresh_token
+import datetime
+
 
 db = SQLAlchemy()
 
