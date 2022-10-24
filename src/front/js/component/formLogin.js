@@ -17,13 +17,13 @@ export function FormLogin() {
   }
   return (
     <>
-      <div className="container my-5">
-        <div className="card">
+      <div className="login container my-5 d-flex justify-content-center align-items-center">
+        <div className="card col-md-6">
           <div className="card-header ">
             <h5 className="card-title fw-bold fs-3">Inicio Sesion</h5>
           </div>
           <div className="card-body"></div>
-          <form className="row mb-3" onSubmit={handleSubmit} ref={formRef}>
+          <form className="mb-3" onSubmit={handleSubmit} ref={formRef}>
             <div>
             <label className="col-md-6 col-form-label px-5" htmlFor="email">
               Correo

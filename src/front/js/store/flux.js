@@ -16,7 +16,7 @@ const getState = ({ getActions, setStore }) => {
 			},
 			//funcion para hacer el fetch por el metodo GET
 			getDataTest : () => {
-				let url = "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us72.gitpod.io/api/galleries";
+				let url = "https://3001-greatzerlle-finalproyec-dod50lpsm2a.ws-us72.gitpod.io/api/galleries";
 				let options_get = {
 					method: "GET", // GET, POST, PUT, DELETE,
 					//body: "", // POST, PUT
