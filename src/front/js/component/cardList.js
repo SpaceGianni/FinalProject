@@ -16,7 +16,7 @@ const CardList = () => {
   const indexOfTheFirstPost = indexOfTheLastPost - postPerPage;
   const currentGallery = store.gallery.slice(indexOfTheFirstPost, indexOfTheLastPost);
 
-
+  console.log(currentGallery);
   //change page
   const paginate = pageNumber=>
     setCurrentPage(pageNumber);
@@ -32,9 +32,9 @@ const CardList = () => {
           <div className="col-md-10">
             <OrderBy setPostPerPage={setPostPerPage} />
             <div className="row">
-              {store.gallery.length > 0 &&
-                store.gallery.map((image, index) => {
-                  return <Card key={index} image={image} />;
+              {!!currentGallery &&
+                currentGallery.map((post, index) => {
+                  return <Card key={index} post={post} />;
                 })}
             </div>
           </div>

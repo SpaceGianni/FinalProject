@@ -380,6 +380,7 @@ export const ProDetail = () => {
           </div>
         </div>
       </section> */}
+      <YouMightLike />
     </div>
   );
 };
