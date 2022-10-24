@@ -8,7 +8,6 @@ import { Context } from "../store/appContext";
 export const ProDetail = () => {
   const { store, actions } = useContext(Context);
   return (
-
     <div className="proDetail">
       <section>
         <div className="container">
@@ -381,7 +380,7 @@ export const ProDetail = () => {
           </div>
         </div>
       </section> */}
+      <YouMightLike />
     </div>
   );
 };
-
