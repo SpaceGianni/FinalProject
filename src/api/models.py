@@ -152,6 +152,13 @@ class Cotizacion(db.Model):
     productos_id = db.Column(db.Integer, db.ForeignKey('productos.id'), nullable=False)
     users_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
    
+    def serialize(self):
+        return {
+            "id": self.id,
+            "direccion": self.direccion,
+            "region": self.region,
+            "telefono" : self.telefono,  
+        }
     
     def serialize_con_usuario_con_producto(self):
         return {
@@ -216,7 +223,7 @@ class Pedido(db.Model):
 class Gallery(db.Model):
     __tablename__ = 'galleries'
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100), nullable="False")
+    title = db.Column(db.String(100), nullable=False)
     filename = db.Column(db.String(200), nullable=False)
     active = db.Column(db.Boolean(), default=True)
 

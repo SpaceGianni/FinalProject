@@ -2,6 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 
+from fileinput import filename
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.utils import generate_sitemap, APIException
 from api.models import db, User, Producto, Cotizacion, Pedido, Gallery
@@ -142,7 +143,7 @@ def traer_usuario_con_productos(id):
 @api.route('/users/<int:id>/cotizaciones', methods=['GET'])
 def traer_usuario_con_cotizaciones(id):
      user = User.query.get(id)
-     return jsonify(user.serialize_con_cotizacionesn()), 200
+     return jsonify(user.serialize_con_cotizaciones()), 200
 
 #Ruta para ver todos los productos y las cotizaciones de un usuario específico
 @api.route('/users/<int:id>/productos/cotizaciones', methods=['GET'])
@@ -359,10 +360,13 @@ def editar_imagen(id):
         active = request.form['active']
         image = request.files['image']
 
+        resp = cloudinary.uploader.upload(image, folder="gallery")
+        if not resp: return jsonify({ "msg": "error al subir imagen"}), 400
+
         gallery_image = Gallery.query.get(id)
         gallery_image.title = title
-        gallery_image.active = active
-        gallery_image.image = image
+        gallery_image.active = bool(active)
+        gallery_image.filename = resp['secure_url']
         gallery_image.update()
 
         return jsonify(gallery_image.serialize()), 200
@@ -392,8 +396,6 @@ def recoger_cambio_estado(id):
     gallery_image.active = active
     gallery_image.update()
     return jsonify(gallery_image.serialize()), 200
-
-
 
 #Ruta para borrar una imagen
 @api.route('/galleries/<int:id>', methods=['DELETE'])
