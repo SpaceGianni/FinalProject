@@ -2,15 +2,20 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 
+from fileinput import filename
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.utils import generate_sitemap, APIException
 from api.models import db, User, Producto, Cotizacion, Pedido, Gallery
 import cloudinary.uploader
+from werkzeug.security import generate_password_hash, check_password_hash # libreria para encriptar las contraseñas
+from flask_jwt_extended import create_access_token
+import datetime
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 api = Blueprint('api', __name__)
 
 ##USUARIOS
-#Ruta para crear un usuario nuevo
+#Ruta para crear un usuario nuevo (registro de usuarios)
 @api.route('/users', methods=['POST'])
 def crear_usuario():
     nombre = request.json.get('nombre')
@@ -18,19 +23,74 @@ def crear_usuario():
     email = request.json.get('email')
     password = request.json.get('password')
     tipo = request.json.get('tipo')
-    active = request.json.get('active')
+    active = request.json.get('active', True)
+
+    #Valido el formulario
+    ##Dejamos el email como username para el registro
+    if not email: return jsonify({"status": "error", "code":400, "mensaje": "El email del usuario es requerido"}), 400
+    if not password : return jsonify({"status": "error", "code": 400, "mensaje": "La contraseña es requerida"}), 400
 
     usuario = User()
     usuario.nombre = nombre
     usuario.apellido = apellido
     usuario.email = email
-    usuario.password = password
+    usuario.password = generate_password_hash(password)
     usuario.tipo = tipo
     usuario.active = active
 
     usuario.save()
-  
-    return jsonify(usuario.serialize()), 200
+
+    data = {
+        "usuario": usuario.serialize()
+    }
+
+    return jsonify({"status": "éxito","code":200, "mensaje": "usuario creado exitosamente", "data": data}), 200
+
+#Ruta para el ingreso del usuario en su cuenta (log in)
+@api.route('/ingreso', methods=['POST'])
+def ingresar():
+    email = request.json.get('email')
+    password = request.json.get('password')
+
+#Valido el formulario
+    ##Dejamos el email como username para el registro
+    if not email: return jsonify({"status": "error", "code":400, "mensaje": "El email del usuario es requerido"}), 400
+    if not password : return jsonify({"status": "error", "code": 400, "mensaje": "La contraseña es requerida"}), 400
+
+    usuario = User.query.filter_by(email=email, active=True). first()
+
+#Valido si el usuario existe
+    if not usuario : return jsonify({"status": "error", "code": 401, "mensaje": "El email o la contraseña está incorrecto"}), 400
+#Valido si la contraseña ingresada coincide con la guardada
+    if not check_password_hash(usuario.password, password) : return jsonify ({"status": "error", "code": 401, "mensaje": "El email o la contraseña está incorrecto"}), 400
+
+    expires = datetime.timedelta(days=1)
+    access_token = create_access_token(identity = usuario.id, expires_delta =expires)
+
+    data = {
+    "access_token" : access_token,
+    "usuario": usuario.serialize()
+}
+
+    return jsonify({ "status": "éxito", "code": 200, "mensaje": "El usuario ha ingresado exitosamente", "data": data}), 200
+
+#Ruta privada del administrador@
+@api.route('/administrador')
+@jwt_required()
+def administador():
+    id= get_jwt_identity()
+    usuario = User.query.get(id)
+    return jsonify({"mensaje": "Perfil Administrador", "usuario": usuario.serialize()}), 200
+
+#Ruta privada del cliente
+@api.route('/person')
+@jwt_required()
+def cliente():
+    id= get_jwt_identity()
+    usuario = User.query.get(id)
+    return jsonify({"mensaje": "Perfil Cliente", "usuario": usuario.serialize()}), 200
+
+
 
 #Ruta para editar un usuario
 @api.route('/users/<int:id>', methods=['PUT'])
@@ -294,12 +354,19 @@ def agregar_imagen():
     return jsonify(gallery_image.serialize()), 200
 
 #Ruta para editar una imagen
-@api.route('/galleries/<int:id>', methods=['PUT'])
+@api.route('/galleries/editar/<int:id>', methods=['PUT'])
 def editar_imagen(id):
-        active = request.json.get('active')
+        title = request.form['title']
+        active = request.form['active']
+        image = request.files['image']
+
+        resp = cloudinary.uploader.upload(image, folder="gallery")
+        if not resp: return jsonify({ "msg": "error al subir imagen"}), 400
 
         gallery_image = Gallery.query.get(id)
-        gallery_image.active = active
+        gallery_image.title = title
+        gallery_image.active = bool(active)
+        gallery_image.filename = resp['secure_url']
         gallery_image.update()
 
         return jsonify(gallery_image.serialize()), 200
@@ -329,8 +396,6 @@ def recoger_cambio_estado(id):
     gallery_image.active = active
     gallery_image.update()
     return jsonify(gallery_image.serialize()), 200
-
-
 
 #Ruta para borrar una imagen
 @api.route('/galleries/<int:id>', methods=['DELETE'])

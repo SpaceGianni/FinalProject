@@ -3,7 +3,7 @@ const getState = ({ getActions, setStore }) => {
 	return {
 		// variables globales
 		store: {
-			
+
 			gallery: [],
 			
 			
@@ -18,11 +18,11 @@ const getState = ({ getActions, setStore }) => {
 			getDataTest : () => {
 				let url = "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us72.gitpod.io/api/galleries";
 				let options_get = {
-				  method: "GET", // GET, POST, PUT, DELETE,
-				  //body: "", // POST, PUT
-				  headers: {
-					"Content-Type": "application/json",
-				  },
+					method: "GET", // GET, POST, PUT, DELETE,
+					//body: "", // POST, PUT
+					headers: {
+						"Content-Type": "application/json",
+					},
 				};
 				fetch(url, options_get) // GET
 				  .then((response) => {

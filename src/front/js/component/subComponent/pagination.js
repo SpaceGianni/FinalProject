@@ -44,3 +44,4 @@ const Pagination = ({ postPerPage, totalPosts, paginate }) => {
 };
 
 export default Pagination;
+
