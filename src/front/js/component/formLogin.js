@@ -17,17 +17,17 @@ export function FormLogin() {
   return (
     <>
       <div className="container my-5">
-        <div className="card w-75">
+        <div className="card">
           <div className="card-header ">
             <h5 className="card-title fw-bold fs-3">Inicio Sesion</h5>
           </div>
           <div className="card-body"></div>
           <form className="row mb-3" onSubmit={handleSubmit} ref={formRef}>
             <div>
-            <label className="col-sm-2 col-form-label px-5" htmlFor="email">
+            <label className="col-md-6 col-form-label px-5" htmlFor="email">
               Correo
             </label>
-            <div class="col-sm-12 px-5">
+            <div class="col-md-12 px-5">
               <input
                 className="form-control"
                 placeholder="juanito@example.cl"
@@ -38,15 +38,15 @@ export function FormLogin() {
             </div>
             </div>
             <div className="pb-5">
-            <label className="col-sm-3 col-form-label px-5" htmlFor="password">
+            <label className="col-md-6 col-form-label px-5" htmlFor="password">
               Contraseña
             </label>
-            <div class="col-sm-12 px-5">
+            <div class="col-md-12 px-5">
               <input className="form-control" id="password" name="password" type="password" />
             </div>
             </div>
             <div className="card-footer d-flex justify-content-center">
-              <button type="submit" className="btn btn-success  btn-sm">
+              <button type="submit" className="btn btn-success  btn-md">
                 Ingresar
               </button>
             </div>
