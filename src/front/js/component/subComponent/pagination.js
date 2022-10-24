@@ -11,9 +11,9 @@ const Pagination = ({ postPerPage, totalPosts, paginate }) => {
     }
   };
 
-  useEffect(() => {
+/*   useEffect(() => {
     fillPagesNumbers();
-  }, []);
+  }, []); */
 
   useEffect(() => {
     fillPagesNumbers();
