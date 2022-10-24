@@ -1,52 +1,46 @@
-const getState = ({ getStore, getActions, setStore }) => {
+const getState = ({ getActions, setStore }) => {
+
 	return {
+		// variables globales
 		store: {
-			message: null,
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			]
+
+			gallery: [],
+			
+			
 		},
 		actions: {
+			//funciones van en action
 			// Use getActions to call a function within a fuction
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
 			},
+			//funcion para hacer el fetch por el metodo GET
+			getDataTest : () => {
+				let url = "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us72.gitpod.io/api/galleries";
+				let options_get = {
+					method: "GET", // GET, POST, PUT, DELETE,
+					//body: "", // POST, PUT
+					headers: {
+						"Content-Type": "application/json",
+					},
+				};
+				fetch(url, options_get) // GET
+				  .then((response) => {
+					// Respuesta del Servidor
+					console.log(response.status);
+					return response.json();
+				  })
+				  .then((data) => {
+					// Datos Consultados
+					console.log(data);
+					// setStore se usa como useState, gallery toma el valor de data
+					setStore({gallery:data});
+				  })
+				  .catch((error) => {
+					console.error(error.message);
+				  });
+			  },
 
-			getMessage: async () => {
-				try{
-					// fetching data from the backend
-					const resp = await fetch(process.env.BACKEND_URL + "/api/hello")
-					const data = await resp.json()
-					setStore({ message: data.message })
-					// don't forget to return something, that is how the async resolves
-					return data;
-				}catch(error){
-					console.log("Error loading message from backend", error)
-				}
-			},
-			changeColor: (index, color) => {
-				//get the store
-				const store = getStore();
-
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
-
-				//reset the global store
-				setStore({ demo: demo });
-			}
 		}
 	};
 };

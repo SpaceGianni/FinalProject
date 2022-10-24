@@ -9,6 +9,7 @@ import { Orders } from "./pagesAdmin/orders";
 import { Profile } from "./pagesAdmin/profile";
 import { ProPublic } from "./pagesAdmin/proPublic";
 import { SideBar } from "../component/sideBar";
+import { FormProducto } from "./pagesAdmin/formProducto";
 
 export const Admin = () => {
   const { store, actions } = useContext(Context);
@@ -23,6 +24,7 @@ export const Admin = () => {
           <Route element={<HistoryAdmin />} exact={true} path="HistoryAdmin" />
           <Route element={<Orders />} exact={true} path="Orders" />
           <Route element={<AccAdministration />} exact={true} path="AccAdministration" />
+          <Route element={<FormProducto />} exact={true} path="FormProducto" />
           </Routes>
           </div>
         </div>

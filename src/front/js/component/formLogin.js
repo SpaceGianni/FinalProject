@@ -13,6 +13,7 @@ export function FormLogin() {
     const formData = new FormData(formRef.current);
     const values = Object.fromEntries(formData);
     // Aquí puedes usar values para enviar la información
+    
   }
   return (
     <>

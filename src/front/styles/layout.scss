@@ -1,4 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Great+Vibes&family=Rubik:ital,wght@0,400;0,600;1,600&display=swap");
+@import "./colors.scss", "./navbar.scss","proDetail.scss";
+
 
 * {
   margin: 0;
@@ -6,32 +8,9 @@
   box-sizing: border-box;
 }
 
-$light: #fff;
-$gray: #c4ccde;
-$red: red;
-
 body {
   font-family: "Great Vibes", cursive;
   font-family: "Rubik", sans-serif;
-}
-
-#navbarImagen {
-  max-width: 100px;
-}
-
-#carouselExampleIndicators {
-  max-width: 1440px;
-  height: 400px;
-}
-.carousel-inner img {
-  max-width: 1440px;
-  height: 400px;
-  object-fit: cover;
-}
-
-#footerImage {
-  width: 120px;
-  height: 70px;
 }
 
 ul {
@@ -52,67 +31,4 @@ ul {
       }
     }
   }
-}
-.app {
-  font-family: sans-serif;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 20px;
-  height: 50vh;
-  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
-  background-color: #f8f9fd;
-}
-
-input[type="text"],
-input[type="password"] {
-  height: 25px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-}
-
-input[type="submit"] {
-  margin-top: 10px;
-  cursor: pointer;
-  font-size: 15px;
-  background: #01d28e;
-  border: 1px solid #01d28e;
-  color: #fff;
-  padding: 10px 20px;
-}
-
-input[type="submit"]:hover {
-  background: #6cf0c2;
-}
-
-.button-container {
-  display: flex;
-  justify-content: center;
-}
-
-.login-form {
-  background-color: white;
-  padding: 2rem;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-.list-container {
-  display: flex;
-}
-
-.error {
-  color: red;
-  font-size: 12px;
-}
-
-.title {
-  font-size: 25px;
-  margin-bottom: 20px;
-}
-
-.input-container {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin: 10px;
 }
