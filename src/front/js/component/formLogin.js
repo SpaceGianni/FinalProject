@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export function FormLogin() {
   const { store, actions } = useContext(Context);
@@ -8,25 +8,19 @@ export function FormLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
-    //no hay errores
-    if (store.errors === "") {
-      navigate('/')
-    } 
-  };
+
+
   return (
     <>
-      <div className="container my-5">
-        <div className="card">
+      <div className="login container my-5 d-flex justify-content-center align-items-center">
+        <div className="card col-md-6">
           <div className="card-header ">
             <h5 className="card-title fw-bold fs-3">Inicio Sesion</h5>
           </div>
           <div className="card-body"></div>
-          <form className="row mb-3" onSubmit={handleSubmit}>
+          
             <div>
-              <label className="col-md-6 col-form-label px-5" htmlFor="email">
+              <label className="col-form-label px-5" htmlFor="email">
                 Correo
               </label>
               <div className="col-md-12 px-5">
@@ -48,10 +42,7 @@ export function FormLogin() {
               </div>
             </div>
             <div className="pb-5">
-              <label
-                className="col-md-6 col-form-label px-5"
-                htmlFor="password"
-              >
+              <label className="col-form-label px-5" htmlFor="password">
                 Contraseña
               </label>
 
@@ -72,18 +63,26 @@ export function FormLogin() {
                 />
               </div>
             </div>
-            <div className="card-footer d-flex justify-content-center">
+            <div className="card-footer d-flex justify-content-center py-3">
+            <div >
+              <button
+                type="submit"
+                onClick={() => actions.signIn(email, password, navigate)}
+                className="btn btn-success btn-md col-md-12"
+              >
+                Ingresar
+              </button>
               
+              <Link to="/register">
                 <button
-                  type="submit"
-                  onClick={() => actions.signIn(email, password)}
-                  className="btn btn-success btn-md"
+                  className="btn mx-2 btn-md d-block"
                 >
-                  Ingresar
+                  Registrarse
                 </button>
-                    <button onClick={()=>{console.log(store.errors)}}>hola</button>
+              </Link>
+              </div>
             </div>
-          </form>
+          
         </div>
       </div>
     </>

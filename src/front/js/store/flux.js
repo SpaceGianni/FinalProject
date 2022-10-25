@@ -9,9 +9,7 @@ const getState = ({ getActions, setStore }) => {
     actions: {
       //funciones van en action
       // Use getActions to call a function within a fuction
-      exampleFunction: () => {
-        getActions().changeColor(0, "green");
-      },
+    
       //funcion para hacer el fetch por el metodo GET
       getPosts: () => {
         let url =
@@ -65,7 +63,7 @@ const getState = ({ getActions, setStore }) => {
             console.error(error.message);
           });
       },
-      signIn: (email, password) => {
+      signIn: (email, password, navigate) => {
         let url =
           "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us72.gitpod.io/api/ingreso";
         let options_get = {
@@ -89,13 +87,27 @@ const getState = ({ getActions, setStore }) => {
               // Datos Consultados
               console.log(data);
               // Sin errores
-              setStore({ user: data, errors:'' });
-			  
+              setStore({ user: data.data, errors:'' });
+              sessionStorage.setItem('user', JSON.stringify(data.data))
+              navigate('/')
             }
           })
           .catch((error) => {
             console.error(error.message);
           });
+      },
+      verifyUser : () => {
+        if(sessionStorage.getItem('user'))
+        {
+          setStore({user: JSON.parse(sessionStorage.getItem('user'))})
+        }
+      },
+      logOut: ()=>{
+        if(sessionStorage.getItem('user'))
+        {
+          setStore({user: null})
+          sessionStorage.removeItem('user')
+        }
       },
     },
   };
