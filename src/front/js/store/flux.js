@@ -9,7 +9,7 @@ const getState = ({ getActions, setStore }) => {
     actions: {
       //funciones van en action
       // Use getActions to call a function within a fuction
-    
+
       //funcion para hacer el fetch por el metodo GET
       getPosts: () => {
         let url =
@@ -65,15 +65,15 @@ const getState = ({ getActions, setStore }) => {
       },
       signIn: (email, password, nombre, apellido, navigate) => {
         let url =
-          "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us72.gitpod.io/api/users";
+          "http://127.0.0.1:3001/api/users";
         let options_post = {
-          method: "POST", // GET, POST, PUT, DELETE,
-          body: JSON.stringify({ email, password, nombre , apellido }),
+          method: "POST",
+          body: JSON.stringify({ email, password, nombre, apellido }),
           headers: {
             "Content-Type": "application/json",
           },
         };
-        fetch(url, options_post) // GET
+        fetch(url, options_post)
           .then((response) => {
             // Respuesta del Servidor
             console.log(response.status);
@@ -81,13 +81,13 @@ const getState = ({ getActions, setStore }) => {
           })
           .then((data) => {
             if (data.status === "error") {
-              setStore({ errors: data });             
-			  console.log(data)
+              setStore({ errors: data });
+              console.log(data)
             } else {
               // Datos Consultados
               console.log(data);
               // Si no tenemos errores ejecutar esto 
-              setStore({ errors: "" }); 
+              setStore({ errors: "" });
               // añadir funcion de registro exitoso           
               navigate('/login')
             }
@@ -114,13 +114,13 @@ const getState = ({ getActions, setStore }) => {
           })
           .then((data) => {
             if (data.status === "error") {
-              setStore({ errors: data, user: null});
-			  console.log(data)
+              setStore({ errors: data, user: null });
+              console.log(data)
             } else {
               // Datos Consultados
               console.log(data);
               // Sin errores
-              setStore({ user: data.data, errors:'' });
+              setStore({ user: data.data, errors: '' });
               sessionStorage.setItem('user', JSON.stringify(data.data))
               navigate('/')
             }
@@ -129,16 +129,14 @@ const getState = ({ getActions, setStore }) => {
             console.error(error.message);
           });
       },
-      verifyUser : () => {
-        if(sessionStorage.getItem('user'))
-        {
-          setStore({user: JSON.parse(sessionStorage.getItem('user'))})
+      verifyUser: () => {
+        if (sessionStorage.getItem('user')) {
+          setStore({ user: JSON.parse(sessionStorage.getItem('user')) })
         }
       },
-      logOut: ()=>{
-        if(sessionStorage.getItem('user'))
-        {
-          setStore({user: null})
+      logOut: () => {
+        if (sessionStorage.getItem('user')) {
+          setStore({ user: null })
           sessionStorage.removeItem('user')
         }
       },
