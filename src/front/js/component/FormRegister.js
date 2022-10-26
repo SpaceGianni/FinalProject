@@ -9,7 +9,7 @@ export function FormRegister() {
   const [pass, setPass] = useState("");
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
-  const [confirmPass, setConfirmPass] = useState("");
+
   const {
     register,
     handleSubmit,
@@ -20,7 +20,7 @@ export function FormRegister() {
 
   const onSubmit = (data) => {
     alert(JSON.stringify(data));
-    /* actions.signIn(email, password, nombre, apellido, navigate)   */
+    actions.signIn(email, password, nombre, apellido, navigate)  
   }; // your form submit function which will invoke after successful validation
 
 //    check password event 
@@ -231,16 +231,11 @@ export function FormRegister() {
               Confirmar contraseña
             </label>
 
-            <div className="col-md-12 px-5">
-              {store.errors !== "" && (
-                <div className="alert alert-danger" role="alert">
-                  {store.errors?.mensaje}
-                </div>
-              )}
+            <div className="col-md-12 px-5">         
               <input
-                onChange={(e) => {
+                /* onChange={(e) => {
                   setConfirmPass(e.target.value);
-                }}
+                }} */
                 className="form-control"
                 id="confirmarContraseña"
                 name="confirmarContraseña"
@@ -277,7 +272,7 @@ export function FormRegister() {
             </div>
           </form>
           <button onClick={() => {
-                   console.log(watch('password'));         
+                   console.log(email);         
                   }} className="btn mx-2 btn-md d-block">
                     xxxxx
                   </button>
@@ -292,7 +287,7 @@ export function FormRegister() {
         " ",
         pass,
         " ",
-        confirmPass
+       
       )}
     </>
   );
