@@ -10,6 +10,7 @@ import { Footer } from "./component/footer";
 import { Login } from "./pages/login";
 import '../styles/layout.scss'
 import { Register } from "./pages/register";
+import ConfirmPassword from "./component/testFromRegister";
 
 //create your first component
 const Layout = () => {
@@ -23,10 +24,11 @@ const Layout = () => {
       <BrowserRouter basename={basename}>
         <ScrollToTop>
           <Navbar />         
-          <Routes>
+          <Routes>ConfirmPassword
             <Route element={<Home />} path="/" />
             <Route element={<Login />} path="/login" />
             <Route element={<Register />} path="/register" />
+            <Route element={<ConfirmPassword />} path="/register2" />
             <Route element={<ProDetail />} path="/ProDetail" />
             <Route element={<Admin />} path="/admin/*" />
             <Route element={<h1>Not found!</h1>} />            
