@@ -22,7 +22,7 @@ def crear_usuario():
     apellido = request.json.get('apellido')
     email = request.json.get('email')
     password = request.json.get('password')
-    tipo = request.json.get('tipo')
+    tipo = request.json.get('tipo', "cliente")
     active = request.json.get('active', True)
 
     #Valido el formulario
