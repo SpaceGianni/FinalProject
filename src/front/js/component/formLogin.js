@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 
 export function FormLogin() {
   const { store, actions } = useContext(Context);
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -67,7 +66,7 @@ export function FormLogin() {
             <div >
               <button
                 type="submit"
-                onClick={() => actions.signIn(email, password, navigate)}
+                onClick={() => actions.logIn(email, password, navigate)}
                 className="btn btn-success btn-md col-md-12"
               >
                 Ingresar

@@ -4,13 +4,27 @@ import { Link, useNavigate } from "react-router-dom";
 
 export function FormRegister() {
   const { store, actions } = useContext(Context);
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [nombre, setNombre] = useState("");
+  const [apellido, setApellido] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
   const navigate = useNavigate();
+  const [flag, setFlag] = useState(true)
+
+/* const formAlert = ()=>{
+  const fNombre = ()=>{
+    if(nombre === ""){
+
+    }
+  }
+  const fApellido = ()=>{}
+  const fEmail = ()=>{}
+  const fPassword = ()=>{}
+  const fCpassword = ()=>{}
+  
+}
+ */
 
   return (
     <>
@@ -21,7 +35,6 @@ export function FormRegister() {
           </div>
           <div className="card-body"></div>
 
-         
           {/* input nombre */}
           <div className="pb-5">
             <label className="col-form-label px-5" htmlFor="nombre">
@@ -29,18 +42,18 @@ export function FormRegister() {
             </label>
 
             <div className="col-md-12 px-5">
-              {/* {store.errors !== "" && (
-                <div className="alert alert-danger" role="alert">
-                  {store.errors?.mensaje}
+            
+                <div className={"alert alert-danger"+(flag === false ? "errorState" : "")} role="alert">
+                  alberto cualquier cosa para probar
                 </div>
-              )} */}
+
               <input
                 onChange={(e) => {
-                  setName(e.target.value);
+                  setNombre(e.target.value);
                 }}
                 className="form-control"
-                id="name"
-                name="name"
+                id="nombre"
+                name="nombre"
                 type="text"
               />
             </div>
@@ -59,7 +72,7 @@ export function FormRegister() {
               )} */}
               <input
                 onChange={(e) => {
-                  setLastName(e.target.value);
+                  setApellido(e.target.value);
                 }}
                 className="form-control"
                 id="lastName"
@@ -91,8 +104,8 @@ export function FormRegister() {
               />
             </div>
           </div>
-           {/* input contraseña */}
-           <div className="pb-5">
+          {/* input contraseña */}
+          <div className="pb-5">
             <label className="col-form-label px-5" htmlFor="password">
               Contraseña
             </label>
@@ -116,7 +129,10 @@ export function FormRegister() {
           </div>
           {/* input confirmar contraseña */}
           <div className="pb-5">
-            <label className="col-form-label px-5" htmlFor="confirmarContraseña">
+            <label
+              className="col-form-label px-5"
+              htmlFor="confirmarContraseña"
+            >
               Confirmar contraseña
             </label>
 
@@ -142,20 +158,34 @@ export function FormRegister() {
             <div>
               <button
                 type="submit"
-                onClick={() => actions.signIn(email, password, name, lastName, navigate)}
+                onClick={() =>
+                  actions.signIn(email, password, nombre, apellido, navigate) && setFlag(false)
+                }
                 className="btn btn-success btn-md col-md-12"
               >
                 Registrar
               </button>
 
               <Link to="/login">
-                <button className="btn mx-2 btn-md d-block">Volver a Login</button>
+                <button className="btn mx-2 btn-md d-block">
+                  Volver a Login
+                </button>
               </Link>
             </div>
           </div>
         </div>
       </div>
-     {console.log(name," ", lastName," ",  email," ", password," ", confirmPass)}
+      {console.log(
+        nombre,
+        " ",
+        apellido,
+        " ",
+        email,
+        " ",
+        password,
+        " ",
+        confirmPass
+      )}
     </>
   );
 }

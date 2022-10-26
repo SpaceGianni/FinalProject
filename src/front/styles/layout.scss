@@ -13,22 +13,7 @@ body {
   font-family: "Rubik", sans-serif;
 }
 
-ul {
-  list-style-type: none;
-}
 
-.sideBar {
-  width: 10%;
-  height: calc(100vh - 52px);
-  border-right: 1px solid $gray;
-  ul {
-    list-style: none;
-    padding: 3rem 2rem;
-    li {
-      margin-bottom: 1rem;
-      a {
-        text-decoration: none;
-      }
-    }
-  }
+.errorState{
+display: none;
 }
