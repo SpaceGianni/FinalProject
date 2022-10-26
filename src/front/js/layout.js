@@ -9,6 +9,8 @@ import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import { Login } from "./pages/login";
 import '../styles/layout.scss'
+import { Register } from "./pages/register";
+
 //create your first component
 const Layout = () => {
   //the basename is used when your project is published in a subdirectory and not in the root of the domain
@@ -24,6 +26,7 @@ const Layout = () => {
           <Routes>
             <Route element={<Home />} path="/" />
             <Route element={<Login />} path="/login" />
+            <Route element={<Register />} path="/register" />
             <Route element={<ProDetail />} path="/ProDetail" />
             <Route element={<Admin />} path="/admin/*" />
             <Route element={<h1>Not found!</h1>} />            
