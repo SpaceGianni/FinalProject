@@ -63,7 +63,40 @@ const getState = ({ getActions, setStore }) => {
             console.error(error.message);
           });
       },
-      signIn: (email, password, navigate) => {
+      signIn: (email, password, nombre, apellido, navigate) => {
+        let url =
+          "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us72.gitpod.io/api/users";
+        let options_post = {
+          method: "POST", // GET, POST, PUT, DELETE,
+          body: JSON.stringify({ email, password, nombre , apellido }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        };
+        fetch(url, options_post) // GET
+          .then((response) => {
+            // Respuesta del Servidor
+            console.log(response.status);
+            return response.json();
+          })
+          .then((data) => {
+            if (data.status === "error") {
+              setStore({ errors: data });             
+			  console.log(data)
+            } else {
+              // Datos Consultados
+              console.log(data);
+              // Si no tenemos errores ejecutar esto 
+              setStore({ errors: "" }); 
+              // añadir funcion de registro exitoso           
+              navigate('/login')
+            }
+          })
+          .catch((error) => {
+            console.error(error.message);
+          });
+      },
+      logIn: (email, password, navigate) => {
         let url =
           "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us72.gitpod.io/api/ingreso";
         let options_get = {
