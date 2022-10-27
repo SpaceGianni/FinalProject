@@ -88,6 +88,38 @@ class User(db.Model):
         db.session.delete(self)
         db.session.commit()
 
+#Tabla de productos con nuevo modelo
+class Articulo(db.Model):
+    tablename="articulos"
+    id = db.Column(db.Integer, primary_key=True)
+    nombre = db.Column(db.String(120), nullable=False)
+    precio = db.Column(db.Integer,nullable=False) 
+    descripcion = db.Column(db.String(200), nullable=False)
+    imagen = db.Column(db.String(200), nullable=False)
+    active = db.Column(db.Boolean(), default=True)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "nombre" : self.nombre,
+            "precio": self.precio,
+            "descripcion" : self.descripcion,
+            "imagen" : self.imagen,
+            "active" : self.active
+
+        }
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def update(self):
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
 #Tabla de productos
 class Producto(db.Model):
     __tablename__="productos"

@@ -5,7 +5,7 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 from fileinput import filename
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.utils import generate_sitemap, APIException
-from api.models import db, User, Producto, Cotizacion, Pedido, Gallery
+from api.models import db, User, Producto, Cotizacion, Pedido, Gallery, Articulo
 import cloudinary.uploader
 from werkzeug.security import generate_password_hash, check_password_hash # libreria para encriptar las contraseñas
 from flask_jwt_extended import create_access_token
@@ -153,6 +153,39 @@ def traer_usuario_con_productos_con_cotizaciones(id):
 
 
 ##PRODUCTOS
+
+#Ruta para traer los nuevos productos
+@api.route('/products', methods=['GET'])
+def bring_products():
+    articulos= Articulo.query.all()
+    articulos = list(map(lambda articulo: articulo.serialize(),articulos))
+    return jsonify(articulos), 200
+
+#Ruta para agregar productos
+@api.route('/products', methods=['POST'])
+def new_product():
+    nombre = request.form['nombre'] 
+    precio = request.form['precio'] 
+    descripcion = request.form['descripcion'] 
+    imagen = request.files['imagen']
+    active = request.form['active']
+
+    resp = cloudinary.uploader.upload(imagen, folder="gallery")
+
+    if not resp: return jsonify({ "msg": "error al subir imagen"}), 400
+    print(resp)
+    articulo = Articulo()
+    articulo.nombre = nombre
+    articulo.active = True if active == 'true' else False
+    articulo.precio =precio
+    articulo.descripcion = descripcion
+    articulo.imagen = resp['secure_url']
+
+    articulo.save()
+
+    return jsonify(articulo.serialize()), 200
+
+
 #Ruta para agregar productos
 @api.route('/productos', methods=['POST'])
 def crear_producto():

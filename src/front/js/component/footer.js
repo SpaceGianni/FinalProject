@@ -15,12 +15,12 @@ export const Footer = () => (
             </Link>
           </div>
           <div className="col-md-4">
-            <p>Home</p>
-            <p>About Us</p>
+            <p>Inicio</p>
+            <p>Sobre Nosotros</p>
           </div>
           <div className="col-md-4">
-            <p>Contact</p>
-            <p>Apply</p>
+            <p>Contacto</p>
+            <p>Trabaja con nosotros</p>
           </div>
         </div>
       </div>

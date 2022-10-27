@@ -1,4 +1,4 @@
-const getState = ({ getActions, setStore }) => {
+const getState = ({ getStore, getActions, setStore }) => {
   return {
     // variables globales
     store: {
@@ -39,7 +39,7 @@ const getState = ({ getActions, setStore }) => {
       },
       getUsers: () => {
         let url =
-          "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-u.gitpod.io/api/users";
+          "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us73.gitpod.io/api/users";
         let options_get = {
           method: "GET", // GET, POST, PUT, DELETE,
           //body: "", // POST, PUT
@@ -63,12 +63,11 @@ const getState = ({ getActions, setStore }) => {
             console.error(error.message);
           });
       },
-      signIn: (email, password, nombre, apellido, navigate) => {
-        let url =
-          "http://127.0.0.1:3001/api/users";
+      signIn: (nombre, apellido, email, password, navigate) => {
+        let url = "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us73.gitpod.io/api/users";
         let options_post = {
-          method: "POST",
-          body: JSON.stringify({ email, password, nombre, apellido }),
+          method: "POST", // GET, POST, PUT, DELETE,
+          body: JSON.stringify({ nombre, apellido, email, password }),
           headers: {
             "Content-Type": "application/json",
           },
@@ -88,7 +87,7 @@ const getState = ({ getActions, setStore }) => {
               console.log(data);
               // Si no tenemos errores ejecutar esto 
               setStore({ errors: "" });
-              // añadir funcion de registro exitoso           
+              // aÃ±adir funcion de registro exitoso           
               navigate('/login')
             }
           })
@@ -99,8 +98,8 @@ const getState = ({ getActions, setStore }) => {
       logIn: (email, password, navigate) => {
         let url =
           "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us73.gitpod.io/api/ingreso";
-        let options = {
-          method: "POST",
+        let options_get = {
+          method: "POST", // GET, POST, PUT, DELETE,
           body: JSON.stringify({ email, password }),
           headers: {
             "Content-Type": "application/json",
@@ -139,6 +138,29 @@ const getState = ({ getActions, setStore }) => {
           setStore({ user: null })
           sessionStorage.removeItem('user')
         }
+      },
+      postImage: (formData) => {
+        let url =
+          "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us73.gitpod.io/api/products";
+
+        let options_post = {
+          method: "POST", // GET, POST, PUT, DELETE,
+          body: formData,
+        };
+        fetch(url, options_post) // GET
+          .then((response) => {
+            // Respuesta del Servidor
+            console.log(response.status);
+            return response.json();
+          })
+          .then((data) => {
+
+            console.log(data)
+
+          })
+          .catch((error) => {
+            console.error(error.message);
+          });
       },
     },
   };
