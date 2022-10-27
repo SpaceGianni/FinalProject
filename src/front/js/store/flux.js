@@ -13,7 +13,7 @@ const getState = ({ getActions, setStore }) => {
       //funcion para hacer el fetch por el metodo GET
       getPosts: () => {
         let url =
-          "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us72.gitpod.io/api/galleries";
+          "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us73.gitpod.io/api/galleries";
         let options_get = {
           method: "GET", // GET, POST, PUT, DELETE,
           //body: "", // POST, PUT
@@ -39,7 +39,7 @@ const getState = ({ getActions, setStore }) => {
       },
       getUsers: () => {
         let url =
-          "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us72.gitpod.io/api/users";
+          "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us73.gitpod.io/api/users";
         let options_get = {
           method: "GET", // GET, POST, PUT, DELETE,
           //body: "", // POST, PUT
@@ -98,7 +98,7 @@ const getState = ({ getActions, setStore }) => {
       },
       logIn: (email, password, navigate) => {
         let url =
-          "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us72.gitpod.io/api/ingreso";
+          "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us73.gitpod.io/api/ingreso";
         let options_get = {
           method: "POST", // GET, POST, PUT, DELETE,
           body: JSON.stringify({ email, password }),

@@ -5,7 +5,7 @@ const Filter = () => {
   const [icon, setIcon]= useState('')
   return (
     <>
-      
+      <div id="filterbg">
         <div className="row">
           <button
             className="btn border-bottom"
@@ -66,13 +66,14 @@ const Filter = () => {
             </div>
           </div>
           <button
+            id="filterbutton"
             type="submit"
-            className="btn btn-outline-dark d-flex justify-content-center rounded-pill mt-4"
+            className="btn btn-outline-light d-flex justify-content-center rounded-pill mt-4"
           >
             Filtrar
           </button>
         </div>
-      
+      </div>
     </>
   );
 };
