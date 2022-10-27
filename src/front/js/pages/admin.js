@@ -16,8 +16,8 @@ export const Admin = () => {
 
   return (
     <>
-        <div className="d-flex">
-          <SideBar />
+       {/*  <div className="d-flex">
+          <SideBar /> */}
           <div className="content">
           <Routes>
           <Route element={<ProPublic />} exact={true} path="ProPublic" />
@@ -27,7 +27,7 @@ export const Admin = () => {
           <Route element={<FormProducto />} exact={true} path="FormProducto" />
           </Routes>
           </div>
-        </div>
+      {/*   </div> */}
 
         {/*        <Routes>
          <Route element={<AccAdministration />} path="AccAdministration" />
