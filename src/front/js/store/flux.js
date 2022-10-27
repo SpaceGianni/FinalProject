@@ -12,8 +12,7 @@ const getState = ({ getActions, setStore }) => {
     
       //funcion para hacer el fetch por el metodo GET
       getPosts: () => {
-        let url =
-          "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us72.gitpod.io/api/galleries";
+        let url = "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us73.gitpod.io/api/galleries";
         let options_get = {
           method: "GET", // GET, POST, PUT, DELETE,
           //body: "", // POST, PUT
@@ -38,8 +37,7 @@ const getState = ({ getActions, setStore }) => {
           });
       },
       getUsers: () => {
-        let url =
-          "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us72.gitpod.io/api/users";
+        let url ="https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us73.gitpod.io/api/users";
         let options_get = {
           method: "GET", // GET, POST, PUT, DELETE,
           //body: "", // POST, PUT
@@ -63,12 +61,11 @@ const getState = ({ getActions, setStore }) => {
             console.error(error.message);
           });
       },
-      signIn: (email, password, nombre, apellido, navigate) => {
-        let url =
-          "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us72.gitpod.io/api/users";
+      signIn: ( nombre, apellido, email, password, navigate ) => {
+        let url = "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us73.gitpod.io/api/users";
         let options_post = {
           method: "POST", // GET, POST, PUT, DELETE,
-          body: JSON.stringify({ email, password, nombre , apellido }),
+          body: JSON.stringify({ nombre, apellido, email, password }),
           headers: {
             "Content-Type": "application/json",
           },
@@ -97,8 +94,7 @@ const getState = ({ getActions, setStore }) => {
           });
       },
       logIn: (email, password, navigate) => {
-        let url =
-          "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us72.gitpod.io/api/ingreso";
+        let url = "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us73.gitpod.io/api/ingreso";
         let options_get = {
           method: "POST", // GET, POST, PUT, DELETE,
           body: JSON.stringify({ email, password }),

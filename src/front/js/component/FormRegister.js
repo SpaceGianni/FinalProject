@@ -5,12 +5,8 @@ import { useForm } from "react-hook-form";
 
 /* formulario de registro de usuario */
 export function FormRegister() {
-  const { store, actions } = useContext(Context);
-  const [email, setEmail] = useState("");
-  const [pass, setPass] = useState("");
-  const [nombre, setNombre] = useState("");
-  const [apellido, setApellido] = useState("");
-
+  const { store, actions } = useContext(Context); 
+  
   const {
     register,
     handleSubmit,
@@ -20,11 +16,22 @@ export function FormRegister() {
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
-    alert(JSON.stringify(data));
-    actions.signIn(email, password, nombre, apellido, navigate)  
+    let nombre = data.nombre;
+    let apellido = data.apellido;
+    let email = data.email;
+    let password = data.password;
+    /* console.log(data.firstName); */
+    /* alert(JSON.stringify(formRegister)); */
+    console.log(nombre, apellido, email, password);
+    actions.signIn(nombre, apellido, email, password, navigate) 
+     nombre = "";
+     apellido = "";
+     email = "";
+     password = ""; 
+     console.log(nombre, apellido, email, password);
   }; // your form submit function which will invoke after successful validation
 
-//    check password event 
+  //check password event 
   const password = watch('password')
 
   console.log(watch("password")); // you can watch individual input by pass the name of the input
@@ -47,31 +54,29 @@ export function FormRegister() {
 
                 <div className="col-md-12 px-5">
                   <input
-                    onChange={(e) => {
-                      setNombre(e.target.value);
-                    }}
+                    
                     className="form-control"
                     id="nombre"
                     name="nombre"
                     type="text"
-                    {...register("firstName", {
+                    {...register("nombre", {
                       required: true,
                       maxLength: 20,
                       minLength: 2,
                       pattern: /^[a-zA-Z]+$/,
                     })}
                   />
-                  {errors?.firstName?.type === "required" && (
+                  {errors?.nombre?.type === "required" && (
                     <div className="statusError mt-1">
                       Debes llenar este campo
                     </div>
                   )}
-                  {errors?.firstName?.type === "pattern" && (
+                  {errors?.nombre?.type === "pattern" && (
                     <div className="statusError mt-1">
                       Este campo solo acepta nombre sin espacio y sin numeros
                     </div>
                   )}
-                  {errors?.firstName?.type === "maxLength" && (
+                  {errors?.nombre?.type === "maxLength" && (
                     <div className="statusError mt-1">
                       Este campo no puede ser mayor a 20 caracteres
                     </div>
@@ -91,36 +96,34 @@ export function FormRegister() {
 
                 <div className="col-md-12 px-5">
                   <input
-                    onChange={(e) => {
-                      setApellido(e.target.value);
-                    }}
+                  
                     className="form-control"
-                    id="lastName"
-                    name="lastName"
+                    id="apellido"
+                    name="apellido"
                     type="text"
-                    {...register("lastName", {
+                    {...register("apellido", {
                       required: true,
                       maxLength: 20,
                       minLength: 2,
                       pattern: /^[A-Za-z]+$/i,
                     })}
                   />
-                  {errors?.lastName?.type === "required" && (
+                  {errors?.apellido?.type === "required" && (
                     <div className="statusError mt-1">
                       Debes llenar este campo
                     </div>
                   )}
-                  {errors?.lastName?.type === "pattern" && (
+                  {errors?.apellido?.type === "pattern" && (
                     <div className="statusError mt-1">
                       Este campo solo acepta nombre sin espacio y sin numeros
                     </div>
                   )}
-                  {errors?.lastName?.type === "maxLength" && (
+                  {errors?.apellido?.type === "maxLength" && (
                     <div className="statusError mt-1">
                       Este campo no puede ser mayor a 20 caracteres
                     </div>
                   )}
-                  {errors?.lastName?.type === "minLength" && (
+                  {errors?.apellido?.type === "minLength" && (
                     <div className="statusError mt-1">
                       Este campo no puede ser menor a 2 caracteres
                     </div>
@@ -140,32 +143,30 @@ export function FormRegister() {
                   )}
                   <input
                     className="form-control"
-                    onChange={(e) => {
-                      setEmail(e.target.value);
-                    }}
+                   
                     placeholder="juanito@example.cl"
                     id="email"
                     name="email"
                     type="email"
-                    {...register("eMail", {
+                    {...register("email", {
                       required: true,
                       maxLength: 60,
                       minLength: 2,
                       pattern: /^[\w-.]+@([\w-]+.)+[\w-]{2,4}$/,
                     })}
                   />
-                  {errors?.eMail?.type === "required" && (
+                  {errors?.email?.type === "required" && (
                     <div className="statusError mt-1">
                       Debes llenar este campo
                     </div>
                   )}
-                  {errors?.eMail?.type === "pattern" && (
+                  {errors?.email?.type === "pattern" && (
                     <div className="statusError mt-1">
                       Este campo solo acepta una direccion de correo valida con
                       @ incluido
                     </div>
                   )}
-                  {errors?.eMail?.type === "maxLength" && (
+                  {errors?.email?.type === "maxLength" && (
                     <div className="statusError mt-1">
                       Este campo no puede ser mayor a 50 caracteres
                     </div>
@@ -180,15 +181,12 @@ export function FormRegister() {
 
                 <div className="col-md-12 px-5">
                 
-                  <input             
-                  onChange={(e) => {
-                    setPass(e.target.value);
-                  }}     
-                  placeholder="Password"
+                  <input                              
+                    placeholder="Password"
                     className="form-control"
                     id="password"
                     name="password"
-                    type="text"
+                    type="password"
                     onPaste={(e)=>{
                       e.preventDefault()
                       return false;
@@ -201,22 +199,22 @@ export function FormRegister() {
                       pattern: /(?=^.{8,16}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
                     })}    
                   />
-                  {errors?.pass?.type === "required" && (
+                  {errors?.password?.type === "required" && (
                     <div className="statusError mt-1">
                       Debes llenar este campo
                     </div>
                   )}
-                  {errors?.pass?.type === "pattern" && (
+                  {errors?.password?.type === "pattern" && (
                     <div className="statusError mt-1">
                       Este campo debe contener letras y numeros y una mayuscula
                     </div>
                   )}
-                  {errors?.pass?.type === "maxLength" && (
+                  {errors?.password?.type === "maxLength" && (
                     <div className="statusError mt-1">
                       Este campo no puede ser mayor a 16 caracteres
                     </div>
                   )}
-                  {errors?.pass?.type === "minLength" && (
+                  {errors?.password?.type === "minLength" && (
                     <div className="statusError mt-1">
                       Este campo no puede ser menor a 8 caracteres
                     </div>
@@ -234,13 +232,10 @@ export function FormRegister() {
 
             <div className="col-md-12 px-5">         
               <input
-                /* onChange={(e) => {
-                  setConfirmPass(e.target.value);
-                }} */
                 className="form-control"
                 id="confirmarContraseña"
                 name="confirmarContraseña"
-                type="text"
+                type="password"
                 {...register("confirmPassword", { required: 'confirm password is required',
                     validate: (value) =>
                     value === password || "The passwords do not match",
@@ -272,24 +267,9 @@ export function FormRegister() {
               </div>
             </div>
           </form>
-          <button onClick={() => {
-                   console.log(email);         
-                  }} className="btn mx-2 btn-md d-block">
-                    xxxxx
-                  </button>
+         
         </div>
       </div>
-      {console.log(
-        nombre,
-        " ",
-        apellido,
-        " ",
-        email,
-        " ",
-        pass,
-        " ",
-       
-      )}
     </>
   );
 }
