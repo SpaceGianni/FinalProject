@@ -1,0 +1,25 @@
+small.is-valid {
+  background-color: #def1e8;
+}
+
+small .is-invalid {
+  background-color: #ead2d4;
+}
+
+#negativeCheckFeedback {
+  color: white;
+}
+
+#positiveCheckFeedback {
+  background-color: #24ea8e;
+  color: #def1e8;
+}
+
+.form-check-input:checked {
+  background-color: #24ea8e;
+  border-color: #23ea8d;
+}
+
+small .valid-feedback {
+  display: block;
+}

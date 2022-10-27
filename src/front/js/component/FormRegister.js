@@ -23,7 +23,7 @@ export function FormRegister() {
     actions.signIn(email, password, nombre, apellido, navigate)  
   }; // your form submit function which will invoke after successful validation
 
-//    check password event 
+  //    check password event 
   const password = watch('password')
 
   console.log(watch("password")); // you can watch individual input by pass the name of the input
@@ -178,17 +178,17 @@ export function FormRegister() {
                 </label>
 
                 <div className="col-md-12 px-5">
-                
-                  <input             
-                  onChange={(e) => {
-                    setPass(e.target.value);
-                  }}     
-                  placeholder="Password"
+
+                  <input
+                    onChange={(e) => {
+                      setPass(e.target.value);
+                    }}
+                    placeholder="Password"
                     className="form-control"
                     id="password"
                     name="password"
                     type="text"
-                    onPaste={(e)=>{
+                    onPaste={(e) => {
                       e.preventDefault()
                       return false;
                     }}
@@ -198,7 +198,7 @@ export function FormRegister() {
                       maxLength: 16,
                       minLength: 8,
                       pattern: /(?=^.{8,16}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
-                    })}    
+                    })}
                   />
                   {errors?.pass?.type === "required" && (
                     <div className="statusError mt-1">
@@ -224,12 +224,35 @@ export function FormRegister() {
               </div>
               {/* input confirmar contraseña */}
               <div className="pb-2">
-            <label
-              className="col-form-label px-5"
-              htmlFor="confirmarContraseña"
-            >
-              Confirmar contraseña
-            </label>
+                <label
+                  className="col-form-label px-5"
+                  htmlFor="confirmarContraseña"
+                >
+                  Confirmar contraseña
+                </label>
+
+                <div className="col-md-12 px-5">
+                  {store.errors !== "" && (
+                    <div className="alert alert-danger" role="alert">
+                      {store.errors?.mensaje}
+                    </div>
+                  )}
+                  <input
+                    onChange={(e) => {
+                      setConfirmPass(e.target.value);
+                    }}
+                    className="form-control"
+                    id="confirmarContraseña"
+                    name="confirmarContraseña"
+                    type="text"
+                    {...register("confirmPassword", {
+                      required: 'confirm password is required',
+                      validate: (value) =>
+                        value === password || "The passwords do not match",
+                    })}
+                  />
+                  {errors.confirmPassword && <span className="statusError mt-1">{errors.confirmPassword.message}</span>}
+
 
             <div className="col-md-12 px-5">         
               <input
@@ -249,6 +272,10 @@ export function FormRegister() {
              
             </div>
           </div>
+
+                </div>
+              </div>
+
             </div>
 
             <div className="card-footer d-flex justify-content-center py-3">
@@ -272,10 +299,17 @@ export function FormRegister() {
             </div>
           </form>
           <button onClick={() => {
+
                    console.log(email);         
                   }} className="btn mx-2 btn-md d-block">
                     xxxxx
                   </button>
+
+            console.log(watch('password'));
+          }} className="btn mx-2 btn-md d-block">
+            xxxxx
+          </button>
+ main
         </div>
       </div>
       {console.log(
