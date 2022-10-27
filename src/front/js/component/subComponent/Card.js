@@ -9,7 +9,7 @@ const Card = ({post, index}) => {
             <div className="card h-100">
               <img
                 src={post.filename}
-                className="card-img-top "
+                className="card-img-top h-100"
                 alt="..."
               />
               <div className="card-body">

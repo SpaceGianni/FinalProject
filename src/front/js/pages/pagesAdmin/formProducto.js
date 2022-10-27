@@ -1,7 +1,10 @@
 import React from 'react'
+import {FormPostProduct} from '../../component/formPostProduct'
 
 export const FormProducto = () => {
   return (
-    <div>FormProducto</div>
+    <>
+    <FormPostProduct />
+    </>
   )
 }
