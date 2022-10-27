@@ -3,6 +3,7 @@ import { Context } from "../store/appContext";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
+/* formulario de registro de usuario */
 export function FormRegister() {
   const { store, actions } = useContext(Context);
   const [email, setEmail] = useState("");
