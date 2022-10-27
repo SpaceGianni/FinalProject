@@ -9,7 +9,7 @@ export function FormRegister() {
   const [pass, setPass] = useState("");
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
-  const [confirmPass, setConfirmPass] = useState("");
+
   const {
     register,
     handleSubmit,
@@ -20,7 +20,7 @@ export function FormRegister() {
 
   const onSubmit = (data) => {
     alert(JSON.stringify(data));
-    /* actions.signIn(email, password, nombre, apellido, navigate)   */
+    actions.signIn(email, password, nombre, apellido, navigate)  
   }; // your form submit function which will invoke after successful validation
 
   //    check password event 
@@ -253,8 +253,29 @@ export function FormRegister() {
                   />
                   {errors.confirmPassword && <span className="statusError mt-1">{errors.confirmPassword.message}</span>}
 
+
+            <div className="col-md-12 px-5">         
+              <input
+                /* onChange={(e) => {
+                  setConfirmPass(e.target.value);
+                }} */
+                className="form-control"
+                id="confirmarContraseña"
+                name="confirmarContraseña"
+                type="text"
+                {...register("confirmPassword", { required: 'confirm password is required',
+                    validate: (value) =>
+                    value === password || "The passwords do not match",
+                 })}
+              />
+              {errors.confirmPassword && <span className="statusError mt-1">{errors.confirmPassword.message}</span>}
+             
+            </div>
+          </div>
+
                 </div>
               </div>
+
             </div>
 
             <div className="card-footer d-flex justify-content-center py-3">
@@ -278,10 +299,17 @@ export function FormRegister() {
             </div>
           </form>
           <button onClick={() => {
+
+                   console.log(email);         
+                  }} className="btn mx-2 btn-md d-block">
+                    xxxxx
+                  </button>
+
             console.log(watch('password'));
           }} className="btn mx-2 btn-md d-block">
             xxxxx
           </button>
+ main
         </div>
       </div>
       {console.log(
@@ -293,7 +321,7 @@ export function FormRegister() {
         " ",
         pass,
         " ",
-        confirmPass
+       
       )}
     </>
   );
