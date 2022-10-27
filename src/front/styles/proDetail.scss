@@ -18,14 +18,14 @@
 
 /*======products-details=====*/
 ._product-detail-content {
-    background: #fff;
+    background: $light;
     padding: 15px;
-    border: 1px solid lightgray;
+    border: 1px solid $lightgray;
 }
 ._product-detail-content p._p-name {
     color: $DarkGray;
     font-size: 20px;
-    border-bottom: 1px solid lightgray;
+    border-bottom: 1px solid $lightgray;
     padding-bottom: 12px;
 }
 .p-list span {
