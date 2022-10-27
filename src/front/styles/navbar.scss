@@ -22,3 +22,24 @@
   height: 70px;
 }
 
+#coverFooter {
+  
+  width: 100%;
+  bottom: 0;
+  text-decoration: none;
+}
+
+a {
+  text-decoration: none;
+}
+#navbarlink {
+  color: $light !important;
+}
+#navbarbutton {
+  color:$light ;
+  background-color: $Porange;
+}
+#filterbutton {
+  background-color: $Porange;
+  color: $light;
+}

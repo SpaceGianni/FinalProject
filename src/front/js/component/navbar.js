@@ -9,7 +9,9 @@ export const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-color text-light sticky-top">
       <div className="container">
-        <img id="navbarImagen" src={imagenFinal} />
+        <Link to="/">
+          <img id="navbarImagen" src={imagenFinal} />
+        </Link>
         <form className="d-flex" role="search">
           <input
             className="form-control me-2"
@@ -17,7 +19,7 @@ export const Navbar = () => {
             placeholder="Busqueda"
             aria-label="Busqueda"
           ></input>
-          <button className="btn btn-outline-dark" type="submit">
+          <button id="navbarbutton" className="btn" type="submit">
             Buscar
           </button>
         </form>
@@ -30,16 +32,16 @@ export const Navbar = () => {
             </>
           ) : (
             <Link to="/login">
-              <div className="nav-link text-black">Iniciar Sesion</div>
+              <div id="navbarlink" className="nav-link text-white">Iniciar Sesion</div>
             </Link>
           )}
 
           <Link to="/">
-            <div className="nav-link text-black" href="#">
+            <div id="navbarlink" className=" nav-link text-white" href="#">
               Mis compras
             </div>
           </Link>
-          <div className="nav-link text-black">
+          <div id="navbarlink" className="nav-link text-white">
             <i className="fa-solid fa-cart-shopping"></i>
           </div>
         </div>

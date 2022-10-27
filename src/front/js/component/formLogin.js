@@ -65,6 +65,7 @@ export function FormLogin() {
             <div className="card-footer d-flex justify-content-center py-3">
             <div >
               <button
+                id="loginButton"
                 type="submit"
                 onClick={() => actions.logIn(email, password, navigate)}
                 className="btn btn-success btn-md col-md-12"

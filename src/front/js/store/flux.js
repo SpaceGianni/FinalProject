@@ -87,7 +87,7 @@ const getState = ({ getStore, getActions, setStore }) => {
               console.log(data);
               // Si no tenemos errores ejecutar esto 
               setStore({ errors: "" });
-              // añadir funcion de registro exitoso           
+              // aÃ±adir funcion de registro exitoso           
               navigate('/login')
             }
           })
