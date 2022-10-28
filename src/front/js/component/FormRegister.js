@@ -250,10 +250,7 @@ export function FormRegister() {
             <div className="card-footer d-flex justify-content-center py-3">
               <div>
                 <button
-                  type="submit"
-                  /* onClick={() => {
-                    actions.signIn(email, password, nombre, apellido, navigate)             
-                  }} */
+                  type="submit"                
                   className="btn btn-success btn-md col-12"
                 >
                   Registrar

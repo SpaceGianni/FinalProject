@@ -26,7 +26,7 @@ export const ProDetail = () => {
                   <div className="p-list">
                     <span>
                       {" "}
-                      ANTES : <i class="fa-solid fa-dollar-sign"></i> <del> 1399 </del>{" "}
+                      ANTES : <i className="fa-solid fa-dollar-sign"></i> <del> 1399 </del>{" "}
                     </span>
                     <span className="price"> CLP. 1000 x Kg </span>
                   </div>

@@ -68,7 +68,7 @@ export function FormLogin() {
                 id="loginButton"
                 type="submit"
                 onClick={() => actions.logIn(email, password, navigate)}
-                className="btn btn-success btn-md col-md-12"
+                className="btn btn-success btn-md col-12"
               >
                 Ingresar
               </button>
