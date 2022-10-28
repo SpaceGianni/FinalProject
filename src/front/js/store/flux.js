@@ -5,6 +5,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       gallery: [],
       user: null,
       errors: "",
+      detail: null,
+      pedidos: []
     },
     actions: {
       //funciones van en action
@@ -12,8 +14,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       //funcion para hacer el fetch por el metodo GET
       getPosts: () => {
-        let url =
-          "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us73.gitpod.io/api/products";
+        let url = "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us73.gitpod.io/api/products";
         let options_get = {
           method: "GET", // GET, POST, PUT, DELETE,
           //body: "", // POST, PUT
@@ -38,8 +39,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           });
       },
       getUsers: () => {
-        let url =
-          "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us73.gitpod.io/api/users";
+        let url ="https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us73.gitpod.io/api/users";
         let options_get = {
           method: "GET", // GET, POST, PUT, DELETE,
           //body: "", // POST, PUT
@@ -63,7 +63,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             console.error(error.message);
           });
       },
-      signIn: ( nombre, apellido, email, password, navigate ) => {
+      signIn: (nombre, apellido, email, password, navigate) => {
         let url = "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us73.gitpod.io/api/users";
         let options_post = {
           method: "POST", // GET, POST, PUT, DELETE,
@@ -139,10 +139,10 @@ const getState = ({ getStore, getActions, setStore }) => {
           sessionStorage.removeItem('user')
         }
       },
-      postImage: (formData) => {
+      postImage: (formData, navigate ) => {
         let url =
           "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us73.gitpod.io/api/products";
-          
+
         let options_post = {
           method: "POST", // GET, POST, PUT, DELETE,
           body: formData,
@@ -156,7 +156,47 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((data) => {
            
 			  console.log(data)
+        navigate('/')
+          })
+          .catch((error) => {
+            console.error(error.message);
+          });
+      },
+      getDetailById: (url) => {
+        fetch(url)
+            .then((response) => response.json())
+            .then((data) => {
+              console.log(data)
+                setStore({ detail: data })
+            })
+            
+    },
+      agregarPedidos: (pedido) => {
+        const { pedidos } = getStore();
+        const pedidoActualizado = [pedido, ...pedidos];
+        setStore({ pedido: pedidoActualizado });
 
+      },
+      orderProduct: (formData ) => {
+        let url =
+          "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us73.gitpod.io/api/cotizaciones";
+
+        let options_post = {
+          method: "POST", // GET, POST, PUT, DELETE,
+          body: JSON.stringify({formData}),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        };
+        fetch(url, options_post) // GET
+          .then((response) => {
+            // Respuesta del Servidor
+            console.log(response.status);
+            return response.json();
+          })
+          .then((data) => {
+           
+			  console.log(data)
           })
           .catch((error) => {
             console.error(error.message);

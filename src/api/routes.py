@@ -57,7 +57,7 @@ def ingresar():
     if not email: return jsonify({"status": "error", "code":400, "mensaje": "El email del usuario es requerido"}), 400
     if not password : return jsonify({"status": "error", "code": 400, "mensaje": "La contraseña es requerida"}), 400
 
-    usuario = User.query.filter_by(email=email, active=True). first()
+    usuario = User.query.filter_by(email=email, active=True).first()
 
 #Valido si el usuario existe
     if not usuario : return jsonify({"status": "error", "code": 401, "mensaje": "El email o la contraseña está incorrecto"}), 400
@@ -185,6 +185,11 @@ def new_product():
 
     return jsonify(articulo.serialize()), 200
 
+#Ruta para traer un producto específico
+@api.route('/products/<int:id>', methods=['GET'])
+def traer_producto(id):
+    articulo = Articulo.query.get(id)
+    return jsonify(articulo.serialize()), 200
 
 #Ruta para agregar productos
 @api.route('/productos', methods=['POST'])

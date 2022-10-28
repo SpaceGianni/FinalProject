@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Context } from "../store/appContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export function FormPostProduct() {
   const { store, actions } = useContext(Context);
-
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -22,7 +22,7 @@ export function FormPostProduct() {
     formData.append("descripcion", data.descripcion);
     formData.append("active", true);
 
-    actions.postImage(formData);
+    actions.postImage(formData, navigate);
   };
   return (
     <>
@@ -58,14 +58,9 @@ export function FormPostProduct() {
                       Debes llenar este campo
                     </div>
                   )}
-                  {errors?.title?.type === "pattern" && (
+                  {errors?.nombre?.type === "pattern" && (
                     <div className="statusError mt-1">
                       Este campo solo acepta nombre sin espacio y sin numeros
-                    </div>
-                  )}
-                  {errors?.title?.type === "minLength" && (
-                    <div className="statusError mt-1">
-                      Este campo no puede ser menor a 2 caracteres
                     </div>
                   )}
                 </div>
