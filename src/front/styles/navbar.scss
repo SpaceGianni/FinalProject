@@ -43,3 +43,39 @@ a {
   background-color: $Porange;
   color: $light;
 }
+/* xxxxxxxxxxxxxx */
+
+.pBgColor{
+background-color: $Pgreen;
+}
+.filterbutton {
+  background-color: $Porange;
+  color: $light;
+  &:hover {
+    background-color: $PorangeLight;
+    color: $DarkGray;
+}
+}
+.dropdownWhiteLink .nav-link{
+    color: $light!important;  
+    &#firstDropdownOption a{
+      color: $DarkGray!important;
+    }
+    
+}
+.dropdownColor{
+  color: $DarkGray;
+  &:hover{
+  color: $DarkGray
+  }
+}
+.navbar-light .navbar-toggler {
+  color: $lightgray;
+  opacity: 0.7;
+  border-color: rgba(255,255,255,0.5);
+  background-color: $light;
+}
+.navbar-nav-scroll {
+  max-height: var(--bs-scroll-height,75vh)!important;
+  overflow-y: auto;
+}
