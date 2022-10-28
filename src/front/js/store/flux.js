@@ -5,6 +5,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       gallery: [],
       user: null,
       errors: "",
+      pedidos: []
     },
     actions: {
       //funciones van en action
@@ -162,6 +163,12 @@ const getState = ({ getStore, getActions, setStore }) => {
             console.error(error.message);
           });
       },
+      agregarPedidos: (pedido) => {
+        const { pedidos } = getStore();
+        const pedidoActualizado = [pedido, ...pedidos];
+        setStore({ pedido: pedidoActualizado });
+
+      }
     },
   };
 };

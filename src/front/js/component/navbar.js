@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import imagenFinal from "../../img/Logo_proyecto_final.png";
 import { Context } from "../store/appContext";
+//import Dropdown from "./dropdown_btn";
 
 export const Navbar = () => {
   const { store, actions } = useContext(Context);
@@ -36,11 +37,23 @@ export const Navbar = () => {
             </Link>
           )}
 
-          <Link to="/">
-            <div id="navbarlink" className=" nav-link text-white" href="#">
-              Mis compras
-            </div>
-          </Link>
+          <div className="dropdown">
+            <button
+              className="btn btn-success dropdown-toggle"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Mis Pedidos
+            </button>
+            <ul className="dropdown-menu">
+              {!!store.pedidos &&
+                store.pedidos.length > 0 &&
+                store.pedidos.map(({ name }, index) => {
+                  return <Dropdown name={name} key={index} />;
+                })}
+            </ul>
+          </div>
           <div id="navbarlink" className="nav-link text-white">
             <i className="fa-solid fa-cart-shopping"></i>
           </div>

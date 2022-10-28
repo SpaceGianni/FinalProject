@@ -30,7 +30,7 @@ export function MyShopping() {
       <div className="login container my-5 d-flex justify-content-center align-items-center">
         <div className="card col-md-6">
           <div className="card-header ">
-            <h5 className="card-title fw-bold fs-3">Registro del Producto</h5>
+            <h5 className="card-title fw-bold fs-3">Formulario de cotización</h5>
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -38,45 +38,85 @@ export function MyShopping() {
               {/* Tu nombre */}
               <div className="pb-2">
                 <label className="col-form-label px-5" htmlFor="nombre">
-                Tu nombre completo
+                  Tu nombre completo
                 </label>
 
                 <div className="col-md-12 px-5">
                   <input
                     className="form-control"
-                    value = {`${store.user?.usuario?.nombre} ${store.user?.usuario?.apellido}`}
+                    value={`${store.user?.usuario?.nombre} ${store.user?.usuario?.apellido}`}
                     id="nombre"
                     name="nombre"
-                    type="text"                  
-                  disabled/>             
+                    type="text"
+                    disabled />
                 </div>
               </div>
-        
-                    {/* Tu pedido */}
+
+              {/* Tu pedido */}
               <div className="pb-2">
                 <label className="col-form-label px-5" htmlFor="precio">
-                Tu pedido
+                  Tu pedido
                 </label>
 
                 <div className="col-md-12 px-5">
                   <input
                     className="form-control"
-                    value = {`${store.user?.usuario?.nombre} ${store.user?.usuario?.apellido}`}
+                    value={`${store.user?.usuario?.nombre} ${store.user?.usuario?.apellido}`}
                     id="precio"
                     name="precio"
                     type="number"
                     {...register("precio", {
                       required: true,
                     })}
-                    disabled/>                
+                    disabled />
+                </div>
+              </div>
+
+              {/* Tu Direccion */}
+              <div className="pb-2">
+                <label className="col-form-label px-5" htmlFor="direccion">
+                  Escribe tu dirección, comuna y región
+                </label>
+
+                <div className="col-md-12 px-5">
+                  <input
+                    className="form-control"
+                    id="direccion"
+                    name="direccion"
+                    type="text"
+                    {...register("direccion", {
+                      required: true,
+                    })}
+                  />
+                </div>
+              </div>
+
+              {/* Tu teléfono */}
+              <div className="pb-2">
+                <label className="col-form-label px-5" htmlFor="telefono">
+                  Escribe un número de contacto
+                </label>
+
+                <div className="col-md-12 px-5">
+                  <input
+                    className="form-control"
+                    id="telefono"
+                    name="telefono"
+                    type="text"
+                    {...register("telefono", {
+                      required: true,
+                    })}
+                  />
+
+
                 </div>
               </div>
 
 
-                    {/* descripcion */}
+              {/* descripcion */}
               <div className="pb-2">
                 <label className="col-form-label px-5" htmlFor="descripcion">
-                  Descripcion
+                  Comentarios
                 </label>
 
                 <div className="col-md-12 px-5">
@@ -101,7 +141,7 @@ export function MyShopping() {
             <div className="card-footer d-flex justify-content-center py-3">
               <div>
                 <button type="submit" className="btn btn-success btn-md col-12">
-                  Registrar
+                  Enviar
                 </button>
 
                 <Link to="/login">
