@@ -57,7 +57,7 @@ def ingresar():
     if not email: return jsonify({"status": "error", "code":400, "mensaje": "El email del usuario es requerido"}), 400
     if not password : return jsonify({"status": "error", "code": 400, "mensaje": "La contraseña es requerida"}), 400
 
-    usuario = User.query.filter_by(email=email, active=True). first()
+    usuario = User.query.filter_by(email=email, active=True).first()
 
 #Valido si el usuario existe
     if not usuario : return jsonify({"status": "error", "code": 401, "mensaje": "El email o la contraseña está incorrecto"}), 400
