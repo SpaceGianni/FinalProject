@@ -1,34 +1,42 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import YouMightLike from "../component/youMightLike";
-
-
 import { Context } from "../store/appContext";
 
+
 export const ProDetail = () => {
+  const { id} = useParams();
   const { store, actions } = useContext(Context);
+
+  useEffect(() => {
+    actions.getDetailById(`
+    https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us73.gitpod.io/api/products/${id}`);
+  }, []);
+  
+  useEffect(() => {
+    actions.getDetailById(`
+    https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us73.gitpod.io/api/products/${id}`);
+  }, [id]);
+
+
   return (
     <div className="proDetail">
       <section>
-        <div className="container">
+        <div className="container mt-5">
           <div className="row row-sm">
             <div className="col-md-6">
               <img
                 className="my_img"
-                src="https://placebeard.it/650x550"
+                src={store.detail?.imagen} 
                 alt=""
               />
             </div>
             <div className="col-md-6">
               <div className="_product-detail-content">
-                <p className="_p-name"> Manzanas </p>
+                <p className="_p-name"> {store.detail?.nombre} </p>
                 <div className="_p-price-box">
                   <div className="p-list">
-                    <span>
-                      {" "}
-                      ANTES : <i class="fa-solid fa-dollar-sign"></i> <del> 1399 </del>{" "}
-                    </span>
-                    <span className="price"> CLP. 1000 x Kg </span>
+                    <span className="price"> CLP. {store.detail?.precio}  x Kg </span>
                   </div>
                   <div className="_p-add-cart">
                     <div className="_p-qty">
@@ -52,30 +60,22 @@ export const ProDetail = () => {
                   </div>
                   <div className="_p-features">
                     <span> Description About this product:- </span>
-                    Solid color polyester/linen full blackout thick sunscreen
-                    floor curtain Type: General Pleat Applicable Window Type:
-                    Flat Window Format: Rope Opening and Closing Method: Left
-                    and Right Biparting Open Processing Accessories Cost:
-                    Included Installation Type: Built-in Function: High
-                    Shading(70%-90%) Material: Polyester / Cotton Style: Classic
-                    Pattern: Embroidered Location: Window Technics: Woven Use:
-                    Home, Hotel, Hospital, Cafe, Office Feature: Blackout,
-                    Insulated, Flame Retardant Place of Origin: India Name:
-                    Curtain Usage: Window Decoration Keywords: Ready Made
-                    Blackout Curtain
+                    {store.detail?.descripcion} 
                   </div>
-                  <form action="" method="post" accept-charset="utf-8">
+                  <form action="" method="post" acceptCharset="utf-8">
                     <ul className="spe_ul"></ul>
                     <div className="_p-qty-and-cart">
                       <div className="_p-add-cart">
-                        <button className="btn-theme btn buy-btn" tabindex="0">
-                          <i className="fa fa-shopping-cart"></i> Buy Now
+                        <Link to='/admin/MyShopping'>
+                        <button className="btn-theme btn buy-btn" tabIndex="0">
+                          <i className="fa fa-shopping-cart"></i> Cotizar
                         </button>
+                        </Link>
                         <button
                           className="btn-theme btn btn-success"
-                          tabindex="0"
+                          tabIndex="0"
                         >
-                          <i className="fa fa-shopping-cart"></i> Add to Cart
+                          <i className="fa fa-shopping-cart"></i> Mis Pedidos
                         </button>
                         <input type="hidden" name="pid" value="18" />
                         <input type="hidden" name="price" value="850" />

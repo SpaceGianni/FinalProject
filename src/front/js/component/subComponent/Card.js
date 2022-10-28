@@ -16,9 +16,16 @@ const Card = ({post, index}) => {
               <div className="card-body">
                 <h5 className="card-title">$ {post.precio}</h5>
                 <p className="card-text">{post.nombre}</p>
-                <Link to="/ProDetail" className="btn btn-primary rounded-pill d-flex justify-content-center">
+                <Link to={`/ProDetail/${post.id}`} className="btn btn-primary rounded-pill d-flex justify-content-center">
                   Ver Producto
                 </Link>
+               {/*  <Link
+          to={`personaje/${uid}/detail`}
+          className="btn btn-dark"
+          id="boton-personajes"
+        >
+          Ver más
+        </Link> */}
               </div>
             </div>
           </div>

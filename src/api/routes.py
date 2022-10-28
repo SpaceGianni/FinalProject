@@ -185,6 +185,11 @@ def new_product():
 
     return jsonify(articulo.serialize()), 200
 
+#Ruta para traer un producto específico
+@api.route('/products/<int:id>', methods=['GET'])
+def traer_producto(id):
+    articulo = Articulo.query.get(id)
+    return jsonify(articulo.serialize()), 200
 
 #Ruta para agregar productos
 @api.route('/productos', methods=['POST'])

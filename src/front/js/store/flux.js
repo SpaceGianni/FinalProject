@@ -5,6 +5,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       gallery: [],
       user: null,
       errors: "",
+      detail: null,
     },
     actions: {
       //funciones van en action
@@ -137,7 +138,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           sessionStorage.removeItem('user')
         }
       },
-      postImage: (formData) => {
+      postImage: (formData, navigate ) => {
         let url =
           "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us73.gitpod.io/api/products";
           
@@ -154,12 +155,46 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((data) => {
            
 			  console.log(data)
-
+        navigate('/')
           })
           .catch((error) => {
             console.error(error.message);
           });
       },
+      getPosts: () => {
+        let url = "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us73.gitpod.io/api/products";
+        let options_get = {
+          method: "GET", // GET, POST, PUT, DELETE,
+          //body: "", // POST, PUT
+          headers: {
+            "Content-Type": "application/json",
+          },
+        };
+        fetch(url, options_get) // GET
+          .then((response) => {
+            // Respuesta del Servidor
+            console.log(response.status);
+            return response.json();
+          })
+          .then((data) => {
+            // Datos Consultados
+            console.log(data);
+            // setStore se usa como useState, gallery toma el valor de data
+            setStore({ gallery: data });
+          })
+          .catch((error) => {
+            console.error(error.message);
+          });
+      },
+      getDetailById: (url) => {
+        fetch(url)
+            .then((response) => response.json())
+            .then((data) => {
+              console.log(data)
+                setStore({ detail: data })
+            })
+            
+    },
     },
   };
 };
