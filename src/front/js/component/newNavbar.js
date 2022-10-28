@@ -10,7 +10,7 @@ import { useContext } from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 
-function NavScrollExample() {
+function NewNavbar() {
   const { store, actions } = useContext(Context);
   return (
     <Navbar className="pBgColor" expand="lg" sticky="top">
@@ -67,4 +67,4 @@ function NavScrollExample() {
   );
 }
 
-export default NavScrollExample;
+export default NewNavbar;
