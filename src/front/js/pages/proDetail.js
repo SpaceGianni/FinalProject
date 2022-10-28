@@ -67,7 +67,7 @@ export const ProDetail = () => {
                     <div className="_p-qty-and-cart">
                       <div className="_p-add-cart">
                         <Link to='/admin/MyShopping'>
-                        <button className="btn-theme btn buy-btn" tabIndex="0">
+                        <button className="btn-theme btn buy-btn" tabIndex="0" >
                           <i className="fa fa-shopping-cart"></i> Cotizar
                         </button>
                         </Link>

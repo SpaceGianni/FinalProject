@@ -176,7 +176,32 @@ const getState = ({ getStore, getActions, setStore }) => {
         const pedidoActualizado = [pedido, ...pedidos];
         setStore({ pedido: pedidoActualizado });
 
-      }
+      },
+      orderProduct: (formData ) => {
+        let url =
+          "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us73.gitpod.io/api/cotizaciones";
+
+        let options_post = {
+          method: "POST", // GET, POST, PUT, DELETE,
+          body: JSON.stringify({formData}),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        };
+        fetch(url, options_post) // GET
+          .then((response) => {
+            // Respuesta del Servidor
+            console.log(response.status);
+            return response.json();
+          })
+          .then((data) => {
+           
+			  console.log(data)
+          })
+          .catch((error) => {
+            console.error(error.message);
+          });
+      },
     },
   };
 };

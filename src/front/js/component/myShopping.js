@@ -14,23 +14,25 @@ export function MyShopping() {
 
   const onSubmit = (data) => {
     console.log(data);
-    console.log(data.imagen[0]);
+    
     let formData = new FormData();
-    formData.append("nombre", data.nombre);
-    formData.append("imagen", data.imagen[0]);
-    formData.append("precio", data.precio);
+    formData.append("users_id", 1);
+    formData.append("producto_id", 4);
+    formData.append("direccion", data.direccion);
+    formData.append("region", data.region);
     formData.append("descripcion", data.descripcion);
-    formData.append("active", true);
-
-    actions.postImage(formData);
+    
+    console.log(formData)
+     actions.orderProduct(formData);
   };
   return (
     <>
-
       <div className="login container my-5 d-flex justify-content-center align-items-center">
         <div className="card col-md-6">
           <div className="card-header ">
-            <h5 className="card-title fw-bold fs-3">Formulario de cotización</h5>
+            <h5 className="card-title fw-bold fs-3">
+              Formulario de cotización
+            </h5>
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -48,34 +50,63 @@ export function MyShopping() {
                     id="nombre"
                     name="nombre"
                     type="text"
-                    disabled />
+                    {...register("nombre", {
+                      required: true,
+                    })}
+                    disabled
+                  />
                 </div>
               </div>
 
-              {/* Tu pedido */}
+              {/* Tu producto */}
               <div className="pb-2">
-                <label className="col-form-label px-5" htmlFor="precio">
-                  Tu pedido
+                <label className="col-form-label px-5" htmlFor="producto">
+                  Tu producto
                 </label>
 
                 <div className="col-md-12 px-5">
                   <input
                     className="form-control"
-                    value={`${store.user?.usuario?.nombre} ${store.user?.usuario?.apellido}`}
-                    id="precio"
-                    name="precio"
-                    type="number"
-                    {...register("precio", {
+                    value={store.detail?.nombre}
+                    id="producto"
+                    name="producto"
+                    type="text"
+                    {...register("producto_id", {
                       required: true,
                     })}
-                    disabled />
+                    disabled
+                  />
+                 
                 </div>
               </div>
 
               {/* Tu Direccion */}
               <div className="pb-2">
+                <label className="col-form-label px-5" htmlFor="region">
+                  Escribe tu dirección
+                </label>
+
+                <div className="col-md-12 px-5">
+                  <input
+                    className="form-control"
+                    id="region"
+                    name="region"
+                    type="text"
+                    {...register("region", {
+                      required: true,
+                    })}
+                  />
+                   {errors?.region?.type === "required" && (
+                    <div className="statusError mt-1">
+                      Debes llenar este campo
+                    </div>
+                  )}
+                </div>
+              </div>
+              {/* region */}
+              <div className="pb-2">
                 <label className="col-form-label px-5" htmlFor="direccion">
-                  Escribe tu dirección, comuna y región
+                  Indica tu región
                 </label>
 
                 <div className="col-md-12 px-5">
@@ -88,6 +119,11 @@ export function MyShopping() {
                       required: true,
                     })}
                   />
+                   {errors?.direccion?.type === "required" && (
+                    <div className="statusError mt-1">
+                      Debes llenar este campo
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -107,11 +143,13 @@ export function MyShopping() {
                       required: true,
                     })}
                   />
-
-
+                   {errors?.telefono?.type === "required" && (
+                    <div className="statusError mt-1">
+                      Debes llenar este campo
+                    </div>
+                  )}
                 </div>
               </div>
-
 
               {/* descripcion */}
               <div className="pb-2">
