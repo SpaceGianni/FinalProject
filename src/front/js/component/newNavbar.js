@@ -10,6 +10,7 @@ import { useContext } from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 
+
 function NavScrollExample() {
   const { store, actions } = useContext(Context);
   return (
@@ -17,7 +18,7 @@ function NavScrollExample() {
       <Container>
         <Navbar.Brand>
           <Link to="/">
-          <img id="navbarImagen" src={imagenFinal} />
+            <img id="navbarImagen" src={imagenFinal} />
           </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
@@ -41,25 +42,25 @@ function NavScrollExample() {
             {!!store.user ? (
               <>
                 <NavDropdown className="dropdownWhiteLink" title={`Hola ${store.user?.usuario?.nombre}`} id="navbarScrollingDropdown">
-              <NavDropdown.Item  disable><Link className="dropdownColor" to="/admin/FormProducto">Subir Producto</Link></NavDropdown.Item>
-              <NavDropdown.Item disabled>
-                Mis productos
-              </NavDropdown.Item>
-              <NavDropdown.Item disabled>
-                Historial
-              </NavDropdown.Item>
-              <NavDropdown.Item disabled>
-                Pedidos
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item onClick={actions.logOut} href="/" id="firstDropdownOption">Log Out</NavDropdown.Item>
-            </NavDropdown>
+                  <NavDropdown.Item disable><Link className="dropdownColor" to="/admin/FormProducto">Subir Producto</Link></NavDropdown.Item>
+                  <NavDropdown.Item disabled>
+                    Mis productos
+                  </NavDropdown.Item>
+                  <NavDropdown.Item disabled>
+                    Historial
+                  </NavDropdown.Item>
+                  <NavDropdown.Item disabled>
+                    Pedidos
+                  </NavDropdown.Item>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item onClick={actions.logOut} href="/" id="firstDropdownOption">Log Out</NavDropdown.Item>
+                </NavDropdown>
               </>
-            ) : (            
-                <Link to="/login"><Nav.Link className="nav-link text-white" disabled>Iniciar sesion</Nav.Link></Link>            
+            ) : (
+              <Link to="/login"><Nav.Link className="nav-link text-white" disabled>Iniciar sesion</Nav.Link></Link>
             )}
-            <Link to="/admin"><Nav.Link className="nav-link text-white" disabled>Mis Compras</Nav.Link></Link>          
-           
+            <Link to="/admin"><Nav.Link className="nav-link text-white" disabled>Mis Compras</Nav.Link></Link>
+
           </Nav>
         </Navbar.Collapse>
       </Container>
