@@ -68,7 +68,7 @@ export function MyShopping() {
                 <div className="col-md-12 px-5">
                   <input
                     className="form-control"
-                    value={store.detail?.nombre}
+                    value='prueba'
                     id="producto"
                     name="producto"
                     type="text"
