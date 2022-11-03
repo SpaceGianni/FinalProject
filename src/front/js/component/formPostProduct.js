@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Context } from "../store/appContext";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export function FormPostProduct() {
   const { store, actions } = useContext(Context);
@@ -145,12 +145,6 @@ export function FormPostProduct() {
                 <button type="submit" className="btn btn-success btn-md col-12">
                   Registrar
                 </button>
-
-                <Link to="/login">
-                  <button className="btn mx-2 btn-md d-block">
-                    Volver a Login
-                  </button>
-                </Link>
               </div>
             </div>
           </form>
