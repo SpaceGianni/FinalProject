@@ -5,7 +5,7 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 from fileinput import filename
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.utils import generate_sitemap, APIException
-from api.models import db, User, Producto, Cotizacion, Pedido, Gallery, Articulo
+from api.models import db, User, Articulo, Cotizacion, Pedido
 import cloudinary.uploader
 from werkzeug.security import generate_password_hash, check_password_hash # libreria para encriptar las contraseñas
 from flask_jwt_extended import create_access_token
@@ -78,7 +78,7 @@ def ingresar():
 
 
 #Ruta privada del administrador@
-@api.route('/administrador')
+@api.route('/administador')
 @jwt_required()
 def administador():
     id= get_jwt_identity()
