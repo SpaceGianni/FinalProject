@@ -10,7 +10,7 @@ import { useContext } from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 
-function NavScrollExample() {
+function NewNavbar() {
   const { store, actions } = useContext(Context);
   console.log(`${store.user?.usuario?.tipo} linea 15`);
   return (
@@ -91,4 +91,4 @@ function NavScrollExample() {
   );
 }
 
-export default NavScrollExample;
+export default NewNavbar;
