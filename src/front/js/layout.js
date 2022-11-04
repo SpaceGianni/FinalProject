@@ -11,7 +11,7 @@ import { Login } from "./pages/login";
 import "../styles/layout.scss";
 import { Register } from "./pages/register";
 import ConfirmPassword from "./component/testFromRegister";
-//import NavScrollExample from "./component/newNavbar";
+import NewNavbar from "./component/newNavbar";
 
 //create your first component
 const Layout = () => {
@@ -24,7 +24,7 @@ const Layout = () => {
       <BrowserRouter basename={basename}>
         <ScrollToTop>
           {/* <Navbar />  */}
-          <Navbar />
+          <NewNavbar />
           <Routes>
             ConfirmPassword
             <Route element={<Home />} path="/" />

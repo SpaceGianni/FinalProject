@@ -1,11 +1,10 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
-
 from fileinput import filename
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.utils import generate_sitemap, APIException
-from api.models import db, User, Producto, Cotizacion, Pedido, Gallery, Articulo
+from api.models import db, User, Articulo, Cotizacion, Pedido
 import cloudinary.uploader
 from werkzeug.security import generate_password_hash, check_password_hash # libreria para encriptar las contraseñas
 from flask_jwt_extended import create_access_token
@@ -14,7 +13,8 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 
 api = Blueprint('api', __name__)
 
-##USUARIOS
+###USUARIOS
+##REGISTER
 #Ruta para crear un usuario nuevo (registro de usuarios)
 @api.route('/users', methods=['POST'])
 def crear_usuario():
@@ -46,6 +46,7 @@ def crear_usuario():
 
     return jsonify({"status": "éxito","code":200, "mensaje": "usuario creado exitosamente", "data": data}), 200
 
+##LOGGIN
 #Ruta para el ingreso del usuario en su cuenta (log in)
 @api.route('/ingreso', methods=['POST'])
 def ingresar():
@@ -74,8 +75,9 @@ def ingresar():
 
     return jsonify({ "status": "éxito", "code": 200, "mensaje": "El usuario ha ingresado exitosamente", "data": data}), 200
 
+
 #Ruta privada del administrador@
-@api.route('/administrador')
+@api.route('/administador')
 @jwt_required()
 def administador():
     id= get_jwt_identity()
@@ -134,7 +136,7 @@ def borrar_usuario(id):
     return jsonify({"mensaje": "usuario eliminado"}), 200
 
 #Ruta para ver todos los productos de un usuario específico
-@api.route('/users/<int:id>/productos', methods=['GET'])
+@api.route('/users/<int:id>/articulos', methods=['GET'])
 def traer_usuario_con_productos(id):
      user = User.query.get(id)
      return jsonify(user.serialize_con_productos()), 200
@@ -146,29 +148,30 @@ def traer_usuario_con_cotizaciones(id):
      return jsonify(user.serialize_con_cotizaciones()), 200
 
 #Ruta para ver todos los productos y las cotizaciones de un usuario específico
-@api.route('/users/<int:id>/productos/cotizaciones', methods=['GET'])
+@api.route('/users/<int:id>/articulos/cotizaciones', methods=['GET'])
 def traer_usuario_con_productos_con_cotizaciones(id):
     user = User.query.get(id)
     return jsonify(user.serialize_con_productos_con_cotizaciones()), 200
 
 
-##PRODUCTOS
+###ARTICULOS
 
-#Ruta para traer los nuevos productos
-@api.route('/products', methods=['GET'])
-def bring_products():
+#Ruta para traer todos los artículos
+@api.route('/articulos', methods=['GET'])
+def traer_articulos():
     articulos= Articulo.query.all()
     articulos = list(map(lambda articulo: articulo.serialize(),articulos))
     return jsonify(articulos), 200
 
-#Ruta para agregar productos
-@api.route('/products', methods=['POST'])
-def new_product():
+#Ruta para agregar un artículo
+@api.route('/articulos', methods=['POST'])
+def nuevo_articulo():
     nombre = request.form['nombre'] 
     precio = request.form['precio'] 
     descripcion = request.form['descripcion'] 
     imagen = request.files['imagen']
     active = request.form['active']
+    fecha_publicacion = request.form['fecha_publicacion']
 
     resp = cloudinary.uploader.upload(imagen, folder="gallery")
 
@@ -179,87 +182,52 @@ def new_product():
     articulo.active = True if active == 'true' else False
     articulo.precio =precio
     articulo.descripcion = descripcion
+    articulo.fecha_publicacion = fecha_publicacion
     articulo.imagen = resp['secure_url']
 
     articulo.save()
 
     return jsonify(articulo.serialize()), 200
 
-#Ruta para traer un producto específico
-@api.route('/products/<int:id>', methods=['GET'])
+#Ruta para traer un articulo específico
+@api.route('/articulo/<int:id>', methods=['GET'])
 def traer_producto(id):
     articulo = Articulo.query.get(id)
     return jsonify(articulo.serialize()), 200
 
-#Ruta para agregar productos
-@api.route('/productos', methods=['POST'])
-def crear_producto():
-    nombre = request.json.get('nombre')
-    precio = request.json.get('precio')
-    cantidad = request.json.get('cantidad')
-    fecha_publicacion = request.json.get('fecha_publicacion')
-    descripcion = request.json.get('descripcion')
-    urlImagen = request.json.get('urlImagen')
-    users_id = request.json.get('users_id')
-      
-    producto = Producto()
-    producto.nombre = nombre
-    producto.precio = precio
-    producto.cantidad = cantidad
-    producto.fecha_publicacion = fecha_publicacion 
-    producto.descripcion = descripcion 
-    producto.urlImagen = urlImagen
-    producto.users_id = users_id
 
-    producto.save()
-  
-    return jsonify(producto.serialize_con_id_usuario()), 200
-
-#Ruta para editar productos
-@api.route('/productos/<int:id>', methods=['PUT'])
+#Ruta para editar un artículo
+@api.route('/articulo/<int:id>', methods=['PUT'])
 def editar_producto(id):
-    nombre = request.json.get('nombre')
-    precio = request.json.get('precio')
-    cantidad = request.json.get('cantidad')
-    fecha_publicacion = request.json.get('fecha_publicacion')
-    descripcion = request.json.get('descripcion')
-    urlImagen = request.json.get(' urlImagen')
+    nombre = request.form['nombre'] 
+    precio = request.form['precio'] 
+    descripcion = request.form['descripcion'] 
+    imagen = request.files['imagen']
+    active = request.form['active']
+    fecha_publicacion = request.form['fecha_publicacion']
     
-    producto = Producto.query.get(id)
-    producto.nombre = nombre
-    producto.precio = precio
-    producto.cantidad = cantidad
-    producto.fecha_publicacion = fecha_publicacion 
-    producto.descripcion = descripcion 
-    producto.urlImagen = urlImagen
+    articulo = Articulo.query.get(id)
+    articulo.nombre = nombre
+    articulo.precio = precio
+    articulo.descripcion = descripcion
+    articulo.imagen = imagen
+    articulo.active=active
+    acticulo.fecha_publicacion=fecha_publicacion
 
-    producto.update()
+    articulo.update()
   
-    return jsonify(producto.serialize()), 200
-
-#Ruta para traer todos los productos
-@api.route('/productos', methods=['GET'])
-def traer_productos():
-    productos = Producto.query.all()
-    productos = list(map(lambda producto: producto.serialize(), productos))
-    return jsonify(productos), 200
-
-#Ruta para traer todos los productos indicando el id del usuario
-@api.route('/productos/users', methods=['GET'])
-def traer_productos_con_usuario():
-    productos = Producto.query.all()
-    productos = list(map(lambda producto: producto.serialize_con_id_usuario(), productos))
-    return jsonify(productos), 200
-
-#Ruta para borrar un producto
-@api.route('/productos/<int:id>', methods=['DELETE'])
-def borrar_producto(id):   
-    producto = Producto.query.get(id)
-    producto.delete()
-    return jsonify({"mensaje": "producto eliminado"}), 200
+    return jsonify(articulo.serialize()), 200
 
 
-##COTIZACIONES
+#Ruta para borrar un articulo
+@api.route('/articulo/<int:id>', methods=['DELETE'])
+def borrar_articulo(id):   
+    articulo = Articulo.query.get(id)
+    articulo.delete()
+    return jsonify({"mensaje": "articulo eliminado"}), 200
+
+
+###COTIZACIONES
 #Ruta para crear una cotización
 @api.route('/cotizaciones', methods=['POST'])
 def crear_cotizacion():
@@ -267,17 +235,17 @@ def crear_cotizacion():
     region = request.json.get('region')
     telefono = request.json.get('telefono')
     users_id = request.json.get('users_id')
-    productos_id = request.json.get('productos_id')
+    articulos_id = request.json.get('articulos_id')
 
     cotizaciones = Cotizacion ()
     cotizaciones.direccion = direccion,
     cotizaciones.region = region,
     cotizaciones.telefono = telefono
     cotizaciones.users_id = users_id
-    cotizaciones.productos_id= productos_id
+    cotizaciones.articulos_id= articulos_id
 
     cotizaciones.save()
-    return jsonify(cotizaciones.serialize_con_usuario_con_producto()), 200
+    return jsonify(cotizaciones.serialize_con_usuario_con_articulo()), 200
 
 #Ruta para editar una cotización
 @api.route('/cotizaciones/<int:id>', methods=['PUT'])
@@ -286,30 +254,30 @@ def editar_cotizacion(id):
     region = request.json.get('region')
     telefono = request.json.get('telefono')
     users_id = request.json.get('users_id'),
-    productos_id= request.json.get('productos_id')
+    articulos_id= request.json.get('articulos_id')
 
     cotizaciones = Cotizacion.query.get (id)
     cotizaciones.direccion = direccion,
     cotizaciones.region = region,
     cotizaciones.telefono = telefono,
     cotizaciones.users_id = users_id,
-    cotizaciones.productos_id= productos_id
+    cotizaciones.articulos_id= articulos_id
 
     cotizaciones.update()
-    return jsonify(cotizaciones.serialize_con_usuario_con_producto()), 200
+    return jsonify(cotizaciones.serialize_con_usuario_con_articulo()), 200
 
 #Ruta para traer todas las cotizaciones
 @api.route('/cotizaciones', methods=['GET'])
 def traer_cotizaciones():
     cotizaciones= Cotizacion.query.all()
-    cotizaciones = list(map(lambda cotizacion: cotizacion.serialize_con_usuario_con_producto(),cotizaciones))
+    cotizaciones = list(map(lambda cotizacion: cotizacion.serialize_con_usuario_con_articulo(),cotizaciones))
     return jsonify(cotizaciones), 200
 
 #Ruta para traer todas las cotizaciones con sus usuarios y sus productos
 @api.route('/cotizaciones/usuarios', methods=['GET'])
 def traer_cotizaciones_con_usuario_con_productos():
     cotizaciones= Cotizacion.query.all()
-    cotizaciones = list(map(lambda cotizacion: cotizacion.serialize_con_usuario_con_producto(),cotizaciones))
+    cotizaciones = list(map(lambda cotizacion: cotizacion.serialize_con_usuario_con_articulo(),cotizaciones))
     return jsonify(cotizaciones), 200
 
 #Ruta para borrar una cotización
@@ -332,7 +300,7 @@ def crear_pedido():
     pedidos.estatus = estatus
     pedidos.fecha_pedido = fecha_pedido
     pedidos.users_id = users_id
-    pedidos.productos_id = productos_id
+    pedidos.articulos_id = articulos_id
 
     pedidos.save()
     return jsonify(pedidos.serialize_con_user_con_precio()), 200
@@ -370,93 +338,3 @@ def borrar_pedido(id):
     pedidos = Pedido.query.get (id)
     pedidos.delete()
     return jsonify({"mensaje": "pedido eliminado"}), 200
-
-##GALERIA DE IMÁGENES
-#Ruta para agregar una imagen
-@api.route('/galleries', methods=['POST'])
-def agregar_imagen():
-    title = request.form['title']
-    active = request.form['active']
-    image = request.files['image']
-
-    resp = cloudinary.uploader.upload(image, folder="gallery")
-
-    if not resp: return jsonify({ "msg": "error al subir imagen"}), 400
-
-    gallery_image = Gallery()
-    gallery_image.title = title
-    gallery_image.active = True if active == 'true' else False
-    gallery_image.filename = resp['secure_url']
-    gallery_image.save()
-
-    return jsonify(gallery_image.serialize()), 200
-
-#Ruta para editar una imagen
-@api.route('/galleries/editar/<int:id>', methods=['PUT'])
-def editar_imagen(id):
-        title = request.form['title']
-        active = request.form['active']
-        image = request.files['image']
-
-        resp = cloudinary.uploader.upload(image, folder="gallery")
-        if not resp: return jsonify({ "msg": "error al subir imagen"}), 400
-
-        gallery_image = Gallery.query.get(id)
-        gallery_image.title = title
-        gallery_image.active = bool(active)
-        gallery_image.filename = resp['secure_url']
-        gallery_image.update()
-
-        return jsonify(gallery_image.serialize()), 200
-
-#Ruta para traer todas las imagenes activas y no activas
-@api.route('/galleries', methods=['GET'])
-def traer_galleries():
-        #Posibilida el filtrado por medio del url
-        active =  request.args.get('active')
-        if active is not None:
-          status = True if active == 'true' else False
-          galleries = Gallery.query.filter_by(active=status)
-          galleries = list(map(lambda imagen: imagen.serialize(), galleries))
-          return jsonify(galleries), 200
-
-        #Trae todos los resultados
-        else:
-          galleries = Gallery.query.all()
-          galleries = list(map(lambda imagen: imagen.serialize(), galleries))
-          return jsonify(galleries), 200
-
-#Ruta para recoger el cambio de estado de las imágenes 
-@api.route('/galleries/<int:id>', methods=['PUT'])
-def recoger_cambio_estado(id):
-    active = request.json.get('active')
-    gallery_image = Gallery.query.get(id)
-    gallery_image.active = active
-    gallery_image.update()
-    return jsonify(gallery_image.serialize()), 200
-
-#Ruta para borrar una imagen
-@api.route('/galleries/<int:id>', methods=['DELETE'])
-def borrar_imagen(id):
-        gallery_image = Gallery.query.get(id)
-        gallery_image.delete()
-        return jsonify({"mensaje": "imagen eliminada"}), 200
-    
-
-
-
-
-
-
-
-     
-     
-    
-
-
-
-
-
-
-
-  

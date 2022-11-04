@@ -21,6 +21,7 @@ const CardList = () => {
   const paginate = pageNumber=>
     setCurrentPage(pageNumber);
   
+    
 
   return (
     <>
@@ -34,7 +35,7 @@ const CardList = () => {
             <div className="row">
               {!!currentGallery &&
                 currentGallery.map((post, index) => {
-                  return <Card key={index} post={post} />;
+                  return <Card key={index} post={post} cardClasses='col-md-4 py-2'/>;
                 })}
             </div>
           </div>
