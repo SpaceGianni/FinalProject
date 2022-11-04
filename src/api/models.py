@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import declarative_base, relationship
 from flask import Blueprint, request, jsonify
-from werkzeug.security import generate_password_hash, check_password_hash # libreria para encriptar las contraseñas
+from werkzeug.security import generate_password_hash, check_password_hash # libreria para encriptar las contraseÃ±as
 from flask_jwt_extended import create_access_token, create_refresh_token
 import datetime
 
@@ -21,7 +21,6 @@ class User(db.Model):
     tipo = db.Column(db.String(120), nullable=False)
     active = db.Column(db.Boolean(), default=True)
     articulos = db.relationship('Articulo', cascade="all, delete", backref="user")
-    pedidos = db.relationship('Pedido', cascade="all, delete", backref="user")
     cotizaciones = db.relationship('Cotizacion', cascade="all, delete", backref="user")
 
     def __repr__(self):
@@ -98,9 +97,11 @@ class Articulo(db.Model):
     imagen = db.Column(db.String(200), nullable=False)
     active = db.Column(db.Boolean(), default=True)
     fecha_publicacion = db.Column(db.DateTime(), nullable=False)
-    usuarios = db.relationship('User', cascade="all, delete", backref="articulo")
-    cotizaciones = db.relationship('Cotizacion', cascade="all, delete", backref="articulo")
-    pedidos = db.relationship('Pedido', cascade="all, delete", backref="articulo")
+    users_id= db.Column(db.Integer, db.ForeignKey('users.id'))
+    cotizaciones = db.Column(db.Integer, db.ForeignKey('cotizaciones.id'))
+    pedidos= db.Column(db.Integer, db.ForeignKey('pedidos.id'), nullable=False)
+    
+    
 
     def serialize(self):
         return {
@@ -131,8 +132,10 @@ class Cotizacion(db.Model):
     direccion = db.Column(db.String(300), nullable=False)
     region = db.Column(db.String(50), nullable=False)
     telefono = db.Column(db.String(120), nullable=False)
-    articulos_id = db.Column(db.Integer, db.ForeignKey('articulos.id'), nullable=False)
-    users_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    articulos = db.relationship('Articulo', cascade="all, delete", backref="cotizacion")
+    users_id= db.Column(db.Integer, db.ForeignKey('users.id'))
+    
+    
    
     def serialize(self):
         return {
@@ -170,7 +173,8 @@ class Pedido(db.Model):
     estatus = db.Column(db.Integer, nullable=False)
     fecha_pedido= db.Column(db.DateTime(), nullable=False)
     users_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    articulos_id=db.Column(db.Integer, db.ForeignKey('articulos.id'), nullable=False)
+    articulos =db.relationship('Articulo',cascade="all, delete", backref="pedido" )
+    
 
     def serialize(self):
         return {
@@ -200,6 +204,7 @@ class Pedido(db.Model):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
+
 
 
     

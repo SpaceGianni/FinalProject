@@ -7,7 +7,9 @@ export function FormLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
+  /* cpena@gmail.com: Campagna123
+  algonzalez@gmail.com:Discord123
+  */
 
   return (
     <>

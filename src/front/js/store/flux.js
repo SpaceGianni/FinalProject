@@ -14,7 +14,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       //funcion para hacer el fetch por el metodo GET
       getPosts: () => {
-        let url = "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us74.gitpod.io/api/products";
+        let url = "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us74.gitpod.io/api/articulos";
         let options_get = {
           method: "GET", // GET, POST, PUT, DELETE,
           //body: "", // POST, PUT
@@ -141,7 +141,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       postImage: (formData, navigate ) => {
         let url =
-          "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us74.gitpod.io/api/products";
+          "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us74.gitpod.io/api/articulos";
 
         let options_post = {
           method: "POST", // GET, POST, PUT, DELETE,
