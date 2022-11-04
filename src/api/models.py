@@ -99,7 +99,7 @@ class Articulo(db.Model):
     fecha_publicacion = db.Column(db.DateTime(), nullable=False)
     users_id= db.Column(db.Integer, db.ForeignKey('users.id'))
     cotizaciones = db.Column(db.Integer, db.ForeignKey('cotizaciones.id'))
-    pedidos= db.Column(db.Integer, db.ForeignKey('pedidos.id'), nullable=False)
+    pedidos= db.Column(db.Integer, db.ForeignKey('pedidos.id'))
     
     
 

@@ -11,6 +11,7 @@ export const Home = () => {
     <div className="pageHome container">
       <Banner />
       <CardList />
+      <h1>Este es el token : {store.user?.access_token}</h1>
     </div>
   );
 };

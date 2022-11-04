@@ -3,18 +3,17 @@ const getState = ({ getStore, getActions, setStore }) => {
     // variables globales
     store: {
       gallery: [],
+      imagenes: [],
       user: null,
       errors: "",
       detail: null,
-      pedidos: []
+      pedidos: [],
     },
     actions: {
-      //funciones van en action
-      // Use getActions to call a function within a fuction
-
-      //funcion para hacer el fetch por el metodo GET
+      //Funcion para traer todas las imagenes
       getPosts: () => {
-        let url = "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us73.gitpod.io/api/products";
+        let url =
+          "https://3001-spacegianni-finalprojec-zthi63k150b.ws-us73.gitpod.io/api/articulos";
         let options_get = {
           method: "GET", // GET, POST, PUT, DELETE,
           //body: "", // POST, PUT
@@ -30,7 +29,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
           .then((data) => {
             // Datos Consultados
-            console.log(data);
+            //console.log(data);
             // setStore se usa como useState, gallery toma el valor de data
             setStore({ gallery: data });
           })
@@ -38,33 +37,10 @@ const getState = ({ getStore, getActions, setStore }) => {
             console.error(error.message);
           });
       },
-      getUsers: () => {
-        let url ="https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us73.gitpod.io/api/users";
-        let options_get = {
-          method: "GET", // GET, POST, PUT, DELETE,
-          //body: "", // POST, PUT
-          headers: {
-            "Content-Type": "application/json",
-          },
-        };
-        fetch(url, options_get) // GET
-          .then((response) => {
-            // Respuesta del Servidor
-            console.log(response.status);
-            return response.json();
-          })
-          .then((data) => {
-            // Datos Consultados
-            console.log(data);
-            // setStore se usa como useState, gallery toma el valor de data
-            setStore({ users: data });
-          })
-          .catch((error) => {
-            console.error(error.message);
-          });
-      },
+
       signIn: (nombre, apellido, email, password, navigate) => {
-        let url = "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us73.gitpod.io/api/users";
+        let url =
+          "https://3001-spacegianni-finalprojec-zthi63k150b.ws-us73.gitpod.io/api/users";
         let options_post = {
           method: "POST", // GET, POST, PUT, DELETE,
           body: JSON.stringify({ nombre, apellido, email, password }),
@@ -81,14 +57,14 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((data) => {
             if (data.status === "error") {
               setStore({ errors: data });
-              console.log(data)
+              console.log(data);
             } else {
               // Datos Consultados
               console.log(data);
-              // Si no tenemos errores ejecutar esto 
+              // Si no tenemos errores ejecutar esto
               setStore({ errors: "" });
-              // aÃ±adir funcion de registro exitoso           
-              navigate('/login')
+              // aÃ±adir funcion de registro exitoso
+              navigate("/login");
             }
           })
           .catch((error) => {
@@ -97,15 +73,15 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       logIn: (email, password, navigate) => {
         let url =
-          "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us73.gitpod.io/api/ingreso";
-        let options_get = {
-          method: "POST", // GET, POST, PUT, DELETE,
+          "https://3001-spacegianni-finalprojec-zthi63k150b.ws-us73.gitpod.io/api/ingreso";
+        let options = {
+          method: "POST",
           body: JSON.stringify({ email, password }),
           headers: {
             "Content-Type": "application/json",
           },
         };
-        fetch(url, options_get) // GET
+        fetch(url, options) 
           .then((response) => {
             // Respuesta del Servidor
             console.log(response.status);
@@ -114,14 +90,14 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((data) => {
             if (data.status === "error") {
               setStore({ errors: data, user: null });
-              console.log(data)
+              console.log(data);
             } else {
               // Datos Consultados
               console.log(data);
               // Sin errores
-              setStore({ user: data.data, errors: '' });
-              sessionStorage.setItem('user', JSON.stringify(data.data))
-              navigate('/')
+              setStore({ user: data.data, errors: "" });
+              sessionStorage.setItem("user", JSON.stringify(data.data));
+              navigate("/cliente");
             }
           })
           .catch((error) => {
@@ -129,19 +105,19 @@ const getState = ({ getStore, getActions, setStore }) => {
           });
       },
       verifyUser: () => {
-        if (sessionStorage.getItem('user')) {
-          setStore({ user: JSON.parse(sessionStorage.getItem('user')) })
+        if (sessionStorage.getItem("user")) {
+          setStore({ user: JSON.parse(sessionStorage.getItem("user")) });
         }
       },
       logOut: () => {
-        if (sessionStorage.getItem('user')) {
-          setStore({ user: null })
-          sessionStorage.removeItem('user')
+        if (sessionStorage.getItem("user")) {
+          setStore({ user: null });
+          sessionStorage.removeItem("user");
         }
       },
-      postImage: (formData, navigate ) => {
+      postImage: (formData, navigate) => {
         let url =
-          "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us73.gitpod.io/api/products";
+          "https://3001-spacegianni-finalprojec-zthi63k150b.ws-us73.gitpod.io/api/articulos";
 
         let options_post = {
           method: "POST", // GET, POST, PUT, DELETE,
@@ -154,9 +130,8 @@ const getState = ({ getStore, getActions, setStore }) => {
             return response.json();
           })
           .then((data) => {
-           
-			  console.log(data)
-        navigate('/')
+            console.log(data);
+            navigate("/");
           })
           .catch((error) => {
             console.error(error.message);
@@ -164,26 +139,24 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       getDetailById: (url) => {
         fetch(url)
-            .then((response) => response.json())
-            .then((data) => {
-              console.log(data)
-                setStore({ detail: data })
-            })
-            
-    },
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            setStore({ detail: data });
+          });
+      },
       agregarPedidos: (pedido) => {
         const { pedidos } = getStore();
         const pedidoActualizado = [pedido, ...pedidos];
         setStore({ pedido: pedidoActualizado });
-
       },
-      orderProduct: (formData ) => {
+      orderProduct: (formData) => {
         let url =
           "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us73.gitpod.io/api/cotizaciones";
 
         let options_post = {
           method: "POST", // GET, POST, PUT, DELETE,
-          body: JSON.stringify({formData}),
+          body: JSON.stringify({ formData }),
           headers: {
             "Content-Type": "application/json",
           },
@@ -195,12 +168,32 @@ const getState = ({ getStore, getActions, setStore }) => {
             return response.json();
           })
           .then((data) => {
-           
-			  console.log(data)
+            console.log(data);
           })
           .catch((error) => {
             console.error(error.message);
           });
+      },
+      getPostsCliente: () => {
+        var myHeaders = new Headers();
+        myHeaders.append(
+          "Authorization",
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY2NzUxNDUwMywianRpIjoiMDBjYmVhNjQtOGFkZC00OWUwLWJjNzgtNmQ0M2Y0OWNjYzZiIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MiwibmJmIjoxNjY3NTE0NTAzLCJleHAiOjE2Njc3NzM3MDN9.qtQChL1vRJjZQEn2biA0yeOGmFd5w8gi4LhfxbBBRGo"
+        );
+
+        var requestOptions = {
+          method: "GET",
+          headers: myHeaders,
+          redirect: "follow",
+        };
+
+        fetch(
+          "https://3001-spacegianni-finalprojec-zthi63k150b.ws-us73.gitpod.io/api/login/articulos",
+          requestOptions
+        )
+          .then((response) => response.text())
+          .then((data) => setStore({ imagenes: data }))
+          .catch((error) => console.log("error", error));
       },
     },
   };

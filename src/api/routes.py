@@ -66,7 +66,7 @@ def ingresar():
 #Valido si la contraseña ingresada coincide con la guardada
     if not check_password_hash(usuario.password, password) : return jsonify ({"status": "error", "code": 401, "mensaje": "El email o la contraseña está incorrecto"}), 400
 
-    expires = datetime.timedelta(days=1)
+    expires = datetime.timedelta(days=3)
     access_token = create_access_token(identity = usuario.id, expires_delta =expires)
 
     data = {
@@ -160,6 +160,14 @@ def traer_usuario_con_productos_con_cotizaciones(id):
 #Ruta para traer todos los artículos
 @api.route('/articulos', methods=['GET'])
 def traer_articulos():
+    articulos= Articulo.query.all()
+    articulos = list(map(lambda articulo: articulo.serialize(),articulos))
+    return jsonify(articulos), 200
+
+#Ruta para traer todos los artículos al usuario CLIENTE loggeado
+@api.route('/login/articulos', methods=['GET'])
+@jwt_required()
+def traer_articulos_cliente():
     articulos= Articulo.query.all()
     articulos = list(map(lambda articulo: articulo.serialize(),articulos))
     return jsonify(articulos), 200
