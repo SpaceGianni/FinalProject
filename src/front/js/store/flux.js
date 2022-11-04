@@ -13,7 +13,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       //Funcion para traer todas las imagenes
       getPosts: () => {
         let url =
-          "https://3001-spacegianni-finalprojec-zthi63k150b.ws-us73.gitpod.io/api/articulos";
+          "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us74.gitpod.io/api/articulos";
         let options_get = {
           method: "GET", // GET, POST, PUT, DELETE,
           //body: "", // POST, PUT
@@ -37,10 +37,35 @@ const getState = ({ getStore, getActions, setStore }) => {
             console.error(error.message);
           });
       },
-
+      getUsers: () => {
+        let url =
+          "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us74.gitpod.io/api/users";
+        let options_get = {
+          method: "GET", // GET, POST, PUT, DELETE,
+          //body: "", // POST, PUT
+          headers: {
+            "Content-Type": "application/json",
+          },
+        };
+        fetch(url, options_get) // GET
+          .then((response) => {
+            // Respuesta del Servidor
+            console.log(response.status);
+            return response.json();
+          })
+          .then((data) => {
+            // Datos Consultados
+            console.log(data);
+            // setStore se usa como useState, gallery toma el valor de data
+            setStore({ users: data });
+          })
+          .catch((error) => {
+            console.error(error.message);
+          });
+      },
       signIn: (nombre, apellido, email, password, navigate) => {
         let url =
-          "https://3001-spacegianni-finalprojec-zthi63k150b.ws-us73.gitpod.io/api/users";
+          "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us74.gitpod.io/api/users";
         let options_post = {
           method: "POST", // GET, POST, PUT, DELETE,
           body: JSON.stringify({ nombre, apellido, email, password }),
@@ -73,15 +98,15 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       logIn: (email, password, navigate) => {
         let url =
-          "https://3001-spacegianni-finalprojec-zthi63k150b.ws-us73.gitpod.io/api/ingreso";
-        let options = {
-          method: "POST",
+          "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us74.gitpod.io/api/ingreso";
+        let options_get = {
+          method: "POST", // GET, POST, PUT, DELETE,
           body: JSON.stringify({ email, password }),
           headers: {
             "Content-Type": "application/json",
           },
         };
-        fetch(url, options) 
+        fetch(url, options)
           .then((response) => {
             // Respuesta del Servidor
             console.log(response.status);
@@ -117,7 +142,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       postImage: (formData, navigate) => {
         let url =
-          "https://3001-spacegianni-finalprojec-zthi63k150b.ws-us73.gitpod.io/api/articulos";
+          "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us74.gitpod.io/api/articulos";
 
         let options_post = {
           method: "POST", // GET, POST, PUT, DELETE,
@@ -152,7 +177,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       orderProduct: (formData) => {
         let url =
-          "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us73.gitpod.io/api/cotizaciones";
+          "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us74.gitpod.io/api/cotizaciones";
 
         let options_post = {
           method: "POST", // GET, POST, PUT, DELETE,

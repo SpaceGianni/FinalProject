@@ -1,7 +1,6 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
-
 from fileinput import filename
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.utils import generate_sitemap, APIException
@@ -347,4 +346,3 @@ def borrar_pedido(id):
     pedidos = Pedido.query.get (id)
     pedidos.delete()
     return jsonify({"mensaje": "pedido eliminado"}), 200
-

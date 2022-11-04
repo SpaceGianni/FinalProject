@@ -10,12 +10,12 @@ export const ProDetail = () => {
 
   useEffect(() => {
     actions.getDetailById(`
-    https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us73.gitpod.io/api/products/${id}`);
+    https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us74.gitpod.io/api/products/${id}`);
   }, []);
   
   useEffect(() => {
     actions.getDetailById(`
-    https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us73.gitpod.io/api/products/${id}`);
+    https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us74.gitpod.io/api/products/${id}`);
   }, [id]);
 
 
@@ -59,7 +59,7 @@ export const ProDetail = () => {
                     </div>
                   </div>
                   <div className="_p-features">
-                    <span> Description About this product:- </span>
+                    <span> Descripcion: </span>
                     {store.detail?.descripcion} 
                   </div>
                   <form action="" method="post" acceptCharset="utf-8">

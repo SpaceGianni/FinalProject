@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import declarative_base, relationship
 from flask import Blueprint, request, jsonify
-from werkzeug.security import generate_password_hash, check_password_hash # libreria para encriptar las contraseñas
+from werkzeug.security import generate_password_hash, check_password_hash # libreria para encriptar las contraseÃ±as
 from flask_jwt_extended import create_access_token, create_refresh_token
 import datetime
 
@@ -204,6 +204,7 @@ class Pedido(db.Model):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
+
 
 
     
