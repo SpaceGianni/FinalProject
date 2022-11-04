@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import imagenFinal from "../../img/Logo_proyecto_final.png";
 import { Context } from "../store/appContext";
-//import Dropdown from "./dropdown_btn";
+
 
 export const Navbar = () => {
   const { store, actions } = useContext(Context);
