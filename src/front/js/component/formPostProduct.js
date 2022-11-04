@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Context } from "../store/appContext";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export function FormPostProduct() {
   const { store, actions } = useContext(Context);
@@ -11,7 +11,8 @@ export function FormPostProduct() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-
+  let date = new Date();
+  
   const onSubmit = (data) => {
     console.log(data);
     console.log(data.imagen[0]);
@@ -20,6 +21,7 @@ export function FormPostProduct() {
     formData.append("imagen", data.imagen[0]);
     formData.append("precio", data.precio);
     formData.append("descripcion", data.descripcion);
+    formData.append("fecha_publicacion", date.toISOString().split('T')[0]);
     formData.append("active", true);
 
     actions.postImage(formData, navigate);
@@ -92,7 +94,7 @@ export function FormPostProduct() {
                     {/* precio */}
               <div className="pb-2">
                 <label className="col-form-label px-5" htmlFor="precio">
-                  Precio
+                  Precio por KG
                 </label>
 
                 <div className="col-md-12 px-5">
@@ -105,6 +107,7 @@ export function FormPostProduct() {
                       required: true,
                     })}
                   />
+                  
                   {errors?.precio?.type === "required" && (
                     <div className="statusError mt-1">
                       Debes llenar este campo
@@ -145,12 +148,6 @@ export function FormPostProduct() {
                 <button type="submit" className="btn btn-success btn-md col-12">
                   Registrar
                 </button>
-
-                <Link to="/login">
-                  <button className="btn mx-2 btn-md d-block">
-                    Volver a Login
-                  </button>
-                </Link>
               </div>
             </div>
           </form>

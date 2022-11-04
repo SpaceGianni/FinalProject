@@ -13,17 +13,18 @@ export function MyShopping() {
   } = useForm();
 
   const onSubmit = (data) => {
+    console.log("hola mundo");
     console.log(data);
-    
     let formData = new FormData();
     formData.append("users_id", 1);
     formData.append("producto_id", 4);
     formData.append("direccion", data.direccion);
+    formData.append("telefono", data.telefono);
     formData.append("region", data.region);
     formData.append("descripcion", data.descripcion);
-    
-    console.log(formData)
-     actions.orderProduct(formData);
+
+    console.log(formData);
+    actions.orderProduct(formData);
   };
   return (
     <>
@@ -67,7 +68,7 @@ export function MyShopping() {
                 <div className="col-md-12 px-5">
                   <input
                     className="form-control"
-                    value={store.detail?.nombre}
+                    value='prueba'
                     id="producto"
                     name="producto"
                     type="text"
@@ -76,37 +77,13 @@ export function MyShopping() {
                     })}
                     disabled
                   />
-                 
                 </div>
               </div>
 
               {/* Tu Direccion */}
               <div className="pb-2">
-                <label className="col-form-label px-5" htmlFor="region">
-                  Escribe tu dirección
-                </label>
-
-                <div className="col-md-12 px-5">
-                  <input
-                    className="form-control"
-                    id="region"
-                    name="region"
-                    type="text"
-                    {...register("region", {
-                      required: true,
-                    })}
-                  />
-                   {errors?.region?.type === "required" && (
-                    <div className="statusError mt-1">
-                      Debes llenar este campo
-                    </div>
-                  )}
-                </div>
-              </div>
-              {/* region */}
-              <div className="pb-2">
                 <label className="col-form-label px-5" htmlFor="direccion">
-                  Indica tu región
+                  Escribe tu dirección
                 </label>
 
                 <div className="col-md-12 px-5">
@@ -119,7 +96,30 @@ export function MyShopping() {
                       required: true,
                     })}
                   />
-                   {errors?.direccion?.type === "required" && (
+                  {errors?.direccion?.type === "required" && (
+                    <div className="statusError mt-1">
+                      Debes llenar este campo
+                    </div>
+                  )}
+                </div>
+              </div>
+              {/* region */}
+              <div className="pb-2">
+                <label className="col-form-label px-5" htmlFor="region">
+                  Indica tu región
+                </label>
+
+                <div className="col-md-12 px-5">
+                  <input
+                    className="form-control"
+                    id="region"
+                    name="region"
+                    type="text"
+                    {...register("region", {
+                      required: true,
+                    })}
+                  />
+                  {errors?.region?.type === "required" && (
                     <div className="statusError mt-1">
                       Debes llenar este campo
                     </div>
@@ -143,7 +143,7 @@ export function MyShopping() {
                       required: true,
                     })}
                   />
-                   {errors?.telefono?.type === "required" && (
+                  {errors?.telefono?.type === "required" && (
                     <div className="statusError mt-1">
                       Debes llenar este campo
                     </div>
@@ -181,12 +181,6 @@ export function MyShopping() {
                 <button type="submit" className="btn btn-success btn-md col-12">
                   Enviar
                 </button>
-
-                <Link to="/login">
-                  <button className="btn mx-2 btn-md d-block">
-                    Volver a Login
-                  </button>
-                </Link>
               </div>
             </div>
           </form>
