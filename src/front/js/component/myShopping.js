@@ -1,10 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContex } from "react";
 import { useForm } from "react-hook-form";
 import { Context } from "../store/appContext";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export function MyShopping() {
   const { store, actions } = useContext(Context);
+
+  const navigate = useNavigate();
 
   const {
     register,
@@ -13,18 +15,25 @@ export function MyShopping() {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log("hola mundo");
-    console.log(data);
-    let formData = new FormData();
-    formData.append("users_id", 1);
-    formData.append("producto_id", 4);
-    formData.append("direccion", data.direccion);
-    formData.append("telefono", data.telefono);
-    formData.append("region", data.region);
-    formData.append("descripcion", data.descripcion);
+    //console.log(data);
 
-    console.log(formData);
-    actions.orderProduct(formData);
+    let direccion = data.direccion;
+    let region = data.region;
+    let telefono = data.telefono;
+    let users_id = store.user?.usuario?.id;
+    let comentarios = data.descripcion;
+    sessionStorage.setItem("direccion", JSON.stringify(direccion));
+    sessionStorage.setItem("region", JSON.stringify(region));
+    sessionStorage.setItem("telefono", JSON.stringify(telefono));
+    sessionStorage.setItem("comentarios", JSON.stringify(comentarios));
+
+    console.log(direccion, region, telefono, users_id);
+    actions.orderProduct(direccion, region, telefono, users_id, navigate);
+    direccion = "";
+    region = "";
+    telefono = "";
+    users_id = null;
+    comentarios = "";
   };
   return (
     <>
@@ -35,7 +44,6 @@ export function MyShopping() {
               Formulario de cotización
             </h5>
           </div>
-
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="py-5 px-2">
               {/* Tu nombre */}
@@ -48,13 +56,11 @@ export function MyShopping() {
                   <input
                     className="form-control"
                     value={`${store.user?.usuario?.nombre} ${store.user?.usuario?.apellido}`}
-                    id="nombre"
-                    name="nombre"
                     type="text"
                     {...register("nombre", {
                       required: true,
                     })}
-                    disabled
+                    readOnly
                   />
                 </div>
               </div>
@@ -68,14 +74,14 @@ export function MyShopping() {
                 <div className="col-md-12 px-5">
                   <input
                     className="form-control"
-                    value='prueba'
+                    value={JSON.parse(sessionStorage.getItem("articulo"))}
                     id="producto"
                     name="producto"
                     type="text"
                     {...register("producto_id", {
                       required: true,
                     })}
-                    disabled
+                    readOnly
                   />
                 </div>
               </div>

@@ -243,17 +243,16 @@ def crear_cotizacion():
     region = request.json.get('region')
     telefono = request.json.get('telefono')
     users_id = request.json.get('users_id')
-    articulos_id = request.json.get('articulos_id')
+  
 
     cotizaciones = Cotizacion ()
     cotizaciones.direccion = direccion,
     cotizaciones.region = region,
     cotizaciones.telefono = telefono
     cotizaciones.users_id = users_id
-    cotizaciones.articulos_id= articulos_id
 
     cotizaciones.save()
-    return jsonify(cotizaciones.serialize_con_usuario_con_articulo()), 200
+    return jsonify(cotizaciones.serialize_con_usuario()), 200
 
 #Ruta para editar una cotización
 @api.route('/cotizaciones/<int:id>', methods=['PUT'])

@@ -1,0 +1,13 @@
+.container {
+  margin: auto;
+}
+
+h1 {
+  justify-content: center;
+  color: #318234;
+  margin-left: 100px;
+}
+h2 {
+  justify-content: center;
+  margin-bottom: 50px;
+}
