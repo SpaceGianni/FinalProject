@@ -10,12 +10,12 @@ export const ProDetail = () => {
 
   useEffect(() => {
     actions.getDetailById(`
-    https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us74.gitpod.io/api/products/${id}`);
+    https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us74.gitpod.io/api/articulo/${id}`);
   }, []);
   
   useEffect(() => {
     actions.getDetailById(`
-    https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us74.gitpod.io/api/products/${id}`);
+    https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us74.gitpod.io/api/articulo/${id}`);
   }, [id]);
 
 

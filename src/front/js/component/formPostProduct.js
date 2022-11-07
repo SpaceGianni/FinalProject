@@ -11,7 +11,7 @@ export function FormPostProduct() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  console.log(store.user?.usuario?.id)
+  
   let date = new Date();
   
   const onSubmit = (data) => {
@@ -22,10 +22,10 @@ export function FormPostProduct() {
     formData.append("imagen", data.imagen[0]);
     formData.append("precio", data.precio);
     formData.append("descripcion", data.descripcion);
-    formData.append("users_id", store.user?.usuario?.id);
+  /*   formData.append("users_id", store.user?.usuario?.id); */
     formData.append("fecha_publicacion", date.toISOString().split('T')[0]);
     formData.append("active", true);
-
+    
     actions.postImage(formData, navigate);
   };
   return (
