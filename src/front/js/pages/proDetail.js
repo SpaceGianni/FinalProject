@@ -3,19 +3,18 @@ import { Link, useParams } from "react-router-dom";
 import YouMightLike from "../component/youMightLike";
 import { Context } from "../store/appContext";
 
-
 export const ProDetail = () => {
   const { id} = useParams();
   const { store, actions } = useContext(Context);
 
   useEffect(() => {
     actions.getDetailById(`
-    https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us74.gitpod.io/api/products/${id}`);
+    https://3001-greatzerlle-finalproyec-7fuxl08leai.ws-us74.gitpod.io/api/articulo/${id}`);
   }, []);
   
   useEffect(() => {
     actions.getDetailById(`
-    https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us74.gitpod.io/api/products/${id}`);
+    https://3001-greatzerlle-finalproyec-7fuxl08leai.ws-us74.gitpod.io/api/articulo/${id}`);
   }, [id]);
 
 
@@ -36,9 +35,9 @@ export const ProDetail = () => {
                 <p className="_p-name"> {store.detail?.nombre} </p>
                 <div className="_p-price-box">
                   <div className="p-list">
-                    <span className="price"> CLP. {store.detail?.precio}  x Kg </span>
+                    <span className="price"> $ {store.detail?.precio}  x Kg </span>
                   </div>
-                  <div className="_p-add-cart">
+                 {/*  <div className="_p-add-cart">
                     <div className="_p-qty">
                       <span>Cantidad de kilos</span>
                       <div
@@ -57,7 +56,7 @@ export const ProDetail = () => {
                         +
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                   <div className="_p-features">
                     <span> Descripcion: </span>
                     {store.detail?.descripcion} 

@@ -14,7 +14,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       //funcion para hacer el fetch por el metodo GET
       getPosts: () => {
-        let url = "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us74.gitpod.io/api/articulos";
+        let url = "https://3001-greatzerlle-finalproyec-7fuxl08leai.ws-us74.gitpod.io/api/articulos";
         let options_get = {
           method: "GET", // GET, POST, PUT, DELETE,
           //body: "", // POST, PUT
@@ -39,7 +39,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           });
       },
       getUsers: () => {
-        let url ="https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us74.gitpod.io/api/users";
+        let url = "https://3001-greatzerlle-finalproyec-7fuxl08leai.ws-us74.gitpod.io/api/users";
         let options_get = {
           method: "GET", // GET, POST, PUT, DELETE,
           //body: "", // POST, PUT
@@ -64,7 +64,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           });
       },
       signIn: (nombre, apellido, email, password, navigate) => {
-        let url = "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us74.gitpod.io/api/users";
+        let url = "https://3001-greatzerlle-finalproyec-7fuxl08leai.ws-us74.gitpod.io/api/users";
         let options_post = {
           method: "POST", // GET, POST, PUT, DELETE,
           body: JSON.stringify({ nombre, apellido, email, password }),
@@ -96,8 +96,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           });
       },
       logIn: (email, password, navigate) => {
-        let url =
-          "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us74.gitpod.io/api/ingreso";
+        let url = "https://3001-greatzerlle-finalproyec-7fuxl08leai.ws-us74.gitpod.io/api/ingreso";
         let options_get = {
           method: "POST", // GET, POST, PUT, DELETE,
           body: JSON.stringify({ email, password }),
@@ -140,8 +139,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
       postImage: (formData, navigate ) => {
-        let url =
-          "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us74.gitpod.io/api/articulos";
+        let url = "https://3001-greatzerlle-finalproyec-7fuxl08leai.ws-us74.gitpod.io/api/articulos";
 
         let options_post = {
           method: "POST", // GET, POST, PUT, DELETE,
@@ -178,8 +176,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       },
       orderProduct: (formData ) => {
-        let url =
-          "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us74.gitpod.io/api/cotizaciones";
+        let url = "https://3001-greatzerlle-finalproyec-7fuxl08leai.ws-us74.gitpod.io/api/cotizaciones";
 
         let options_post = {
           method: "POST", // GET, POST, PUT, DELETE,

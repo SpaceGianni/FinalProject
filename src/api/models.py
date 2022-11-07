@@ -20,7 +20,6 @@ class User(db.Model):
     password = db.Column(db.String(120), unique=False, nullable=False)
     tipo = db.Column(db.String(120), nullable=False)
     active = db.Column(db.Boolean(), default=True)
-    articulos = db.relationship('Articulo', cascade="all, delete", backref="user")
     cotizaciones = db.relationship('Cotizacion', cascade="all, delete", backref="user")
 
     def __repr__(self):
@@ -97,9 +96,7 @@ class Articulo(db.Model):
     imagen = db.Column(db.String(200), nullable=False)
     active = db.Column(db.Boolean(), default=True)
     fecha_publicacion = db.Column(db.DateTime(), nullable=False)
-    users_id= db.Column(db.Integer, db.ForeignKey('users.id'))
-    cotizaciones = db.Column(db.Integer, db.ForeignKey('cotizaciones.id'))
-    pedidos= db.Column(db.Integer, db.ForeignKey('pedidos.id'), nullable=False)
+  
     
     
 
@@ -132,7 +129,6 @@ class Cotizacion(db.Model):
     direccion = db.Column(db.String(300), nullable=False)
     region = db.Column(db.String(50), nullable=False)
     telefono = db.Column(db.String(120), nullable=False)
-    articulos = db.relationship('Articulo', cascade="all, delete", backref="cotizacion")
     users_id= db.Column(db.Integer, db.ForeignKey('users.id'))
     
     
@@ -173,7 +169,6 @@ class Pedido(db.Model):
     estatus = db.Column(db.Integer, nullable=False)
     fecha_pedido= db.Column(db.DateTime(), nullable=False)
     users_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    articulos =db.relationship('Articulo',cascade="all, delete", backref="pedido" )
     
 
     def serialize(self):
