@@ -171,8 +171,9 @@ const getState = ({ getStore, getActions, setStore }) => {
         const pedidoActualizado = [pedido, ...pedidos];
         setStore({ pedido: pedidoActualizado });
       },
-      orderProduct: (formData ) => {
-        let url = "https://3001-greatzerlle-finalproyec-oo2rmvjdytj.ws-us74.gitpod.io/api/cotizaciones";
+      orderProduct: (direccion, region, telefono, users_id, navigate) => {
+        let url =
+          "https://3001-greatzerlle-finalproyec-oo2rmvjdytj.ws-us74.gitpod.io/api/cotizaciones";
 
         let options_post = {
           method: "POST",

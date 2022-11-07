@@ -10,12 +10,12 @@ export const ProDetail = () => {
   sessionStorage.setItem("articulo", JSON.stringify(articulo));
   useEffect(() => {
     actions.getDetailById(`
-    https://3001-greatzerlle-finalproyec-7fuxl08leai.ws-us74.gitpod.io/api/articulo/${id}`);
+    https://3001-greatzerlle-finalproyec-oo2rmvjdytj.ws-us74.gitpod.io/api/articulo/${id}`);
   }, []);
 
   useEffect(() => {
     actions.getDetailById(`
-    https://3001-greatzerlle-finalproyec-7fuxl08leai.ws-us74.gitpod.io/api/articulo/${id}`);
+    https://3001-greatzerlle-finalproyec-oo2rmvjdytj.ws-us74.gitpod.io/api/articulo/${id}`);
   }, [id]);
 
   return (

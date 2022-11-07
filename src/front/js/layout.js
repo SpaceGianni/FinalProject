@@ -5,7 +5,6 @@ import { Home } from "./pages/home";
 import { Admin } from "./pages/admin";
 import { ProDetail } from "./pages/proDetail";
 import injectContext from "./store/appContext";
-import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import { Login } from "./pages/login";
 import "../styles/layout.scss";
