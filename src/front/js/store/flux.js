@@ -12,8 +12,7 @@ const getState = ({ getStore, getActions, setStore }) => {
     actions: {
       //Funcion para traer todas las imagenes
       getPosts: () => {
-        let url =
-          "https://3001-spacegianni-finalprojec-zthi63k150b.ws-us74.gitpod.io/api/articulos";
+        let url = "https://3001-greatzerlle-finalproyec-oo2rmvjdytj.ws-us74.gitpod.io/api/articulos";
         let options_get = {
           method: "GET", // GET, POST, PUT, DELETE,
           //body: "", // POST, PUT
@@ -38,8 +37,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           });
       },
       getUsers: () => {
-        let url =
-          "https://3001-spacegianni-finalprojec-zthi63k150b.ws-us74.gitpod.io/api/users";
+        let url = "https://3001-greatzerlle-finalproyec-oo2rmvjdytj.ws-us74.gitpod.io/api/users";
         let options_get = {
           method: "GET", // GET, POST, PUT, DELETE,
           //body: "", // POST, PUT
@@ -64,8 +62,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           });
       },
       signIn: (nombre, apellido, email, password, navigate) => {
-        let url =
-          "https://3001-spacegianni-finalprojec-zthi63k150b.ws-us74.gitpod.io/api/users";
+        let url = "https://3001-greatzerlle-finalproyec-oo2rmvjdytj.ws-us74.gitpod.io/api/users";
         let options_post = {
           method: "POST", // GET, POST, PUT, DELETE,
           body: JSON.stringify({ nombre, apellido, email, password }),
@@ -97,8 +94,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           });
       },
       logIn: (email, password, navigate) => {
-        let url =
-          "https://3001-spacegianni-finalprojec-zthi63k150b.ws-us74.gitpod.io/api/ingreso";
+        let url = "https://3001-greatzerlle-finalproyec-oo2rmvjdytj.ws-us74.gitpod.io/api/ingreso";
         let options = {
           method: "POST", // GET, POST, PUT, DELETE,
           body: JSON.stringify({ email, password }),
@@ -140,9 +136,8 @@ const getState = ({ getStore, getActions, setStore }) => {
           sessionStorage.removeItem("user");
         }
       },
-      postImage: (formData, navigate) => {
-        let url =
-          "https://3001-spacegianni-finalprojec-zthi63k150b.ws-us74.gitpod.io/api/articulos";
+      postImage: (formData, navigate ) => {
+        let url = "https://3001-greatzerlle-finalproyec-oo2rmvjdytj.ws-us74.gitpod.io/api/articulos";
 
         let options_post = {
           method: "POST", // GET, POST, PUT, DELETE,
@@ -178,7 +173,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       orderProduct: (direccion, region, telefono, users_id, navigate) => {
         let url =
-          "https://3001-spacegianni-finalprojec-zthi63k150b.ws-us74.gitpod.io/api/cotizaciones";
+          "https://3001-greatzerlle-finalproyec-oo2rmvjdytj.ws-us74.gitpod.io/api/cotizaciones";
 
         let options_post = {
           method: "POST",

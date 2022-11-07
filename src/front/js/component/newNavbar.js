@@ -47,21 +47,38 @@ function NewNavbar() {
                   id="navbarScrollingDropdown"
                 >
                   {store.user?.usuario?.tipo === "cliente" ? (
-                    <NavDropdown.Item>
-                      <Link className="dropdownColor" to="/admin/Orders">
-                        Mis Pedidos
-                      </Link>
-                    </NavDropdown.Item>
-                  ) : (
-                    <NavDropdown.Item>
-                      <Link className="dropdownColor" to="/admin/FormProducto">
-                        Subir Producto
-                      </Link>
-                    </NavDropdown.Item>
-                  )}
-                  <NavDropdown.Item disabled>Mis productos</NavDropdown.Item>
-                  <NavDropdown.Item disabled>Historial</NavDropdown.Item>
-                  <NavDropdown.Item disabled>Pedidos</NavDropdown.Item>
+                    <>
+                      <NavDropdown.Item>
+                        <Link className="dropdownColor" to="/admin/Orders">
+                          Mis Cotizaciones
+                        </Link>
+                      </NavDropdown.Item>
+                      <NavDropdown.Item disabled>
+                        Mis productos
+                      </NavDropdown.Item>
+                      <NavDropdown.Item disabled>Historial</NavDropdown.Item>
+                      <NavDropdown.Item disabled>Perfil</NavDropdown.Item>
+                    </>
+                  ) : null}
+                  {store.user?.usuario?.tipo === "admin" ? (
+                    <>
+                      <NavDropdown.Item>
+                        <Link
+                          className="dropdownColor"
+                          to="/admin/FormProducto"
+                        >
+                          Subir Producto
+                        </Link>
+                      </NavDropdown.Item>
+                      <NavDropdown.Item disabled>
+                        Mis productos
+                      </NavDropdown.Item>
+                      <NavDropdown.Item disabled>Cotizaciones</NavDropdown.Item>
+                      <NavDropdown.Item disabled>Historial</NavDropdown.Item>
+                      <NavDropdown.Item disabled>Pedidos</NavDropdown.Item>
+                    </>
+                  ) : null}
+
                   <NavDropdown.Divider />
                   <NavDropdown.Item
                     onClick={actions.logOut}
@@ -79,11 +96,20 @@ function NewNavbar() {
                 </Nav.Link>
               </Link>
             )}
-            <Link to="/admin">
-              <Nav.Link className="nav-link text-white" disabled>
-                Mis Compras
-              </Nav.Link>
-            </Link>
+            {store.user?.usuario?.tipo === "cliente" ? (
+              <Link to="/admin">
+                <Nav.Link className="nav-link text-white" disabled>
+                  Mis Cotizaciones
+                </Nav.Link>
+              </Link>
+            ) : null}
+            {store.user?.usuario?.tipo === "admin" ? (
+              <Link to="/admin/FormProducto">
+                <Nav.Link className="nav-link text-white" disabled>
+                  Subir producto <i class="fa-solid fa-upload"></i>
+                </Nav.Link>
+              </Link>
+            ) : null}
           </Nav>
         </Navbar.Collapse>
       </Container>
