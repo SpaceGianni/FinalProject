@@ -1,4 +1,4 @@
-import React, { useContex } from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";

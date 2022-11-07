@@ -164,12 +164,13 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       getDetailById: (url) => {
         fetch(url)
-          .then((response) => response.json())
-          .then((data) => {
-            console.log(data);
-            setStore({ detail: data });
-          });
-      },
+            .then((response) => response.json())
+            .then((data) => {
+              console.log(data)
+                setStore({ detail: data })
+            })
+            
+    },
       agregarPedidos: (pedido) => {
         const { pedidos } = getStore();
         const pedidoActualizado = [pedido, ...pedidos];

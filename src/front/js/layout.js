@@ -34,7 +34,6 @@ const Layout = () => {
             <Route element={<ConfirmPassword />} path="/register2" />
             <Route element={<ProDetail />} path="/ProDetail/:id" />
             <Route element={<Admin />} path="/admin/*" />
-            <Route element={<Administrador />} path="/administrador" />
             <Route element={<CotizaciónExitosa />} path="/cotizacion_exitosa" />
             <Route element={<h1>Not found!</h1>} />
           </Routes>
