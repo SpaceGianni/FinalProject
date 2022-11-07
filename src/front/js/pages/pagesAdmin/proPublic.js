@@ -1,7 +1,5 @@
-import React from 'react'
+import React from "react";
 
 export const ProPublic = () => {
-  return (
-    <div>ProPublic</div>
-  )
-}
+  return <div>ProPublic</div>;
+};

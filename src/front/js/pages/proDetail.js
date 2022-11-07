@@ -6,7 +6,8 @@ import { Context } from "../store/appContext";
 export const ProDetail = () => {
   const { id } = useParams();
   const { store, actions } = useContext(Context);
-
+  let articulo = store.detail?.nombre;
+  sessionStorage.setItem("articulo", JSON.stringify(articulo));
   useEffect(() => {
     actions.getDetailById(`
     https://3001-greatzerlle-finalproyec-7fuxl08leai.ws-us74.gitpod.io/api/articulo/${id}`);

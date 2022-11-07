@@ -1,7 +1,5 @@
-import React from 'react'
+import React from "react";
 
 export const HistoryClient = () => {
-  return (
-    <div>HistoryClient</div>
-  )
-}
+  return <div>HistoryClient</div>;
+};

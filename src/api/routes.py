@@ -65,7 +65,7 @@ def ingresar():
 #Valido si la contraseña ingresada coincide con la guardada
     if not check_password_hash(usuario.password, password) : return jsonify ({"status": "error", "code": 401, "mensaje": "El email o la contraseña está incorrecto"}), 400
 
-    expires = datetime.timedelta(days=1)
+    expires = datetime.timedelta(days=3)
     access_token = create_access_token(identity = usuario.id, expires_delta =expires)
 
     data = {
@@ -163,6 +163,14 @@ def traer_articulos():
     articulos = list(map(lambda articulo: articulo.serialize(),articulos))
     return jsonify(articulos), 200
 
+#Ruta para traer todos los artículos al usuario CLIENTE loggeado
+@api.route('/login/articulos', methods=['GET'])
+@jwt_required()
+def traer_articulos_cliente():
+    articulos= Articulo.query.all()
+    articulos = list(map(lambda articulo: articulo.serialize(),articulos))
+    return jsonify(articulos), 200
+
 #Ruta para agregar un artículo
 @api.route('/articulos', methods=['POST'])
 def nuevo_articulo():
@@ -235,17 +243,16 @@ def crear_cotizacion():
     region = request.json.get('region')
     telefono = request.json.get('telefono')
     users_id = request.json.get('users_id')
-    articulos_id = request.json.get('articulos_id')
+  
 
     cotizaciones = Cotizacion ()
     cotizaciones.direccion = direccion,
     cotizaciones.region = region,
     cotizaciones.telefono = telefono
     cotizaciones.users_id = users_id
-    cotizaciones.articulos_id= articulos_id
 
     cotizaciones.save()
-    return jsonify(cotizaciones.serialize_con_usuario_con_articulo()), 200
+    return jsonify(cotizaciones.serialize_con_usuario()), 200
 
 #Ruta para editar una cotización
 @api.route('/cotizaciones/<int:id>', methods=['PUT'])

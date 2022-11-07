@@ -141,14 +141,13 @@ class Cotizacion(db.Model):
             "telefono" : self.telefono,  
         }
     
-    def serialize_con_usuario_con_articulo(self):
+    def serialize_con_usuario(self):
         return {
             "id": self.id,
             "direccion": self.direccion,
             "region": self.region,
             "telefono" : self.telefono,
-            "articulo" : self.articulo.serialize(),
-            "user" : self.user.serialize()
+            "user_id" : self.user.serialize()
         }
 
     def save(self):
