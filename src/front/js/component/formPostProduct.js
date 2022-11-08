@@ -31,7 +31,7 @@ export function FormPostProduct() {
   return (
     <>
 
-      <div className="login container my-5 d-flex justify-content-center align-items-center">
+      <div className="container my-5 d-flex justify-content-center align-items-center">
         <div className="card col-md-6">
           <div className="card-header ">
             <h5 className="card-title fw-bold fs-3">Registro del Producto</h5>
