@@ -1,12 +1,13 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext} from "react";
 import { Context } from "../store/appContext";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 /* formulario de registro de usuario */
 export function FormRegister() {
-  const { store, actions } = useContext(Context); 
-  
+  const { store, actions } = useContext(Context);
+
+
   const {
     register,
     handleSubmit,
@@ -23,16 +24,16 @@ export function FormRegister() {
     /* console.log(data.firstName); */
     /* alert(JSON.stringify(formRegister)); */
     console.log(nombre, apellido, email, password);
-    actions.signIn(nombre, apellido, email, password, navigate) 
-     nombre = "";
-     apellido = "";
-     email = "";
-     password = ""; 
-     console.log(nombre, apellido, email, password);
+    actions.signIn(nombre, apellido, email, password, navigate);
+    nombre = "";
+    apellido = "";
+    email = "";
+    password = "";
+    console.log(nombre, apellido, email, password);
   }; // your form submit function which will invoke after successful validation
 
-  //check password event 
-  const password = watch('password')
+  //check password event
+  const password = watch("password");
 
   console.log(watch("password")); // you can watch individual input by pass the name of the input
 
@@ -54,7 +55,6 @@ export function FormRegister() {
 
                 <div className="col-md-12 px-5">
                   <input
-                    
                     className="form-control"
                     id="nombre"
                     name="nombre"
@@ -96,7 +96,6 @@ export function FormRegister() {
 
                 <div className="col-md-12 px-5">
                   <input
-                  
                     className="form-control"
                     id="apellido"
                     name="apellido"
@@ -143,7 +142,6 @@ export function FormRegister() {
                   )}
                   <input
                     className="form-control"
-                   
                     placeholder="juanito@example.cl"
                     id="email"
                     name="email"
@@ -180,24 +178,23 @@ export function FormRegister() {
                 </label>
 
                 <div className="col-md-12 px-5">
-                
-                  <input                              
+                  <input
                     placeholder="Password"
                     className="form-control"
                     id="password"
                     name="password"
                     type="password"
-                    onPaste={(e)=>{
-                      e.preventDefault()
+                    onPaste={(e) => {
+                      e.preventDefault();
                       return false;
                     }}
-
                     {...register("password", {
                       required: true,
                       maxLength: 16,
                       minLength: 8,
-                      pattern: /(?=^.{8,16}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
-                    })}    
+                      pattern:
+                        /(?=^.{8,16}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
+                    })}
                   />
                   {errors?.password?.type === "required" && (
                     <div className="statusError mt-1">
@@ -223,36 +220,37 @@ export function FormRegister() {
               </div>
               {/* input confirmar contraseña */}
               <div className="pb-2">
-            <label
-              className="col-form-label px-5"
-              htmlFor="confirmarContraseña"
-            >
-              Confirmar contraseña
-            </label>
+                <label
+                  className="col-form-label px-5"
+                  htmlFor="confirmarContraseña"
+                >
+                  Confirmar contraseña
+                </label>
 
-            <div className="col-md-12 px-5">         
-              <input
-                className="form-control"
-                id="confirmarContraseña"
-                name="confirmarContraseña"
-                type="password"
-                {...register("confirmPassword", { required: 'confirm password is required',
-                    validate: (value) =>
-                    value === password || "The passwords do not match",
-                 })}
-              />
-              {errors.confirmPassword && <span className="statusError mt-1">{errors.confirmPassword.message}</span>}
-             
-            </div>
-          </div>
+                <div className="col-md-12 px-5">
+                  <input
+                    className="form-control"
+                    id="confirmarContraseña"
+                    name="confirmarContraseña"
+                    type="password"
+                    {...register("confirmPassword", {
+                      required: "confirm password is required",
+                      validate: (value) =>
+                        value === password || "The passwords do not match",
+                    })}
+                  />
+                  {errors.confirmPassword && (
+                    <span className="statusError mt-1">
+                      {errors.confirmPassword.message}
+                    </span>
+                  )}
+                </div>
+              </div>
             </div>
 
             <div className="card-footer d-flex justify-content-center py-3">
               <div>
-                <button
-                  type="submit"                
-                  className="btn btn-success btn-md col-12"
-                >
+                <button type="submit" className="btn btn-success btn-md col-12">
                   Registrar
                 </button>
 
@@ -264,7 +262,6 @@ export function FormRegister() {
               </div>
             </div>
           </form>
-         
         </div>
       </div>
     </>

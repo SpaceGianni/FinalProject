@@ -5,13 +5,13 @@ import { Home } from "./pages/home";
 import { Admin } from "./pages/admin";
 import { ProDetail } from "./pages/proDetail";
 import injectContext from "./store/appContext";
-import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import { Login } from "./pages/login";
 import "../styles/layout.scss";
 import { Register } from "./pages/register";
 import ConfirmPassword from "./component/testFromRegister";
 import NewNavbar from "./component/newNavbar";
+import { CotizaciónExitosa } from "./component/cotizacionExitosa";
 
 //create your first component
 const Layout = () => {
@@ -33,6 +33,7 @@ const Layout = () => {
             <Route element={<ConfirmPassword />} path="/register2" />
             <Route element={<ProDetail />} path="/ProDetail/:id" />
             <Route element={<Admin />} path="/admin/*" />
+            <Route element={<CotizaciónExitosa />} path="/cotizacion_exitosa" />
             <Route element={<h1>Not found!</h1>} />
           </Routes>
           <Footer />

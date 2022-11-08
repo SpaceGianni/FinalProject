@@ -1,7 +1,7 @@
-import React from 'react'
+import React from "react";
 
 export const Orders = () => {
   return (
-    <div>Orders</div>
+    <div>Cotizaciones pendientes</div>
   )
 }
