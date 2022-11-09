@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -9,10 +9,12 @@ import imagenFinal from "../../img/Logo_proyecto_final.png";
 import { useContext } from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 
 function NewNavbar() {
   const { store, actions } = useContext(Context);
-  console.log(`${store.user?.usuario?.tipo} linea 15`);
+ const navigate = useNavigate();
   return (
     <Navbar className="pBgColor" expand="lg" sticky="top">
       <Container>
@@ -25,15 +27,18 @@ function NewNavbar() {
         <Navbar.Collapse id="navbarScroll">
           <Form className="d-flex ms-auto me-auto">
             <Form.Control
+            onChange={actions.searcher}
+              value={store.search}
               type="search"
               placeholder="Search"
               className="me-2"
               aria-label="Search"
             />
-            <Button variant="" className="filterbutton">
+            <Button onClick={()=>navigate('/')} variant="" className="filterbutton">
               Search
             </Button>
           </Form>
+          
           <Nav
             className="my-2 my-lg-0"
             style={{ maxHeight: "100px" }}
@@ -85,7 +90,7 @@ function NewNavbar() {
                     href="/"
                     id="firstDropdownOption"
                   >
-                    Log Out
+                    Cerrar sesion
                   </NavDropdown.Item>
                 </NavDropdown>
               </>

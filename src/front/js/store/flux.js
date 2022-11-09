@@ -8,11 +8,18 @@ const getState = ({ getStore, getActions, setStore }) => {
       errors: "",
       detail: null,
       pedidos: [],
+      search:'',
+      results:[]
     },
     actions: {
+      //Funcion para capturar el evento del buscador
+      searcher:(e)=>{
+        setStore({search:e.target.value})
+        console.log(e.target.value)
+      },
       //Funcion para traer todas las imagenes
       getPosts: () => {
-        let url = "https://3001-greatzerlle-finalproyec-oo2rmvjdytj.ws-us74.gitpod.io/api/articulos";
+        let url = "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us75.gitpod.io/api/articulos";
         let options_get = {
           method: "GET", // GET, POST, PUT, DELETE,
           //body: "", // POST, PUT
@@ -37,7 +44,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           });
       },
       getUsers: () => {
-        let url = "https://3001-greatzerlle-finalproyec-oo2rmvjdytj.ws-us74.gitpod.io/api/users";
+        let url = "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us75.gitpod.io/api/users";
         let options_get = {
           method: "GET", // GET, POST, PUT, DELETE,
           //body: "", // POST, PUT
@@ -54,7 +61,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((data) => {
             // Datos Consultados
             console.log(data);
-            // setStore se usa como useState, gallery toma el valor de data
+            // setStore se usa como useState, users toma el valor de data
             setStore({ users: data });
           })
           .catch((error) => {
@@ -62,7 +69,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           });
       },
       signIn: (nombre, apellido, email, password, navigate) => {
-        let url = "https://3001-greatzerlle-finalproyec-oo2rmvjdytj.ws-us74.gitpod.io/api/users";
+        let url = "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us75.gitpod.io/api/users";
         let options_post = {
           method: "POST", // GET, POST, PUT, DELETE,
           body: JSON.stringify({ nombre, apellido, email, password }),
@@ -94,7 +101,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           });
       },
       logIn: (email, password, navigate) => {
-        let url = "https://3001-greatzerlle-finalproyec-oo2rmvjdytj.ws-us74.gitpod.io/api/ingreso";
+        let url = "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us75.gitpod.io/api/ingreso";
         let options = {
           method: "POST", // GET, POST, PUT, DELETE,
           body: JSON.stringify({ email, password }),
@@ -137,7 +144,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
       postImage: (formData, navigate ) => {
-        let url = "https://3001-greatzerlle-finalproyec-oo2rmvjdytj.ws-us74.gitpod.io/api/articulos";
+        let url = "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us75.gitpod.io/api/articulos";
 
         let options_post = {
           method: "POST", // GET, POST, PUT, DELETE,
@@ -173,7 +180,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       orderProduct: (direccion, region, telefono, users_id, navigate) => {
         let url =
-          "https://3001-greatzerlle-finalproyec-oo2rmvjdytj.ws-us74.gitpod.io/api/cotizaciones";
+          "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us75.gitpod.io/api/cotizaciones";
 
         let options_post = {
           method: "POST",
