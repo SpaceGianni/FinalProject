@@ -1,4 +1,6 @@
 const getState = ({ getStore, getActions, setStore }) => {
+  let BACKEND_URL =
+    "https://3001-spacegianni-finalprojec-zthi63k150b.ws-us74.gitpod.io";
   return {
     // variables globales
     store: {
@@ -8,28 +10,26 @@ const getState = ({ getStore, getActions, setStore }) => {
       errors: "",
       detail: null,
       pedidos: [],
+      orders: [],
     },
     actions: {
       //Funcion para traer todas las imagenes
       getPosts: () => {
-        let url = "https://3001-greatzerlle-finalproyec-oo2rmvjdytj.ws-us74.gitpod.io/api/articulos";
-        let options_get = {
-          method: "GET", // GET, POST, PUT, DELETE,
-          //body: "", // POST, PUT
+        let url = BACKEND_URL + "/api/articulos";
+        let options = {
+          method: "GET",
           headers: {
             "Content-Type": "application/json",
           },
         };
-        fetch(url, options_get) // GET
+        fetch(url, options) // GET
           .then((response) => {
             // Respuesta del Servidor
             console.log(response.status);
             return response.json();
           })
           .then((data) => {
-            // Datos Consultados
-            //console.log(data);
-            // setStore se usa como useState, gallery toma el valor de data
+            console.log(data);
             setStore({ gallery: data });
           })
           .catch((error) => {
@@ -37,7 +37,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           });
       },
       getUsers: () => {
-        let url = "https://3001-greatzerlle-finalproyec-oo2rmvjdytj.ws-us74.gitpod.io/api/users";
+        let url = BACKEND_URL + "/api/users";
         let options_get = {
           method: "GET", // GET, POST, PUT, DELETE,
           //body: "", // POST, PUT
@@ -62,9 +62,9 @@ const getState = ({ getStore, getActions, setStore }) => {
           });
       },
       signIn: (nombre, apellido, email, password, navigate) => {
-        let url = "https://3001-greatzerlle-finalproyec-oo2rmvjdytj.ws-us74.gitpod.io/api/users";
+        let url = BACKEND_URL + "/api/users";
         let options_post = {
-          method: "POST", // GET, POST, PUT, DELETE,
+          method: "POST",
           body: JSON.stringify({ nombre, apellido, email, password }),
           headers: {
             "Content-Type": "application/json",
@@ -94,7 +94,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           });
       },
       logIn: (email, password, navigate) => {
-        let url = "https://3001-greatzerlle-finalproyec-oo2rmvjdytj.ws-us74.gitpod.io/api/ingreso";
+        let url = BACKEND_URL + "/api/ingreso";
         let options = {
           method: "POST", // GET, POST, PUT, DELETE,
           body: JSON.stringify({ email, password }),
@@ -136,8 +136,8 @@ const getState = ({ getStore, getActions, setStore }) => {
           sessionStorage.removeItem("user");
         }
       },
-      postImage: (formData, navigate ) => {
-        let url = "https://3001-greatzerlle-finalproyec-oo2rmvjdytj.ws-us74.gitpod.io/api/articulos";
+      postImage: (formData, navigate) => {
+        let url = BACKEND_URL + "/api/articulos";
 
         let options_post = {
           method: "POST", // GET, POST, PUT, DELETE,
@@ -159,21 +159,19 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       getDetailById: (url) => {
         fetch(url)
-            .then((response) => response.json())
-            .then((data) => {
-              console.log(data)
-                setStore({ detail: data })
-            })
-            
-    },
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            setStore({ detail: data });
+          });
+      },
       agregarPedidos: (pedido) => {
         const { pedidos } = getStore();
         const pedidoActualizado = [pedido, ...pedidos];
         setStore({ pedido: pedidoActualizado });
       },
       orderProduct: (direccion, region, telefono, users_id, navigate) => {
-        let url =
-          "https://3001-greatzerlle-finalproyec-oo2rmvjdytj.ws-us74.gitpod.io/api/cotizaciones";
+        let url = BACKEND_URL + "/api/cotizaciones";
 
         let options_post = {
           method: "POST",
@@ -196,27 +194,26 @@ const getState = ({ getStore, getActions, setStore }) => {
             console.error(error.message);
           });
       },
-      // getPostsCliente: () => {
-      //   var myHeaders = new Headers();
-      //   myHeaders.append(
-      //     "Authorization",
-      //     "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY2NzUxNDUwMywianRpIjoiMDBjYmVhNjQtOGFkZC00OWUwLWJjNzgtNmQ0M2Y0OWNjYzZiIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MiwibmJmIjoxNjY3NTE0NTAzLCJleHAiOjE2Njc3NzM3MDN9.qtQChL1vRJjZQEn2biA0yeOGmFd5w8gi4LhfxbBBRGo"
-      //   );
-
-      //   var requestOptions = {
-      //     method: "GET",
-      //     headers: myHeaders,
-      //     redirect: "follow",
-      //   };
-
-      //   fetch(
-      //     "https://3001-spacegianni-finalprojec-zthi63k150b.ws-us73.gitpod.io/api/login/articulos",
-      //     requestOptions
-      //   )
-      //     .then((response) => response.text())
-      //     .then((data) => setStore({ imagenes: data }))
-      //     .catch((error) => console.log("error", error));
-      // },
+      getCotizaciones: () => {
+        let url = BACKEND_URL + "/api/cotizaciones";
+        let options_get = {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        };
+        fetch(url, options_get)
+          .then((response) => {
+            console.log(response.status);
+            return response.json();
+          })
+          .then((data) => {
+            setStore({ orders: data });
+          })
+          .catch((error) => {
+            console.error(error.message);
+          });
+      },
     },
   };
 };

@@ -26,12 +26,12 @@ function NewNavbar() {
           <Form className="d-flex ms-auto me-auto">
             <Form.Control
               type="search"
-              placeholder="Search"
+              placeholder="Buscar"
               className="me-2"
               aria-label="Search"
             />
             <Button variant="" className="filterbutton">
-              Search
+              Buscar
             </Button>
           </Form>
           <Nav
@@ -73,9 +73,12 @@ function NewNavbar() {
                       <NavDropdown.Item disabled>
                         Mis productos
                       </NavDropdown.Item>
-                      <NavDropdown.Item disabled>Cotizaciones</NavDropdown.Item>
                       <NavDropdown.Item disabled>Historial</NavDropdown.Item>
-                      <NavDropdown.Item disabled>Pedidos</NavDropdown.Item>
+                      <NavDropdown.Item>
+                        <Link className="dropdownColor" to="/admin/orders">
+                          Mis Pedidos
+                        </Link>
+                      </NavDropdown.Item>
                     </>
                   ) : null}
 
@@ -92,7 +95,7 @@ function NewNavbar() {
             ) : (
               <Link to="/login">
                 <Nav.Link className="nav-link text-white" disabled>
-                  Iniciar sesion
+                  Iniciar sesión
                 </Nav.Link>
               </Link>
             )}

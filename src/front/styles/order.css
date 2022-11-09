@@ -1,0 +1,21 @@
+h1 {
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+.list-group {
+  width: 90vh;
+  height: max-content;
+  margin: auto;
+}
+
+.list-group-item.active {
+  background-color: #ffc107 !important;
+  border-color: #ffc107;
+  color: #2c2c2c;
+  margin-bottom: 20px;
+}
+
+h4 {
+  color: #198754;
+}

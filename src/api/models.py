@@ -17,11 +17,11 @@ class User(db.Model):
     nombre = db.Column(db.String(120), nullable=False)
     apellido = db.Column(db.String(120))
     email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(120), unique=False, nullable=False)
+    password = db.Column(db.String(120), nullable=False)
     tipo = db.Column(db.String(120), nullable=False)
     active = db.Column(db.Boolean(), default=True)
     cotizaciones = db.relationship('Cotizacion', cascade="all, delete", backref="user")
-
+    
     def __repr__(self):
         return f'<User {self.email}>'
 
@@ -33,18 +33,6 @@ class User(db.Model):
             "email": self.email,
             "tipo" : self.tipo,
             "active" : self.active
-            # do not serialize the password, its a security breach
-        }
-    
-    def serialize_con_articulos(self):
-         return {
-            "id": self.id,
-            "nombre" : self.nombre,
-            "apellido": self.apellido,
-            "email": self.email,
-            "tipo" : self.tipo,
-            "active" : self.active,
-            "articulos" :  [articulo.serialize() for articulo in self.articulos]
             # do not serialize the password, its a security breach
         }
     
@@ -60,20 +48,6 @@ class User(db.Model):
             # do not serialize the password, its a security breach
         }
     
-    
-    def serialize_con_articulos_con_cotizaciones(self):
-         return {
-            "id": self.id,
-            "nombre" : self.nombre,
-            "apellido": self.apellido,
-            "email": self.email,
-            "tipo" : self.tipo,
-            "active" : self.active,
-            "articulos" :  [articulo.serialize() for articulo in self.articulos],
-            "cotizaciones" : [cotizacion.serialize() for cotizacion in self.cotizaciones]
-            # do not serialize the password, its a security breach
-        }
-
 
     def save(self):
         db.session.add(self)
@@ -88,7 +62,7 @@ class User(db.Model):
 
 #Tabla de productos con nuevo modelo
 class Articulo(db.Model):
-    tablename="articulos"
+    __tablename__="articulos"
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(120), nullable=False)
     precio = db.Column(db.Integer,nullable=False) 
@@ -96,9 +70,7 @@ class Articulo(db.Model):
     imagen = db.Column(db.String(200), nullable=False)
     active = db.Column(db.Boolean(), default=True)
     fecha_publicacion = db.Column(db.DateTime(), nullable=False)
-  
-    
-    
+    cotizacion_id = db.relationship('Cotizacion', cascade="all, delete", backref="articulo")
 
     def serialize(self):
         return {
@@ -108,7 +80,7 @@ class Articulo(db.Model):
             "descripcion" : self.descripcion,
             "imagen" : self.imagen,
             "active" : self.active,
-            "fecha_publicacion": self.fecha_publicacion
+            "fecha_publicacion": self.fecha_publicacion        
         }
 
     def save(self):
@@ -122,17 +94,27 @@ class Articulo(db.Model):
         db.session.delete(self)
         db.session.commit()
 
-#Tabla de cotizaciones de compra
+#Tabla de cotizaciones para la compra
 class Cotizacion(db.Model):
     __tablename__="cotizaciones"
     id = db.Column(db.Integer, primary_key=True)
     direccion = db.Column(db.String(300), nullable=False)
     region = db.Column(db.String(50), nullable=False)
     telefono = db.Column(db.String(120), nullable=False)
-    users_id= db.Column(db.Integer, db.ForeignKey('users.id'))
-    
-    
+    users_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    articulo_id = db.Column(db.Integer, db.ForeignKey('articulos.id'), nullable=False)
    
+    
+    def serialize_con_usuario_con_articulo(self):
+            return {
+            "id": self.id,
+            "direccion": self.direccion,
+            "region": self.region,
+            "telefono" : self.telefono,
+            "user_id" : self.user.serialize(),
+            "articulo_id" : self.articulo.serialize()
+        }
+    
     def serialize(self):
         return {
             "id": self.id,
@@ -147,8 +129,9 @@ class Cotizacion(db.Model):
             "direccion": self.direccion,
             "region": self.region,
             "telefono" : self.telefono,
-            "user_id" : self.user.serialize()
+            "user" : self.user.serialize()
         }
+    
 
     def save(self):
         db.session.add(self)
@@ -161,45 +144,4 @@ class Cotizacion(db.Model):
         db.session.delete(self)
         db.session.commit()
 
-#Tabla de pedidos del administrador
-class Pedido(db.Model):
-    __tablename__="pedidos"
-    id = db.Column(db.Integer, primary_key=True)
-    estatus = db.Column(db.Integer, nullable=False)
-    fecha_pedido= db.Column(db.DateTime(), nullable=False)
-    users_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    
-
-    def serialize(self):
-        return {
-            "id": self.id,
-            "estatus": self.estatus,
-            "fecha_pedido": self.fecha_pedido  
-        }
-    
-    def serialize_con_user_con_precio(self):
-        return {
-            "id": self.id,
-            "estatus": self.estatus,
-            "fecha_pedido": self.fecha_pedido,
-            "nombre_cliente": self.user.nombre,
-            "email_cliente": self.user.email,
-            "articulo" : self.articulo.nombre,
-            "precio" : self.articulo.precio
-        }
-    
-    def save(self):
-        db.session.add(self)
-        db.session.commit()
-    
-    def update(self):
-        db.session.commit()
-
-    def delete(self):
-        db.session.delete(self)
-        db.session.commit()
-
-
-
-    
 

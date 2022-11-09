@@ -16,21 +16,25 @@ export const Admin = () => {
 
   return (
     <>
-       {/*  <div className="d-flex">
+      {/*  <div className="d-flex">
           <SideBar /> */}
-          <div className="content">
-          <Routes>
+      <div className="content">
+        <Routes>
           <Route element={<ProPublic />} exact={true} path="ProPublic" />
           <Route element={<HistoryAdmin />} exact={true} path="HistoryAdmin" />
-          <Route element={<Orders />} exact={true} path="Orders" />
-          <Route element={<AccAdministration />} exact={true} path="AccAdministration" />
+          <Route element={<Orders />} exact={true} path="orders" />
+          <Route
+            element={<AccAdministration />}
+            exact={true}
+            path="AccAdministration"
+          />
           <Route element={<FormProducto />} exact={true} path="FormProducto" />
           <Route element={<MyShopping />} exact={true} path="myShopping" />
-          </Routes>
-          </div>
+        </Routes>
+      </div>
       {/*   </div> */}
 
-        {/*        <Routes>
+      {/*        <Routes>
          <Route element={<AccAdministration />} path="AccAdministration" />
         <Route element={<HistoryAdmin />} path="HistoryAdmin" />
         <Route element={<HistoryClient />} path="HistoryClient" />
@@ -40,7 +44,6 @@ export const Admin = () => {
         <Route element={<ProPublic />} path="ProPublic" />
         <Route element={<h1>Not found!</h1>} /> 
         </Routes>*/}
-      
     </>
   );
 };
