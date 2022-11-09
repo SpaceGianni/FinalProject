@@ -16,7 +16,7 @@ export function FormLogin() {
       <div className="login container my-5 d-flex justify-content-center align-items-center">
         <div className="card col-md-6">
           <div className="card-header ">
-            <h5 className="card-title fw-bold fs-3">Inicio Sesion</h5>
+            <h5 className="card-title fw-bold fs-3">Inicio Sesión</h5>
           </div>
           <div className="card-body"></div>
 
