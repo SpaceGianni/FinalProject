@@ -12,7 +12,6 @@ import { Link } from "react-router-dom";
 
 function NewNavbar() {
   const { store, actions } = useContext(Context);
-  console.log(`${store.user?.usuario?.tipo} linea 15`);
   return (
     <Navbar className="pBgColor" expand="lg" sticky="top">
       <Container>

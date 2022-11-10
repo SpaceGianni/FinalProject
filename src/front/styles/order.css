@@ -16,6 +16,11 @@ h1 {
   margin-bottom: 20px;
 }
 
+#numero_cotizacion,
 h4 {
   color: #198754;
+}
+
+hr {
+  color: #2c2c2c;
 }

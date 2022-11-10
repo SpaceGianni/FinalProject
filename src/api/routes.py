@@ -217,18 +217,18 @@ def crear_cotizacion():
     direccion = request.json.get('direccion')
     region = request.json.get('region')
     telefono = request.json.get('telefono')
-    user_id = request.json.get('user_id')
+    users_id = request.json.get('users_id')
+    articulo_id = request.json.get('articulo_id')
 
-  
-    cotizaciones = Cotizacion ()
-    cotizaciones.direccion = direccion,
-    cotizaciones.region = region,
+    cotizaciones = Cotizacion()
+    cotizaciones.direccion = direccion
+    cotizaciones.region = region
     cotizaciones.telefono = telefono
-    cotizaciones.user_id = user_id
+    cotizaciones.users_id = users_id
+    cotizaciones.articulo_id = articulo_id
   
-
     cotizaciones.save()
-    return jsonify(cotizaciones.serialize_con_usuario()), 200
+    return jsonify(cotizaciones.serialize_con_usuario_con_articulo()), 200
 
 #Ruta para editar una cotización
 @api.route('/cotizaciones/<int:id>', methods=['PUT'])
@@ -236,24 +236,24 @@ def editar_cotizacion(id):
     direccion = request.json.get('direccion')
     region = request.json.get('region')
     telefono = request.json.get('telefono')
-    user_id = request.json.get('user_id'),
+    user_id = request.json.get('user_id')
+    articulo_id = request.json.get('articulo_id')
    
-
-    cotizaciones = Cotizacion.query.get (id)
+    cotizaciones = Cotizacion.query.get(id)
     cotizaciones.direccion = direccion,
     cotizaciones.region = region,
     cotizaciones.telefono = telefono,
-    cotizaciones.user_id = user_id
+    cotizaciones.user_id = user_id,
+    cotizaciones.articulo_id = articulo_id
     
-
     cotizaciones.update()
-    return jsonify(cotizaciones.serialize_con_usuario()), 200
+    return jsonify(cotizaciones.serialize_con_usuario_con_articulo()), 200
 
 #Ruta para traer todas las cotizaciones
 @api.route('/cotizaciones', methods=['GET'])
 def traer_cotizaciones():
     cotizaciones = Cotizacion.query.all()
-    cotizaciones = list(map(lambda cotizacion: cotizacion.serialize_con_usuario(),cotizaciones))
+    cotizaciones = list(map(lambda cotizacion: cotizacion.serialize_con_usuario_con_articulo(),cotizaciones))
     return jsonify(cotizaciones), 200
 
 #Ruta para borrar una cotización

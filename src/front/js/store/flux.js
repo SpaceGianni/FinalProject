@@ -1,6 +1,6 @@
 const getState = ({ getStore, getActions, setStore }) => {
   let BACKEND_URL =
-    "https://3001-spacegianni-finalprojec-zthi63k150b.ws-us74.gitpod.io";
+    "https://3001-spacegianni-finalprojec-zthi63k150b.ws-us75.gitpod.io";
   return {
     // variables globales
     store: {
@@ -170,12 +170,26 @@ const getState = ({ getStore, getActions, setStore }) => {
         const pedidoActualizado = [pedido, ...pedidos];
         setStore({ pedido: pedidoActualizado });
       },
-      orderProduct: (direccion, region, telefono, users_id, navigate) => {
-        let url = BACKEND_URL + "/api/cotizaciones";
+      orderProduct: (
+        direccion,
+        region,
+        telefono,
+        users_id,
+        articulo_id,
+        navigate
+      ) => {
+        let url =
+          "https://3001-spacegianni-finalprojec-zthi63k150b.ws-us75.gitpod.io/api/cotizaciones";
 
         let options_post = {
           method: "POST",
-          body: JSON.stringify({ direccion, region, telefono, users_id }),
+          body: JSON.stringify({
+            direccion,
+            region,
+            telefono,
+            users_id,
+            articulo_id,
+          }),
           headers: {
             "Content-Type": "application/json",
           },

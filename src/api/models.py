@@ -103,8 +103,8 @@ class Cotizacion(db.Model):
     telefono = db.Column(db.String(120), nullable=False)
     users_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     articulo_id = db.Column(db.Integer, db.ForeignKey('articulos.id'), nullable=False)
-   
-    
+
+       
     def serialize_con_usuario_con_articulo(self):
             return {
             "id": self.id,
