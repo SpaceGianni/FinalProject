@@ -13,6 +13,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       search:'',
       results:[],
       orders: [],
+      shopping:[]
     },
     actions: {
       //Funcion para capturar el evento del buscador
@@ -233,6 +234,14 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
           .catch((error) => {
             console.error(error.message);
+          });
+      },
+      getOrderById: (url) => {
+        fetch(url)
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            setStore({ shopping: data });
           });
       },
     },

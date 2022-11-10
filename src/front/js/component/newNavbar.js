@@ -55,8 +55,8 @@ function NewNavbar() {
                 >
                   {store.user?.usuario?.tipo === "cliente" ? (
                     <>
-                      <NavDropdown.Item>
-                        <Link className="dropdownColor" to="/admin/Orders">
+                      <NavDropdown.Item  >
+                        <Link className="dropdownColor" to="/*">
                           Mis Cotizaciones
                         </Link>
                       </NavDropdown.Item>
@@ -107,7 +107,7 @@ function NewNavbar() {
               </Link>
             )}
             {store.user?.usuario?.tipo === "cliente" ? (
-              <Link to="/admin/Orders">
+              <Link to="/*">
                 <Nav.Link className="nav-link text-white" disabled>
                   Mis Cotizaciones
                 </Nav.Link>

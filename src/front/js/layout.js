@@ -12,6 +12,7 @@ import { Register } from "./pages/register";
 import ConfirmPassword from "./component/testFromRegister";
 import NewNavbar from "./component/newNavbar";
 import { CotizaciónExitosa } from "./component/cotizacionExitosa";
+import MyOrders from "./pages/MyOrders";
 
 //create your first component
 const Layout = () => {
@@ -32,9 +33,10 @@ const Layout = () => {
             <Route element={<Register />} path="/register" />
             <Route element={<ConfirmPassword />} path="/register2" />
             <Route element={<ProDetail />} path="/ProDetail/:id" />
+            <Route element={<MyOrders />} path="/MyOrders/:id" />
             <Route element={<Admin />} path="/admin/*" />
             <Route element={<CotizaciónExitosa />} path="/cotizacion_exitosa" />
-            <Route element={<h1>Not found!</h1>} />
+            <Route element={<h1>En Mantenimiento</h1>} path="/*" />
           </Routes>
           <Footer />
         </ScrollToTop>
