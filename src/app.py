@@ -14,10 +14,6 @@ from api.commands import setup_commands
 import cloudinary
 from flask_jwt_extended import JWTManager
 
-
-
-
-
 ENV = os.getenv("FLASK_ENV")
 static_file_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../public/')
 app = Flask(__name__)
@@ -40,6 +36,14 @@ jwt = JWTManager(app)
 
 # Allow CORS requests to this API
 CORS(app)
+# cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
+
+@app.after_request
+def after_request(response):
+  response.headers.add('Access-Control-Allow-Origin', '*')
+  response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+  response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+  return response
 
 #Cloudinary config. Esto va después que se crea la variable app
 cloudinary.config(

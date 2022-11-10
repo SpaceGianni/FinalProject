@@ -7,8 +7,12 @@ export const ProDetail = () => {
   const { id } = useParams();
   const { store, actions } = useContext(Context);
   let articulo = store.detail?.nombre;
+  let articulo_id = store.detail?.id;
   sessionStorage.setItem("articulo", JSON.stringify(articulo));
+  sessionStorage.setItem("articulo_id", JSON.stringify(articulo_id));
   useEffect(() => {
+    let BACKEND_URL =
+      "https://3001-spacegianni-finalprojec-zthi63k150b.ws-us75.gitpod.io";
     actions.getDetailById(`
     https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us75.gitpod.io/api/articulo/${id}`);
   }, []);
@@ -36,26 +40,6 @@ export const ProDetail = () => {
                       $ {store.detail?.precio} x Kg{" "}
                     </span>
                   </div>
-                  {/*  <div className="_p-add-cart">
-                    <div className="_p-qty">
-                      <span>Cantidad de kilos</span>
-                      <div
-                        className="value-button decrease_"
-                        id=""
-                        value="Decrease Value"
-                      >
-                        -
-                      </div>
-                      <input type="number" name="qty" id="number" value="1" />
-                      <div
-                        className="value-button increase_"
-                        id=""
-                        value="Increase Value"
-                      >
-                        +
-                      </div>
-                    </div>
-                  </div> */}
                   <div className="_p-features">
                     <span> Descripcion: </span>
                     {store.detail?.descripcion}
@@ -72,7 +56,7 @@ export const ProDetail = () => {
                             >
                               <i className="fa fa-shopping-cart"></i> Cotizar
                             </button>
-                          </Link>                        
+                          </Link>
                         ) : (
                           <Link to="/login">
                             <button

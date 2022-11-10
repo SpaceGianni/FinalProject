@@ -17,8 +17,10 @@ export function CotizaciónExitosa() {
           Tu nombre:{" "}
           {`${store.user?.usuario?.nombre} ${store.user?.usuario?.apellido}`}{" "}
           <br />
-          Producto cotizado : {store.detail?.nombre} <br />
-          Precio por Kg: {store.detail?.precio} <br />
+          Producto cotizado : {JSON.parse(
+            sessionStorage.getItem("articulo")
+          )}{" "}
+          <br />
           Dirección: {JSON.parse(sessionStorage.getItem("direccion"))}
           <br />
           Teléfono de contacto :{JSON.parse(sessionStorage.getItem("telefono"))}

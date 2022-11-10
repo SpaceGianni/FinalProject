@@ -22,18 +22,24 @@ export function MyShopping() {
     let telefono = data.telefono;
     let users_id = store.user?.usuario?.id;
     let comentarios = data.descripcion;
+    let articulo_id = JSON.parse(sessionStorage.getItem("articulo_id"));
     sessionStorage.setItem("direccion", JSON.stringify(direccion));
     sessionStorage.setItem("region", JSON.stringify(region));
     sessionStorage.setItem("telefono", JSON.stringify(telefono));
     sessionStorage.setItem("comentarios", JSON.stringify(comentarios));
 
-    console.log(direccion, region, telefono, users_id);
-    actions.orderProduct(direccion, region, telefono, users_id, navigate);
-    direccion = "";
-    region = "";
-    telefono = "";
-    users_id = null;
-    comentarios = "";
+    //console.log(direccion, region, telefono, users_id, articulo_id);
+    console.log("tipe of user_id", typeof users_id); //resultado: tipo numero
+    console.log("tipe of articulo_id", typeof articulo_id);//resultado: tipo numero
+    actions.orderProduct(
+      direccion,
+      region,
+      telefono,
+      users_id,
+      articulo_id,
+      navigate
+    );
+
   };
   return (
     <>

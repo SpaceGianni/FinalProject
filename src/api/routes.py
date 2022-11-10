@@ -4,7 +4,7 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 from fileinput import filename
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.utils import generate_sitemap, APIException
-from api.models import db, User, Articulo, Cotizacion, Pedido
+from api.models import db, User, Articulo, Cotizacion
 import cloudinary.uploader
 from werkzeug.security import generate_password_hash, check_password_hash # libreria para encriptar las contraseñas
 from flask_jwt_extended import create_access_token
@@ -76,24 +76,6 @@ def ingresar():
     return jsonify({ "status": "éxito", "code": 200, "mensaje": "El usuario ha ingresado exitosamente", "data": data}), 200
 
 
-#Ruta privada del administrador@
-@api.route('/administador')
-@jwt_required()
-def administador():
-    id= get_jwt_identity()
-    usuario = User.query.get(id)
-    return jsonify({"mensaje": "Perfil Administrador", "usuario": usuario.serialize()}), 200
-
-#Ruta privada del cliente
-@api.route('/person')
-@jwt_required()
-def cliente():
-    id= get_jwt_identity()
-    usuario = User.query.get(id)
-    return jsonify({"mensaje": "Perfil Cliente", "usuario": usuario.serialize()}), 200
-
-
-
 #Ruta para editar un usuario
 @api.route('/users/<int:id>', methods=['PUT'])
 def editar_usuario(id):
@@ -147,15 +129,8 @@ def traer_usuario_con_cotizaciones(id):
      user = User.query.get(id)
      return jsonify(user.serialize_con_cotizaciones()), 200
 
-#Ruta para ver todos los productos y las cotizaciones de un usuario específico
-@api.route('/users/<int:id>/articulos/cotizaciones', methods=['GET'])
-def traer_usuario_con_productos_con_cotizaciones(id):
-    user = User.query.get(id)
-    return jsonify(user.serialize_con_productos_con_cotizaciones()), 200
-
 
 ###ARTICULOS
-
 #Ruta para traer todos los artículos
 @api.route('/articulos', methods=['GET'])
 def traer_articulos():
@@ -243,16 +218,17 @@ def crear_cotizacion():
     region = request.json.get('region')
     telefono = request.json.get('telefono')
     users_id = request.json.get('users_id')
-  
+    articulo_id = request.json.get('articulo_id')
 
-    cotizaciones = Cotizacion ()
-    cotizaciones.direccion = direccion,
-    cotizaciones.region = region,
+    cotizaciones = Cotizacion()
+    cotizaciones.direccion = direccion
+    cotizaciones.region = region
     cotizaciones.telefono = telefono
     cotizaciones.users_id = users_id
-
+    cotizaciones.articulo_id = articulo_id
+  
     cotizaciones.save()
-    return jsonify(cotizaciones.serialize_con_usuario()), 200
+    return jsonify(cotizaciones.serialize_con_usuario_con_articulo()), 200
 
 #Ruta para editar una cotización
 @api.route('/cotizaciones/<int:id>', methods=['PUT'])
@@ -260,88 +236,30 @@ def editar_cotizacion(id):
     direccion = request.json.get('direccion')
     region = request.json.get('region')
     telefono = request.json.get('telefono')
-    users_id = request.json.get('users_id'),
-    articulos_id= request.json.get('articulos_id')
-
-    cotizaciones = Cotizacion.query.get (id)
+    user_id = request.json.get('user_id')
+    articulo_id = request.json.get('articulo_id')
+   
+    cotizaciones = Cotizacion.query.get(id)
     cotizaciones.direccion = direccion,
     cotizaciones.region = region,
     cotizaciones.telefono = telefono,
-    cotizaciones.users_id = users_id,
-    cotizaciones.articulos_id= articulos_id
-
+    cotizaciones.user_id = user_id,
+    cotizaciones.articulo_id = articulo_id
+    
     cotizaciones.update()
     return jsonify(cotizaciones.serialize_con_usuario_con_articulo()), 200
 
 #Ruta para traer todas las cotizaciones
 @api.route('/cotizaciones', methods=['GET'])
 def traer_cotizaciones():
-    cotizaciones= Cotizacion.query.all()
-    cotizaciones = list(map(lambda cotizacion: cotizacion.serialize_con_usuario_con_articulo(),cotizaciones))
-    return jsonify(cotizaciones), 200
-
-#Ruta para traer todas las cotizaciones con sus usuarios y sus productos
-@api.route('/cotizaciones/usuarios', methods=['GET'])
-def traer_cotizaciones_con_usuario_con_productos():
-    cotizaciones= Cotizacion.query.all()
+    cotizaciones = Cotizacion.query.all()
     cotizaciones = list(map(lambda cotizacion: cotizacion.serialize_con_usuario_con_articulo(),cotizaciones))
     return jsonify(cotizaciones), 200
 
 #Ruta para borrar una cotización
 @api.route('/cotizaciones/<int:id>', methods=['DELETE'])
 def borrar_cotizacion(id):
-    cotizaciones = Cotizacion.query.get (id)
-    cotizaciones.delete()
+    cotizacion = Cotizacion.query.get (id)
+    cotizacion.delete()
     return jsonify({"mensaje" : "cotización eliminada"}), 200
 
-##PEDIDOS
-#Ruta para crear pedidos
-@api.route('/pedidos', methods=['POST'])
-def crear_pedido():
-    estatus = request.json.get('estatus')
-    fecha_pedido= request.json.get('fecha_pedido')
-    users_id = request.json.get('users_id')
-    productos_id = request.json.get('productos_id')
-
-    pedidos = Pedido ()
-    pedidos.estatus = estatus
-    pedidos.fecha_pedido = fecha_pedido
-    pedidos.users_id = users_id
-    pedidos.articulos_id = articulos_id
-
-    pedidos.save()
-    return jsonify(pedidos.serialize_con_user_con_precio()), 200
-
-#Ruta para editar un pedido
-@api.route('/pedidos/<int:id>', methods=['PUT'])
-def editar_pedido(id):
-    estatus = request.json.get('estatus')
-    fecha_pedido= request.json.get('fecha_pedido')
-
-    pedidos = Pedido.query.get (id)
-    pedidos.estatus = estatus
-    pedidos.fecha_pedido = fecha_pedido
-
-    pedidos.update()
-    return jsonify(pedidos.serialize()), 200
-
-#Ruta para traer todos los pedidos
-@api.route('/pedidos', methods=['GET'])
-def traer_pedidos():
-    pedidos= Pedido.query.all()
-    pedidos = list(map(lambda pedido: pedido.serialize(), pedidos))
-    return jsonify(pedidos), 200
-
-#Ruta para traer todos los pedidos con el id del usuario que los encargó y con el precio de cada producto
-@api.route('/pedidos/users', methods=['GET'])
-def traer_pedidos_con_usuarios_con_precios():
-    pedidos = Pedido.query.all()
-    pedidos = list(map(lambda pedido: pedido.serialize_con_user_con_precio(), pedidos))
-    return jsonify(pedidos), 200
-
-#Ruta para borrar un pedido
-@api.route('/pedidos/<int:id>', methods=['DELETE'])
-def borrar_pedido(id):
-    pedidos = Pedido.query.get (id)
-    pedidos.delete()
-    return jsonify({"mensaje": "pedido eliminado"}), 200
