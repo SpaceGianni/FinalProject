@@ -11,10 +11,9 @@ import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-
 function NewNavbar() {
   const { store, actions } = useContext(Context);
- const navigate = useNavigate();
+  const navigate = useNavigate();
   return (
     <Navbar className="pBgColor" expand="lg" sticky="top">
       <Container>
@@ -27,18 +26,21 @@ function NewNavbar() {
         <Navbar.Collapse id="navbarScroll">
           <Form className="d-flex ms-auto me-auto">
             <Form.Control
-            onChange={actions.searcher}
+              onChange={actions.searcher}
               value={store.search}
               type="search"
               placeholder="Search"
               className="me-2"
               aria-label="Search"
             />
-            <Button onClick={()=>navigate('/')} variant="" className="filterbutton">
+            <Button
+              onClick={() => navigate("/")}
+              variant=""
+              className="filterbutton"
+            >
               Search
             </Button>
           </Form>
-          
           <Nav
             className="my-2 my-lg-0"
             style={{ maxHeight: "100px" }}
@@ -102,7 +104,7 @@ function NewNavbar() {
               </Link>
             )}
             {store.user?.usuario?.tipo === "cliente" ? (
-              <Link to="/admin">
+              <Link to="/admin/Orders">
                 <Nav.Link className="nav-link text-white" disabled>
                   Mis Cotizaciones
                 </Nav.Link>
