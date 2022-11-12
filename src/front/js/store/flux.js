@@ -1,6 +1,6 @@
 const getState = ({ getStore, getActions, setStore }) => {
   let BACKEND_URL =
-    "https://3001-spacegianni-finalprojec-zthi63k150b.ws-us75.gitpod.io";
+    "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us75.gitpod.io";
   return {
     // variables globales
     store: {
@@ -10,9 +10,16 @@ const getState = ({ getStore, getActions, setStore }) => {
       errors: "",
       detail: null,
       pedidos: [],
+      search:'',
+      results:[],
       orders: [],
     },
     actions: {
+      //Funcion para capturar el evento del buscador
+      searcher:(e)=>{
+        setStore({search:e.target.value})
+        console.log(e.target.value)
+      },
       //Funcion para traer todas las imagenes
       getPosts: () => {
         let url = BACKEND_URL + "/api/articulos";
@@ -54,7 +61,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((data) => {
             // Datos Consultados
             console.log(data);
-            // setStore se usa como useState, gallery toma el valor de data
+            // setStore se usa como useState, users toma el valor de data
             setStore({ users: data });
           })
           .catch((error) => {
@@ -179,7 +186,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         navigate
       ) => {
         let url =
-          "https://3001-spacegianni-finalprojec-zthi63k150b.ws-us75.gitpod.io/api/cotizaciones";
+          "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us75.gitpod.io/api/cotizaciones";
 
         let options_post = {
           method: "POST",

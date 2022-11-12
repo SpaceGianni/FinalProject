@@ -17,12 +17,10 @@ const CardList = () => {
 
   const indexOfTheLastPost = currentPage * postPerPage;
   const indexOfTheFirstPost = indexOfTheLastPost - postPerPage;
-  const currentGallery = store.gallery.slice(
-    indexOfTheFirstPost,
-    indexOfTheLastPost
-  );
+   store.results = store.gallery.slice(indexOfTheFirstPost, indexOfTheLastPost);
+   //filtro para el buscador
+   store.results =!store.search ? store.gallery : store.results.filter((dato)=>dato.nombre.toLowerCase().includes(store.search.toLocaleLowerCase()))
 
-  console.log(currentGallery);
   //change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -36,11 +34,9 @@ const CardList = () => {
           <div className="col-md-10">
             <OrderBy setPostPerPage={setPostPerPage} />
             <div className="row">
-              {!!currentGallery &&
-                currentGallery.map((post, index) => {
-                  return (
-                    <Card key={index} post={post} cardClasses="col-md-4 py-2" />
-                  );
+              {!!store.results &&
+                store.results.map((post, index) => {
+                  return <Card key={index} post={post} cardClasses='col-md-4 py-2'/>;
                 })}
             </div>
           </div>
