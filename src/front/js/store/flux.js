@@ -13,6 +13,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       search: "",
       results: [],
       orders: [],
+      misCotizaciones: [],
     },
     actions: {
       //Funcion para capturar el evento del buscador
@@ -36,7 +37,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             return response.json();
           })
           .then((data) => {
-            console.log(data);
+            //console.log(data);
             setStore({ gallery: data });
           })
           .catch((error) => {
@@ -60,7 +61,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
           .then((data) => {
             // Datos Consultados
-            console.log(data);
+            //console.log(data);
             // setStore se usa como useState, users toma el valor de data
             setStore({ users: data });
           })
@@ -229,6 +230,28 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
           .then((data) => {
             setStore({ orders: data });
+          })
+          .catch((error) => {
+            console.error(error.message);
+          });
+      },
+      misCotizaciones: (id) => {
+        let id_user = id;
+        //console.log(id_user);
+        let url = BACKEND_URL + "/api/users/" + id_user + "/cotizaciones";
+        let options_get = {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        };
+        fetch(url, options_get)
+          .then((response) => {
+            console.log(response.status);
+            return response.json();
+          })
+          .then((data) => {
+            setStore({ misCotizaciones: data });
           })
           .catch((error) => {
             console.error(error.message);

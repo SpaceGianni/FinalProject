@@ -13,13 +13,11 @@ export const ProDetail = () => {
   useEffect(() => {
     let BACKEND_URL =
       "https://3001-spacegianni-finalprojec-zthi63k150b.ws-us75.gitpod.io";
-    actions.getDetailById(`
-    https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us75.gitpod.io/api/articulo/${id}`);
+    actions.getDetailById(BACKEND_URL + "/api/articulo/${id}");
   }, []);
 
   useEffect(() => {
-    actions.getDetailById(`
-    https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us75.gitpod.io/api/articulo/${id}`);
+    actions.getDetailById(BACKEND_URL + "/api/articulo/${id}");
   }, [id]);
 
   return (

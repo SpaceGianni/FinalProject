@@ -10,14 +10,13 @@ import { ProPublic } from "./pagesAdmin/proPublic";
 import { SideBar } from "../component/sideBar";
 import { FormProducto } from "./pagesAdmin/formProducto";
 import { MyShopping } from "../component/myShopping";
+import { MisCotizaciones } from "../component/misCotizaciones";
 
 export const Admin = () => {
   const { store, actions } = useContext(Context);
 
   return (
     <>
-      {/*  <div className="d-flex">
-          <SideBar /> */}
       <div className="content">
         <Routes>
           <Route element={<ProPublic />} exact={true} path="ProPublic" />
@@ -30,20 +29,13 @@ export const Admin = () => {
           />
           <Route element={<FormProducto />} exact={true} path="FormProducto" />
           <Route element={<MyShopping />} exact={true} path="myShopping" />
+          <Route
+            element={<MisCotizaciones />}
+            exact={true}
+            path="misCotizaciones"
+          />
         </Routes>
       </div>
-      {/*   </div> */}
-
-      {/*        <Routes>
-         <Route element={<AccAdministration />} path="AccAdministration" />
-        <Route element={<HistoryAdmin />} path="HistoryAdmin" />
-        <Route element={<HistoryClient />} path="HistoryClient" />
-        <Route element={<MyShopping />} path="MyShopping" />
-        <Route element={<Orders />} path="Orders" />
-        <Route element={<Profile />} path="Profile" />
-        <Route element={<ProPublic />} path="ProPublic" />
-        <Route element={<h1>Not found!</h1>} /> 
-        </Routes>*/}
     </>
   );
 };

@@ -44,7 +44,7 @@ class User(db.Model):
             "email": self.email,
             "tipo" : self.tipo,
             "active": self.active,
-            "cotizaciones" : [cotizacion.serialize() for cotizacion in self.cotizaciones]   
+            "cotizaciones" : [cotizacion.serialize_con_usuario_con_articulo() for cotizacion in self.cotizaciones]   
             # do not serialize the password, its a security breach
         }
     
