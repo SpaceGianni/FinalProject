@@ -1,6 +1,6 @@
 const getState = ({ getStore, getActions, setStore }) => {
   let BACKEND_URL =
-    "https://3001-spacegianni-finalprojec-zthi63k150b.ws-us75.gitpod.io";
+    "https://3001-spacegianni-finalprojec-zthi63k150b.ws-us74.gitpod.io";
   return {
     // variables globales
     store: {

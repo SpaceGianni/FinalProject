@@ -10,10 +10,13 @@ export const ProDetail = () => {
   let articulo_id = store.detail?.id;
   sessionStorage.setItem("articulo", JSON.stringify(articulo));
   sessionStorage.setItem("articulo_id", JSON.stringify(articulo_id));
+
+  let BACKEND_URL = `https://3001-spacegianni-finalprojec-zthi63k150b.ws-us74.gitpod.io`;
+
   useEffect(() => {
-    let BACKEND_URL =
-      "https://3001-spacegianni-finalprojec-zthi63k150b.ws-us75.gitpod.io";
-    actions.getDetailById(BACKEND_URL + "/api/articulo/${id}");
+    actions.getDetailById(
+      BACKEND_URL +`/api/articulo/${id}`
+    );
   }, []);
 
   useEffect(() => {
