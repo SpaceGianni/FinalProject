@@ -179,7 +179,7 @@ export function FormRegister() {
 
                 <div className="col-md-12 px-5">
                   <input
-                    placeholder="Password"
+                    placeholder="Contraseña"
                     className="form-control"
                     id="password"
                     name="password"
@@ -229,14 +229,16 @@ export function FormRegister() {
 
                 <div className="col-md-12 px-5">
                   <input
+                    placeholder="Confirmar Contraseña"
+
                     className="form-control"
                     id="confirmarContraseña"
                     name="confirmarContraseña"
                     type="password"
                     {...register("confirmPassword", {
-                      required: "confirm password is required",
+                      required: "Este campo es requerido",
                       validate: (value) =>
-                        value === password || "The passwords do not match",
+                        value === password || "Debes llenar este campo",
                     })}
                   />
                   {errors.confirmPassword && (
@@ -256,7 +258,7 @@ export function FormRegister() {
 
                 <Link to="/login">
                   <button className="btn mx-2 btn-md d-block">
-                    Volver a Login
+                     Iniciar sesion
                   </button>
                 </Link>
               </div>
