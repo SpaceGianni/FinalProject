@@ -179,7 +179,7 @@ export function FormRegister() {
 
                 <div className="col-md-12 px-5">
                   <input
-                    placeholder="Password"
+                    placeholder="Contraseña"
                     className="form-control"
                     id="password"
                     name="password"
