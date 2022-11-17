@@ -117,12 +117,6 @@ def borrar_usuario(id):
     usuario.delete()
     return jsonify({"mensaje": "usuario eliminado"}), 200
 
-#Ruta para ver todos los productos de un usuario específico
-@api.route('/users/<int:id>/articulos', methods=['GET'])
-def traer_usuario_con_productos(id):
-     user = User.query.get(id)
-     return jsonify(user.serialize_con_productos()), 200
-
 #Ruta para ver todas las cotizaciones de un usuario específico
 @api.route('/users/<int:id>/cotizaciones', methods=['GET'])
 def traer_usuario_con_cotizaciones(id):

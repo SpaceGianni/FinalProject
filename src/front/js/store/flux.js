@@ -1,6 +1,6 @@
 const getState = ({ getStore, getActions, setStore }) => {
   let BACKEND_URL =
-    "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us75.gitpod.io";
+    "https://3001-spacegianni-finalprojec-zthi63k150b.ws-us74.gitpod.io";
   return {
     // variables globales
     store: {
@@ -10,16 +10,16 @@ const getState = ({ getStore, getActions, setStore }) => {
       errors: "",
       detail: null,
       pedidos: [],
-      search:'',
-      results:[],
+      search: "",
+      results: [],
       orders: [],
-      shopping:[]
+      misCotizaciones: [],
     },
     actions: {
       //Funcion para capturar el evento del buscador
-      searcher:(e)=>{
-        setStore({search:e.target.value})
-        console.log(e.target.value)
+      searcher: (e) => {
+        setStore({ search: e.target.value });
+        console.log(e.target.value);
       },
       //Funcion para traer todas las imagenes
       getPosts: () => {
@@ -37,7 +37,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             return response.json();
           })
           .then((data) => {
-            console.log(data);
+            //console.log(data);
             setStore({ gallery: data });
           })
           .catch((error) => {
@@ -61,7 +61,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
           .then((data) => {
             // Datos Consultados
-            console.log(data);
+            //console.log(data);
             // setStore se usa como useState, users toma el valor de data
             setStore({ users: data });
           })
@@ -186,8 +186,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         articulo_id,
         navigate
       ) => {
-        let url =
-          "https://3001-cgabrielp-finalproject-1d1dl3rvhs2.ws-us75.gitpod.io/api/cotizaciones";
+        let url = BACKEND_URL + "/api/cotizaciones";
 
         let options_post = {
           method: "POST",
@@ -236,12 +235,26 @@ const getState = ({ getStore, getActions, setStore }) => {
             console.error(error.message);
           });
       },
-      getOrderById: (url) => {
-        fetch(url)
-          .then((response) => response.json())
+      misCotizaciones: (id) => {
+        let id_user = id;
+        //console.log(id_user);
+        let url = BACKEND_URL + "/api/users/" + id_user + "/cotizaciones";
+        let options_get = {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        };
+        fetch(url, options_get)
+          .then((response) => {
+            console.log(response.status);
+            return response.json();
+          })
           .then((data) => {
-            console.log(data);
-            setStore({ shopping: data });
+            setStore({ misCotizaciones: data });
+          })
+          .catch((error) => {
+            console.error(error.message);
           });
       },
     },

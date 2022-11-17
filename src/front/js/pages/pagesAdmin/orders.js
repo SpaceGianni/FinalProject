@@ -9,13 +9,21 @@ export const Orders = () => {
     actions.getCotizaciones();
   }, []);
 
-  console.log("store orders", store.orders, "end");
+  let array = [...store.orders];
+  let newArray = [];
+
+  for (let i = array.length - 1; i >= 0; i--) {
+    let item = array[i];
+    newArray.push(item);
+  }
+
+  console.log("NewArray", newArray);
 
   return (
     <>
       <h1>Pedidos</h1>
-      {!!store.orders &&
-        store.orders.map((item, index) => {
+      {!!newArray &&
+        newArray.map((item, index) => {
           return (
             <>
               <OrdersClient item={item} key={index} />

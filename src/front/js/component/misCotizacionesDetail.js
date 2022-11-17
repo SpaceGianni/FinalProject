@@ -1,8 +1,16 @@
-import React from "react";
-import "../../../styles/order.css";
+import React, { useContext } from "react";
+import "../../../front/styles/order.css";
+import { Context } from "../store/appContext";
 
-export const OrdersClient = (item, index) => {
-  //console.log("item", item.item, "end");
+export const MisCotizacionesDetail = (item, index) => {
+  const { store } = useContext(Context);
+  let apellido = store.misCotizaciones.apellido;
+  let nombre = store.misCotizaciones.nombre;
+  let email = store.misCotizaciones.email;
+  //let articulo = store.misCotizaciones.articulo_id;
+  let articulo = store.misCotizaciones.cotizaciones[0].articulo_id.nombre;
+  console.log(articulo);
+
   return (
     <div className="list-group" key={index}>
       <a
@@ -16,15 +24,14 @@ export const OrdersClient = (item, index) => {
         </div>
         <p className="mb-1">Datos del cliente</p>
         <small>
-          Nombre y Apellido:{" "}
-          {`${item.item?.user_id?.nombre} ${item.item?.user_id?.apellido}`}
+          Nombre y Apellido: {nombre} {apellido}
         </small>
         <br />
         <small>Teléfono de contacto: {item.item?.telefono}</small>
         <br />
         <small>Dirección de referencia: {item.item?.direccion} </small>
         <br />
-        <small>Email: {item.item?.user_id?.email} </small>
+        <small>Email: {email} </small>
       </a>
     </div>
   );
